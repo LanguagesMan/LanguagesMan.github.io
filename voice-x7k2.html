@@ -70,6 +70,14 @@
   .send[disabled]{opacity:.4;cursor:default}
   .state{margin:10px 0 0;font-size:.88rem;color:var(--dim);text-align:center}
   .state.good{color:#7FD8A6}.state.bad{color:#F2A08E}
+  .out:empty{display:none}
+  .out{max-width:680px;margin:14px auto 90px;padding:16px;border-radius:14px;
+    border:1px solid rgba(46,157,99,.5);background:rgba(46,157,99,.08)}
+  .ok-h{font-weight:800;margin:0 0 9px;font-size:.98rem}
+  .out textarea{width:100%;background:#0B0F1A;color:#EAF0F7;border:1px solid rgba(255,255,255,.14);
+    border-radius:10px;padding:11px;font:13px/1.5 ui-monospace,Menlo,monospace;resize:vertical}
+  .ok-s{font-size:.85rem;color:#8A93A3;margin:9px 0 0}
+  .ok-s a{color:#7FB8F5}
   code{background:rgba(255,255,255,.07);padding:1px 5px;border-radius:5px;font-size:.85em}
   .oline{margin:0 0 9px}
   .oline b{display:block;font-size:.9rem;margin:0 0 3px}
@@ -166,6 +174,9 @@ noise reduction, no tightening, no pauses removed. This is what you recorded.</p
   <button class="send" id="send" disabled>Send my picks</button>
 </div>
 <p class="state" id="state"></p>
+</div>
+<div id="out" class="out"></div>
+<div style="display:none">
 </div>
 
 <script>
@@ -285,11 +296,28 @@ noise reduction, no tightening, no pauses removed. This is what you recorded.</p
     var body='MY VOICE PICKS\n\nKEEP ('+keep.length+'):\n'+(keep.join('\n')||'none')+
              '\n\nNOT THIS ('+drop.length+'):\n'+(drop.join('\n')||'none')+
              '\n\nRebuild anything voiced from ONLY the KEEP takes.';
+    /* NEVER LOSE HIS RULING (2026-08-01). This used to fire a mailto and say
+       "opening your mail". His traffic is in-app webviews where a mailto often does
+       nothing at all, so he would tap send, see nothing open, and reasonably believe
+       the verdicts were gone — on the one decision that gates every video. Same bug
+       as the door had, one file over: count the copies.
+       So the picks are RENDERED ON THE PAGE first, in a selectable box that cannot
+       fail, then copied, then the mail is offered. Even if every other route dies he
+       can read them, screenshot them, or paste them anywhere. */
     try{ navigator.clipboard && navigator.clipboard.writeText(body); }catch(e){}
+    var out=document.getElementById('out');
+    if(out){
+      out.innerHTML='<p class="ok-h">Your picks — copied, and safe here</p>'+
+        '<textarea readonly rows="'+Math.min(16,body.split('\n').length+1)+'">'+
+        body.replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];})+'</textarea>'+
+        '<p class="ok-s">Screenshot this, or paste it to me anywhere. '+
+        '<a href="https://ig.me/m/languyofficial">Send on Instagram</a> · '+
+        '<a href="mailto:hello@languyofficial.com?subject='+encodeURIComponent('My voice picks')+
+        '&body='+encodeURIComponent(body)+'">or by mail</a></p>';
+      out.scrollIntoView({behavior:'smooth',block:'center'});
+    }
     st.className='state good';
-    st.textContent='Opening your mail with '+keep.length+' keep and '+drop.length+' no. Also copied to your clipboard.';
-    location.href='mailto:hello@languyofficial.com?subject='+encodeURIComponent('My voice picks')+
-                  '&body='+encodeURIComponent(body);
+    st.textContent=keep.length+' keep · '+drop.length+' no. Saved below — nothing can lose it now.';
   });
 
   paint();
