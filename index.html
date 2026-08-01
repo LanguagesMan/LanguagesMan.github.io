@@ -70,8 +70,13 @@ anywhere on earth. <b>It isn't talent and it isn't school</b> — it's a method.
 sentence packs — is offline for a few hours while I sort a hosting bill. Put your email in and I'll send
 you the whole thing, in order, the moment the doors reopen.</p>
 
-<a class="btn" href="mailto:hello@languyofficial.com?subject=Put%20me%20on%20the%20list&body=Send%20me%20the%20free%20method%20when%20the%20site%20is%20back.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Put me on the list — send me the method →</a>
-<a class="btn ghost" href="https://www.instagram.com/languyofficial">Follow @languyofficial</a>
+<a class="btn" id="ig" href="https://ig.me/m/languyofficial">DM me "METHOD" on Instagram &rarr;</a>
+<p class="cap" style="margin:-2px 0 18px">You're probably already in the app. One tap, no email needed —
+I'll send you the whole thing there.</p>
+
+<a class="btn ghost" href="mailto:hello@languyofficial.com?subject=Put%20me%20on%20the%20list&body=Send%20me%20the%20method.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Or email me instead</a>
+<p class="cap" id="mailfall">If nothing opened, my address is
+<b id="addr">hello@languyofficial.com</b> — <a href="#" id="cp">tap to copy</a>.</p>
 
 <div class="note">
   <b>What lands in your inbox</b>, free, no card, nothing to cancel:
@@ -87,5 +92,30 @@ you the whole thing, in order, the moment the doors reopen.</p>
   The full site is back shortly — everything above is free either way.
 </p>
 
+<script>
+/* IN-APP BROWSERS EAT MAILTO (2026-08-01). His traffic is overwhelmingly Instagram
+   and TikTok webviews, where a mailto often does nothing at all and the visitor
+   simply leaves — so the ONLY capture on the live site was one a majority of
+   arrivals could not use. The Instagram DM link is the real fix: they are already
+   inside that app, so it is one tap and no context switch. The address below is
+   visible text with a copy button, so even the worst webview leaves them something
+   they can act on. */
+(function(){
+  var cp=document.getElementById('cp'), addr=document.getElementById('addr');
+  if(!cp||!addr) return;
+  function done(){ cp.textContent='copied'; setTimeout(function(){cp.textContent='tap to copy';},2200); }
+  function sel(){
+    var r=document.createRange(); r.selectNodeContents(addr);
+    var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    try{ document.execCommand('copy'); done(); }catch(e){ cp.textContent='select and copy'; }
+  }
+  cp.addEventListener('click', function(e){
+    e.preventDefault();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr.textContent.trim()).then(done, sel);
+    } else sel();
+  });
+})();
+</script>
 </body>
 </html>
