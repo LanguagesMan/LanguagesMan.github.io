@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>LANGUY — Level up in real life. Start free.</title>
+<meta name="description" content="School never got you speaking — that's the method, not you. Understanding real input got me 15 languages. Enter the world free: real sentences, one word changing at a time.">
+<meta name="theme-color" content="#0B0F1A">
+<link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png?v=20260729">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png?v=20260729">
+
+<meta property="og:title" content="LANGUY — Level up in real life. Start free.">
+<meta property="og:description" content="The classroom method is broken. Understanding real input got me 15 languages. Enter the world, free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://languyofficial.com/">
+<meta property="og:image" content="https://languyofficial.com/images/og.png?v=20260716b">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Languy — enter the world free. You're not bad at languages. The method was.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://languyofficial.com/images/og.png?v=20260716b">
+
+<!-- FOUNDER-LOCKED display voice: Archivo (variable) + Instrument Sans, self-hosted,
+     subset to Latin + used weights, font-display:swap. Preload only the display face. -->
+<link rel="preload" href="/fonts/archivo-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face{ font-family:'Archivo'; font-style:normal; font-weight:400 900; font-stretch:62% 125%;
+    font-display:swap; src:url('/fonts/archivo-variable-latin.woff2') format('woff2'); }
+  @font-face{ font-family:'Instrument Sans'; font-style:normal; font-weight:400 700; font-display:swap;
+    src:url('/fonts/instrument-sans-normal-latin.woff2') format('woff2'); }
+</style>
+<link rel="stylesheet" href="/assets/languy-tokens.css?v=d6fb7853">
+<link rel="stylesheet" href="/assets/world.css?v=18424c98">
+
+<style>
+  /* ==========================================================================
+     THE TITLE SCREEN — page-local layout only. Every component, colour and
+     motion token lives in /assets/world.css. Nothing here invents a colour.
+
+     Founder pivot (languy-empire/GAME_WORLD.md, locked): the funnel IS the UI of
+     the game world, so this page is a TITLE SCREEN, not a homepage. One door at
+     the fold; the proof of the method directly under it; the map after that.
+     ========================================================================== */
+
+  /* ---- the fold ---- */
+  .title{ position:relative; padding:52px 0 54px; overflow:hidden; }
+  /* the ONE permitted atmospheric: a single low-opacity lamp behind the title.
+     Texture, not a drop-shadow — BRAND.md §4 (warm lamp glow, never a UI colour). */
+  .title::after{
+    content:""; position:absolute; left:50%; top:-180px; width:820px; height:620px;
+    transform:translateX(-50%); pointer-events:none; z-index:0;
+    background:none, transparent 72%);
+  }
+  .title > *{ position:relative; z-index:1; }
+  .title h1{
+    margin-top:20px;
+    font-size:clamp(38px,10vw,76px); line-height:.98; letter-spacing:-.04em;
+  }
+  /* NOT two-tone. ONE_WORLD_DESIGN §6 #5 calls the coloured second half the
+     single loudest AI-built tell. The break and the scale do the work. */
+  .title h1 .out{ color:var(--ink); }
+  .title-sub{
+    margin-top:20px; max-width:38ch;
+    font-size:clamp(16.5px,4.2vw,19px); line-height:1.55; color:var(--ink-2);
+  }
+  .title-sub b{ color:var(--ink); font-weight:650; }
+  .title-cta{ margin-top:30px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
+  .title-cta .door{ width:100%; }
+
+  /* ---- returning player: recognised, the same way /free recognises them ---- */
+  .back{
+    display:block; margin-top:14px; padding:9px 15px; border-radius:var(--r-pill);
+    border:1px solid rgba(52,211,153,.5); background:var(--owned-soft);
+    color:var(--owned); font-size:13.5px; font-weight:650; width:fit-content;
+  }
+
+  /* ---- the world, actually shown ----
+     The founder's "cheap" verdict is partly a no-imagery problem: a page that
+     never shows the product reads as unfinished. This is a real screenshot of
+     the real Method Experience, not an illustration of one. */
+  .world-shot{
+    /* height:auto — the width/height ATTRIBUTES map to height:1200px in the UA
+       sheet and beat aspect-ratio; without this the shot renders full height. */
+    width:100%; height:auto; margin-top:34px; border-radius:var(--r-lg);
+    border:1px solid var(--line-2); background:var(--surface);
+    aspect-ratio:16/11; object-fit:cover; object-position:center;
+  }
+  .title-col{ min-width:0; }
+  /* ONE door at the fold: the header CTA is a duplicate of the hero door while
+     the hero is on screen, so it stays out of the way until the hero is gone. */
+  .pp-hero .pp-go{ opacity:0; pointer-events:none; transform:translateY(-4px);
+    transition:opacity .3s var(--ease), transform .3s var(--ease); }
+  .pp-hero.stuck .pp-go{ opacity:1; pointer-events:auto; transform:none; }
+
+  /* ---- the manifesto band ---- */
+  .band{ background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .band h2{ font-size:clamp(30px,8vw,54px); line-height:1.02; }
+  .band > .wrap > p{ margin-top:16px; font-size:16.5px; color:var(--ink-2); line-height:1.65; max-width:56ch; }
+  .band > .wrap > p b{ color:var(--ink); font-weight:650; }
+
+  /* ---- the three rules of the world ---- */
+  .rules{ display:grid; gap:12px; margin-top:26px; }
+  .rule-c{ border:1px solid var(--line); border-radius:var(--r); background:var(--raised); padding:19px 18px; }
+  .rule-c .n{
+    font-family:'Archivo',sans-serif; font-weight:800; font-size:12px; letter-spacing:.18em;
+    color:var(--dim);
+  }
+  .rule-c h3{ margin-top:9px; font-size:19px; }
+  .rule-c p{ margin-top:7px; font-size:14.5px; color:var(--ink-2); line-height:1.55; }
+
+  /* ---- fit / not-fit ---- */
+  .fit{ display:grid; gap:12px; margin-top:22px; }
+  .fit ul{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:11px; }
+  .fit li{ display:flex; gap:11px; font-size:14.5px; color:var(--ink-2); line-height:1.5; }
+  .fit li svg{ width:16px; height:16px; margin-top:3px; flex:none; }
+  /* these ticks say "this is for you" — an argument, not an earned word. The
+     tick vs cross shape already carries the yes/no; it does not need a hue. */
+  .fit .yes li svg{ color:var(--ink-2); }
+  .fit .no li svg{ color:var(--dim); }
+
+  /* ---- the side door (email) ---- */
+  .side{ border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface); padding:24px 20px; }
+  .side h2{ font-size:clamp(24px,6vw,34px); }
+  .side > p{ margin-top:11px; font-size:15.5px; color:var(--ink-2); line-height:1.6; max-width:52ch; }
+  .side form{ margin-top:20px; display:flex; flex-direction:column; gap:11px; }
+  .side input{
+    width:100%; min-height:54px; padding:0 18px; font:inherit; font-size:16px;
+    color:var(--ink); background:var(--ground);
+    border:1px solid var(--line-2); border-radius:var(--r-pill);
+    transition:border-color var(--t);
+  }
+  .side input::placeholder{ color:var(--dim); }
+  .side input:focus{ outline:0; border-color:var(--action); }
+  .side .msg{ display:none; margin-top:12px; font-size:14px; color:var(--err); }
+  /* signing up is not a word you earned — this confirmation is a plain raised
+     panel. Emerald here was the single biggest reason green read as "brand". */
+  .side .ok{
+    display:none; margin-top:16px; padding:18px; border-radius:var(--r);
+    background:var(--raised); border:1px solid var(--line-2);
+    font-size:15.5px; color:var(--ink); line-height:1.55;
+  }
+  .side .ok b{ color:var(--ink); }
+  .side .fine{ margin-top:13px; font-size:13px; color:var(--dim); line-height:1.5; }
+
+  /* ---- trust ---- */
+  .trust p{ margin-top:16px; font-size:16px; color:var(--ink-2); line-height:1.7; max-width:60ch; }
+  .trust p b{ color:var(--ink); font-weight:650; }
+
+  /* ---- final ---- */
+  .final{ position:relative; padding:76px 0 84px; overflow:hidden; }
+  .final::after{
+    content:""; position:absolute; left:50%; bottom:-280px; width:760px; height:560px;
+    transform:translateX(-50%); pointer-events:none; z-index:0;
+    background:none, transparent 72%);
+  }
+  .final > *{ position:relative; z-index:1; }
+  .final h2{ font-size:clamp(34px,9vw,62px); line-height:1.0; }
+  .final .out{ color:var(--ink); }
+  .final-cta{ margin-top:26px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
+  .final-cta .door{ width:100%; }
+
+  @media (min-width:1080px){
+    /* the desktop fold is a SPLIT, not a stretched phone: the decision on the
+       left, the world you're deciding about on the right. */
+    .title .wrap{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+    /* the display size that fits a HALF-width column — at full clamp the
+       headline ate six lines and pushed the one door below the fold */
+    .title h1{ font-size:clamp(40px,4.3vw,60px); }
+    /* two buttons cannot share a 530px column at desktop size — let them stack
+       rather than each wrapping onto two lines */
+    .title-cta{ flex-wrap:wrap; }
+    .world-shot{ margin-top:0; aspect-ratio:4/3; }
+  }
+  @media (min-width:760px){
+    .title{ padding:78px 0 86px; }
+    .title-cta{ flex-direction:row; align-items:center; }
+    .title-cta .door{ width:auto; }
+    .rules{ grid-template-columns:repeat(3,1fr); gap:16px; }
+    .fit{ grid-template-columns:1fr 1fr; gap:16px; }
+    .side{ padding:34px 32px; }
+    .side form{ flex-direction:row; align-items:center; }
+    .side input{ flex:1; }
+    .side form .door{ width:auto; flex:none; }
+    .final-cta{ flex-direction:row; align-items:center; }
+    .final-cta .door{ width:auto; }
+  }
+</style>
+</head>
+<body>
+<script src="/err.js"></script>
+
+<!-- ═══════════════════ THE PASSPORT BAR ═══════════════════
+     Ref: Mimo (currency pills pinned above the path). Same shape on every
+     screen. It shows what you OWN — words — and is not navigation. If the
+     player has never played we show nothing rather than a zero: a zero counter
+     with no story is the Klarna/Sprint mistake named in ONE_WORLD_DESIGN.md.  -->
+<header class="pp pp-hero" id="pp">
+  <div class="wrap pp-in">
+    <a class="pp-mark" href="/" aria-label="Languy — home">
+      <!-- THE EMBLEM (founder-locked 2026-07-29) — the globe wearing pixelated
+           sunglasses, and nothing else: the social avatar with its red taken away.
+           ONE shared file, tiered by rendered size; this bar draws 22px, so it wears
+           the MICRO tier. Numbers: brand/SIZE-TRUTH.md. The abstract broken-ring
+           mark that used to be inlined here (brand/emblem-heavy.svg) measured 0%
+           land at 16/22/32/64/140px — it never read as his globe — and is retired. -->
+      <img class="lgy-emblem" src="/brand/emblem-globe-micro-ondark.svg" width="22" height="22" alt="" aria-hidden="true">
+      <b>Languy</b>
+    </a>
+    <div class="pp-right">
+      <span class="pp-chip" id="ppWords" hidden>
+        <svg class="star" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.9 5.3L15.4 6l-4.2 3.6 1.3 5.5L8 12.2 3.5 15.1l1.3-5.5L.6 6l5.5-.7L8 0z"/></svg>
+        <span class="n" id="ppWordsN">0</span>&nbsp;words
+      </span>
+      <a class="pp-go" id="ppGo" href="/free.html">Enter free</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══════════════════ 1 · THE TITLE SCREEN ═══════════════════
+       ONE door at the fold (ONE_WORLD_DESIGN.md §3, law 1). Refs: Life Reset
+       (pitch-black, the whole screen is one decision) · Cleo AI (attitude in
+       the copy, not in the decoration) · Tolan (one Start, nothing competing). -->
+  <section class="title tex" id="top">
+    <div class="wrap">
+      <div class="title-col">
+        <span class="kick">Level up in real life</span>
+        <p class="back" id="back" hidden></p>
+
+        <h1>
+        Years of school.<br>
+        Still can't speak.<br>
+        <span class="out">That's the method,<br>not you.</span>
+        </h1>
+
+        <p class="title-sub">
+        School handed you a broken map, then let you believe you were bad at this.
+        <b>You're not.</b> I dropped the classroom, learned to understand real input,
+        and it got me 15 languages. This is the way out — and the door is free.
+        </p>
+
+        <div class="title-cta">
+        <!-- SWAPPED 2026-07-29. A five-persona walk measured the old order: the PRIMARY
+             blue button went to /free.html — a second landing page whose own CTA only
+             scrolls — and the 19-year-old quit in 8 seconds having been handed two
+             homepages when he wanted a game. The GAME was on the ghost button, and it
+             reaches "the frame is yours", holding four true Spanish sentences with native
+             audio, in 13.6 SECONDS. The best asset on the site was the secondary link.
+             Primary now plays. The essay is the quiet one. -->
+        <a class="door" href="/products/method-experience/" id="enter">
+          <span id="enterLabel">Play now — free, no email</span>
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+          <a class="door-ghost" href="/free.html">Read how the method works</a>
+        </div>
+
+      <p class="door-fine">
+          No card. Nothing renews, ever. 30-day money-back on anything you ever buy here ·
+          2.4M followers across TikTok and Instagram — <a href="https://www.instagram.com/languyofficial" target="_blank" rel="noopener" style="color:var(--ink-2);text-decoration:underline;text-underline-offset:2px">@languyofficial</a>
+        </p>
+      </div>
+
+      <!-- what you are actually entering: a real screenshot of the real thing -->
+      <img class="world-shot" src="/images/product-shots/web/method-experience-world.jpg"
+           width="604" height="453" fetchpriority="low" decoding="async"
+           alt="The Method Experience world: a pixel-art night street you walk, with a sentence prompt reading &quot;Hola.&quot; and three meanings to tap — sound to meaning, no grammar.">
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 2 · THE CHAIN — the 5-second proof ═══════════════════
+       Founder's catch (2026-07-29): a homepage demoing disconnected phrasebook
+       lines is demonstrating the anti-method. So this shows a real CHAIN from
+       the shipped corpus (products/starter-pack/chains-*.json → families[0],
+       ordered by frame-stability): four consecutive sentences where ONE word
+       changes, and that word is the only highlighted thing on screen. The
+       highlight IS the teaching — there is deliberately no explainer above it. -->
+  <section class="sec tight">
+    <div class="wrap">
+      <span class="kick">This is the whole method</span>
+      <h2 class="sec-h" style="margin-top:16px">One word<br>changes.</h2>
+      <p class="sec-p">
+        Not a phrasebook. Not "what's your name / how are you" in random order.
+        Real sentences that share their bones, so the next one is almost free.
+        Read down. Nobody has to explain it to you.
+      </p>
+
+      <div class="chain rv" id="chain" style="margin-top:26px">
+        <div class="chain-head">
+          <span class="kick quiet">Word chain · <span id="chainName">Spanish</span></span>
+          <div class="chain-langs" id="chainLangs" role="group" aria-label="Choose a language"></div>
+        </div>
+        <div class="chain-list" id="chainList"></div>
+        <p class="chain-foot">
+          <b>You just read four sentences in a language you don't speak.</b>
+          That's comprehensible input — meaning first, one small step at a time.
+          Every kit is built this way: <span id="chainCount">1,393</span> sentences, every one with real audio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 3 · THE MANIFESTO ═══════════════════ -->
+  <section class="band">
+    <div class="wrap sec">
+      <span class="kick quiet">You're not bad at this</span>
+      <h2 style="margin-top:16px">You already<br>learned one.</h2>
+      <p>
+        You pulled off the hardest language you'll ever do, from zero, as a kid — just by
+        understanding what was around you. <b>That part of your brain never broke.</b>
+        Point it at a new language and it does the work again. What broke was the method:
+        grammar tables, a test at the end, and years of being told you were the problem.
+      </p>
+
+      <div class="rules">
+        <div class="rule-c">
+          <span class="n">01</span>
+          <h3>Understand</h3>
+          <p>Listen to real sentences a notch above your level, a few minutes a day. The way you learned your first language — before any grammar charts.</p>
+        </div>
+        <div class="rule-c">
+          <span class="n">02</span>
+          <h3>Immerse</h3>
+          <p>Switch the shows you already watch into your target language. Content you'd give your time to anyway, now doing double duty.</p>
+        </div>
+        <div class="rule-c">
+          <span class="n">03</span>
+          <h3>Speak</h3>
+          <p>Once the sounds live in your head, talking is just letting them out. Not on day one — I won't sell you that — but it comes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 4 · THE MAP ═══════════════════
+       Ref: Life Reset "Habit Academy" — a dark road, everything ahead dimmed but
+       fully readable, exactly one node lit. ONE_WORLD_DESIGN.md: a free player
+       never hits a locked door, they reach the EDGE OF THE MAP. So nothing here
+       says "locked", nothing here is a Buy button, and every price is stated as
+       a plain fact you can read from the road.                                 -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="kick">The map</span>
+      <h2 class="sec-h" style="margin-top:16px">Where this goes.</h2>
+      <p class="sec-p">
+        Nothing here expires and nothing renews. You can stop at the first stop forever —
+        plenty of people do, and the map alone is genuinely enough to start.
+      </p>
+
+      <div class="road rv" style="margin-top:32px">
+        <div class="node here">
+          <div class="node-k">You are here · free</div>
+          <div class="node-t">The free door</div>
+          <div class="node-d">All 7 steps named and explained, real sentences to try tonight, the first chapter of the world to walk, and the game that teaches it. No card.</div>
+        </div>
+        <div class="node ahead">
+          <div class="node-k">$9 · Cheat Codes</div>
+          <div class="node-t">The first chapter, taught</div>
+          <div class="node-d">Step one walked, not watched — the Method Experience screens, in my real voice — plus the rest of that world.</div>
+        </div>
+        <div class="node ahead">
+          <div class="node-k">$97 · The whole method</div>
+          <div class="node-t">Zero to Polyglot</div>
+          <div class="node-d">All 9 chapters as the interactive Method Experience, the book, and the walk-along audio. If you started at $9, that $9 comes off — it's $88.</div>
+        </div>
+        <div class="node ahead">
+          <div class="node-k">$39 a language · $79 for all 7</div>
+          <div class="node-t">The fuel</div>
+          <div class="node-d">A different job entirely: the material you practise on. Chains like the one above, full audio, easy → hard, one click into Anki.</div>
+        </div>
+      </div>
+
+      <div class="rung-cta" style="margin-top:32px">
+        <a class="door" href="/products.html">
+          Open the menu
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="door-ghost" href="/free.html">Or just start free</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 5 · WHO IT'S FOR ═══════════════════ -->
+  <section class="sec tight">
+    <div class="wrap">
+      <span class="kick quiet">Honest fit</span>
+      <div class="fit">
+        <div class="panel yes">
+          <h3 style="font-size:19px">This is for you if</h3>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.4 3.4L13 4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>School gave you years and you still freeze up.</li>
+            <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.4 3.4L13 4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>You want to understand real speech, not pass a test.</li>
+            <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.4 3.4L13 4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>You'll trade flashcard drills for shows you'd actually watch.</li>
+          </ul>
+        </div>
+        <div class="panel no">
+          <h3 style="font-size:19px">Not for you if</h3>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>You want speak-in-30-days promises — we don't sell those.</li>
+            <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>You'd rather memorize grammar tables than hear the language.</li>
+            <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>You want a streak-and-shame app to guilt you into logging in.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 6 · THE SIDE DOOR (email) ═══════════════════
+       Same Brevo intake as /free.html (source:'kit-home'); every id below is
+       unchanged so the handler and the analytics beacon keep working. It sits
+       BELOW the fold on purpose — the fold gets exactly one door.              -->
+  <section class="sec tight">
+    <div class="wrap">
+      <div class="side rv" id="home-capture-sec">
+        <span class="kick quiet">Side door</span>
+        <h2 style="margin-top:14px">Rather have it emailed?</h2>
+        <p>
+          Same free map, sent to you instead — all 7 steps, real sentences with audio,
+          and the first chapter to walk. One email, then it's yours.
+        </p>
+        <form id="home-capture" novalidate>
+          <label class="only-sr" for="home-email">Your email address</label>
+          <input id="home-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+          <button class="door" id="home-capture-btn" type="submit">
+            Send me the map
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p class="msg" id="home-capture-msg" role="alert"></p>
+        <div class="ok" id="home-capture-ok">
+          <b>Check your inbox.</b> The map is on its way. If it's not there in two minutes,
+          look in promotions — then reply and tell me, I read every one.
+        </div>
+        <p class="fine">No spam, no daily guilt-mail. Unsubscribe in one click.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 7 · WHY TRUST ME ═══════════════════ -->
+  <section class="sec tight">
+    <div class="wrap trust">
+      <span class="kick quiet">One real guy, not a company</span>
+      <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,7vw,44px)">Why trust me.</h2>
+      <p>
+        I'm not a teacher and I'm not special — honestly, I'm lazy and I skip half the
+        techniques people swear by. School ran me through language after language and I
+        still couldn't speak, same as most people, probably same as you. So I dropped the
+        classroom way and did the one thing that works: <b>understand real stuff before
+        trying to produce it.</b> I'm sharing exactly what I do, including what I'm bad at.
+      </p>
+      <p>
+        There are no countdown timers on this site, no "3 left", no invented review counts.
+        If a number is here, I can show you where it came from. That's the whole deal.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 8 · FAQ ═══════════════════ -->
+  <section class="sec tight">
+    <div class="wrap">
+      <span class="kick quiet">Straight answers</span>
+      <h2 class="sec-h" style="margin-top:16px;font-size:clamp(28px,7vw,44px)">Stuff people ask me</h2>
+      <div style="margin-top:24px;border-top:1px solid var(--line)">
+        <details class="q">
+          <summary>What even is this?</summary>
+          <div class="a">A way of learning built on understanding real input instead of grammar drills — and the material to do it with. The method is free to start. If you want me to teach it to you, that's $9 for the first chapter and $97 for all nine — played, not watched. If you just want the practice material, that's $39 for one language.</div>
+        </details>
+        <details class="q">
+          <summary>How much time a day?</summary>
+          <div class="a">Fifteen honest minutes beats two distracted hours. Most of it can ride on things you already do — the show you were going to watch anyway, the commute you were going to spend scrolling.</div>
+        </details>
+        <details class="q">
+          <summary>Is there an app?</summary>
+          <div class="a">Not a phone app. Everything runs in your browser, on any device, and the files are yours to keep. Nothing here can be taken away from you by an update.</div>
+        </details>
+        <details class="q">
+          <summary>What if it's not for me?</summary>
+          <div class="a">30-day money-back on everything, no questions. One reply to me and you're refunded. I'd rather have that than someone sitting on something they don't use.</div>
+        </details>
+        <details class="q">
+          <summary>Which languages?</summary>
+          <div class="a">Spanish, French, German, Italian, Japanese, Korean and Chinese have full kits today — 1,307 to 1,393 sentences each, all with audio. The method itself works for any language; the ready-made fuel is those seven so far. <a href="/products/starter-pack/">See what's inside a kit</a>.</div>
+        </details>
+        <details class="q">
+          <summary>Will this work for me?</summary>
+          <div class="a">It works if you actually put the input in. It doesn't work as something you buy and feel good about owning. That's the honest answer — take the free door first and see whether the thing above (one word changing at a time) does anything for you.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 9 · THE FINAL DOOR ═══════════════════ -->
+  <section class="final tex">
+    <div class="wrap">
+      <h2>Enter the<br><span class="out">world.</span></h2>
+      <p class="sec-p" style="margin-top:18px">
+        Free tonight: the map, real sentences with audio, and Chapter 1 to walk.
+        If it clicks, chapter one is $9 and the whole method is $97. Or skip the
+        teaching entirely and take the $39 kit. Nothing renews, ever.
+      </p>
+      <div class="final-cta">
+        <a class="door" href="/free.html">
+          Enter the world — free
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="door-ghost" href="/products.html">See the whole menu</a>
+      </div>
+      <p class="door-fine">30-day money-back guarantee — no questions asked. Buy once, no auto-renew. No ads, no spam, no fake scarcity.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 10 · THE ROOM ═══════════════════ -->
+  <section class="sec tight">
+    <div class="wrap">
+      <div class="panel rv">
+        <span class="kick quiet">We're building this live</span>
+        <h2 style="margin-top:14px;font-size:clamp(24px,6vw,32px)">Come build it with us.</h2>
+        <p style="margin-top:11px;font-size:15.5px;color:var(--ink-2);line-height:1.6;max-width:56ch">
+          Be one of the first inside. No commitment — just people who refuse to stay
+          monolingual. Early members get early access to everything, including the
+          Languide platform beta.
+        </p>
+        <div style="margin-top:20px">
+          <a class="door-ghost" href="https://discord.gg/kKzfHs2kFs" target="_blank" rel="noopener">Join the Discord — free</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════ FOOTER — the ladder, stated plainly ═══════════════════ -->
+<footer class="wfoot">
+  <div class="wrap">
+    <div class="lad">Two shelves — learn the method, or take the fuel</div>
+    <nav>
+      <a href="/free.html">Free — the map</a>
+      <a href="/products.html#first-win">$9 — the first chapter</a>
+      <a href="/products.html#full-course">$97 — the whole method</a>
+      <a href="/products/starter-pack/">$39 — the Method Kit</a>
+      <a href="/products.html#full-pack">$79 — all seven languages</a>
+      <a href="/dubbing.html">For creators</a>
+    </nav>
+    <p class="legal">© Languy · <a href="/privacy.html">Privacy</a> · <a href="mailto:hello@languyofficial.com">hello@languyofficial.com</a> · <a href="/hq" style="opacity:.55" aria-label="Founder HQ">HQ</a></p>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════ THE WORLD — title-screen behaviour ═══════════════════
+   Everything below is progressive enhancement: with JS off this page is still a
+   complete, readable, fully linked document. No audio ever plays without a tap
+   (never autoplay at a stranger). Nothing here blocks first paint.            */
+(function(){
+  'use strict';
+
+  /* ---- passport bar: stick + the ONE currency ---------------------------
+     Reads the canonical cross-game word bank `languy.passport.v1`. If the
+     player already owns words the bar recognises them — the level-up feeling
+     made real, from something already sitting in their browser.              */
+  var pp = document.getElementById('pp');
+  if (pp) {
+    /* 'stuck' also gates the header CTA on this page — see .pp-hero. It flips
+       once the hero door has left the screen, never while it is visible. */
+    var heroGate = function(){
+      var d = document.getElementById('enter');
+      if (!d) return 8;
+      var r = d.getBoundingClientRect();
+      return r.bottom < 0 ? 0 : 1e9;
+    };
+    var onScroll = function(){ pp.classList.toggle('stuck', window.scrollY > heroGate()); };
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+  }
+
+  function countWords(){
+    try {
+      var raw = localStorage.getItem('languy.passport.v1');
+      if (!raw) return 0;
+      var p = JSON.parse(raw);
+      if (!p || p.v !== 1 || !p.words) return 0;
+      var n = 0;
+      for (var lang in p.words) {
+        if (Object.prototype.hasOwnProperty.call(p.words, lang) && p.words[lang]) {
+          n += Object.keys(p.words[lang]).length;
+        }
+      }
+      return n;
+    } catch (e) { return 0; }
+  }
+
+  var words = countWords();
+  if (words > 0) {
+    var chip = document.getElementById('ppWords');
+    var chipN = document.getElementById('ppWordsN');
+    if (chip && chipN) {
+      chipN.textContent = words.toLocaleString();
+      chip.classList.add('has');
+      chip.hidden = false;
+    }
+    /* worded exactly as /free words it, so the two doors feel like one system */
+    var back = document.getElementById('back');
+    if (back) {
+      back.textContent = '\u2726 Welcome back \u2014 ' + words + ' word' + (words === 1 ? '' : 's') + ' in your passport';
+      back.hidden = false;
+    }
+    var label = document.getElementById('enterLabel');
+    if (label) label.textContent = 'Continue \u2014 free';
+    var go = document.getElementById('ppGo');
+    if (go) go.textContent = 'Continue';
+  }
+
+  /* ---- reveal on scroll (with a hard failsafe against stuck-invisible) ---- */
+  (function(){
+    var els = document.querySelectorAll('.rv');
+    function showAll(){ Array.prototype.forEach.call(els, function(e){ e.classList.add('in'); }); }
+    if (!('IntersectionObserver' in window)) { showAll(); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(x){
+        if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); }
+      });
+    }, { threshold:.1, rootMargin:'0px 0px -40px 0px' });
+    Array.prototype.forEach.call(els, function(e){
+      if (e.getBoundingClientRect().top < window.innerHeight) e.classList.add('in');
+      else io.observe(e);
+    });
+    setTimeout(showAll, 1800);
+  })();
+
+  /* ---- THE CHAIN ---------------------------------------------------------
+     Data below is a verbatim slice of the SHIPPED corpus:
+     products/starter-pack/chains-{es,fr,de,it,ja,ko,zh}.json → families[0],
+     first four links, frame-ordered. `p` is the sentence in parts; a part
+     flagged 1 is the word that changed. `a` is the real audio that ships with
+     the kit. Inlined (~4KB) rather than fetched so the proof paints with the
+     page instead of after it.                                                */
+  var CHAINS = {"es":{"n":"Spanish","c":"ES","links":[{"p":[["Estoy mal."]],"en":"I'm not doing well.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/es/n_6cd49b67ed26.mp3"},{"p":[["Estoy "],["bien",1],["."]],"en":"I'm good.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/es/n_5f2aa98ca87c.mp3"},{"p":[["Estoy "],["cansado",1],["."]],"en":"I'm tired.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/es/n_8e1eddcce1f8.mp3"},{"p":[["Estoy "],["feliz",1],["."]],"en":"I'm happy.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/es/n_ac23b6ff0329.mp3"}]},"fr":{"n":"French","c":"FR","links":[{"p":[["Je suis Marco."]],"en":"I'm Marco.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/fr/n_2771904e43c4.mp3"},{"p":[["Je suis "],["espagnol",1],["."]],"en":"I'm Spanish.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/fr/n_428a922a9d8e.mp3"},{"p":[["Je suis "],["content",1],["."]],"en":"I'm happy.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/fr/n_756c4aa567d9.mp3"},{"p":[["Je suis "],["Ana",1],["."]],"en":"I'm Ana.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/fr/n_93bffe7a5253.mp3"}]},"de":{"n":"German","c":"DE","links":[{"p":[["Es ist heiß."]],"en":"It's hot.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/de/n_0a3517381c01.mp3"},{"p":[["Es ist "],["kalt",1],["."]],"en":"It's cold.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/de/n_b2ef30cc4e48.mp3"},{"p":[["Es ist "],["windig",1],["."]],"en":"It's windy.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/de/n_53327c025eee.mp3"},{"p":[["Es ist "],["Januar",1],["."]],"en":"It's January.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/de/n_ad0df4979024.mp3"}]},"it":{"n":"Italian","c":"IT","links":[{"p":[["Ho sonno."]],"en":"I'm sleepy.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/it/n_63d60b81ddfd.mp3"},{"p":[["Ho "],["freddo",1],["."]],"en":"I'm cold.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/it/n_a50a9286d9c1.mp3"},{"p":[["Ho "],["fame",1],["."]],"en":"I'm hungry.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/it/n_2fe173e68356.mp3"},{"p":[["Ho "],["fretta",1],["."]],"en":"I'm in a hurry.","r":"","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/it/n_c0f90ac99173.mp3"}]},"ja":{"n":"Japanese","c":"JA","links":[{"p":[["メキシコ人だよ。"]],"en":"I'm Mexican.","r":"Mekishiko-jin da yo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ja/n_90c72582ee17.mp3"},{"p":[["スペイン",1],["人だよ。"]],"en":"I'm Spanish.","r":"Supein-jin da yo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ja/n_2b0de092e9e7.mp3"},{"p":[["彼女",1],["だよ。"]],"en":"It's her.","r":"Kanojo da yo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ja/n_05e706f87186.mp3"},{"p":[["君",1],["だよ。"]],"en":"It's you.","r":"Kimi da yo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ja/n_c3b6c7480d67.mp3"}]},"ko":{"n":"Korean","c":"KO","links":[{"p":[["손이 아파요."]],"en":"My hand hurts.","r":"soni apayo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ko/n_c9df67bad445.mp3"},{"p":[["배가",1],[" 아파요."]],"en":"My stomach hurts.","r":"baega apayo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ko/n_7bac2d6c9224.mp3"},{"p":[["눈이",1],[" 아파요."]],"en":"My eyes hurt.","r":"nuni apayo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ko/n_fb71e27e70ac.mp3"},{"p":[["발이",1],[" 아파요."]],"en":"My feet hurt.","r":"bari apayo.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/ko/n_5c76ed5ac79d.mp3"}]},"zh":{"n":"Chinese","c":"ZH","links":[{"p":[["我来了。"]],"en":"I'm coming.","r":"Wǒ lái le.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/zh/n_6f08e0e98492.mp3"},{"p":[["我"],["饿",1],["了。"]],"en":"I'm hungry.","r":"Wǒ è le.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/zh/n_18f6f9e5340b.mp3"},{"p":[["我"],["起床",1],["了。"]],"en":"I get up.","r":"Wǒ qǐchuáng le.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/zh/n_2fed207a25a9.mp3"},{"p":[["我"],["困",1],["了。"]],"en":"I'm sleepy.","r":"Wǒ kùn le.","a":"https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/play-audio/zh/n_c157f82bc19b.mp3"}]}};
+
+  /* verified sentence counts per shipped kit (api/create-checkout.js CATALOG labels) */
+  var COUNTS = { es:'1,393', fr:'1,382', de:'1,387', it:'1,372', ja:'1,332', ko:'1,307', zh:'1,382' };
+
+  var listEl  = document.getElementById('chainList');
+  var langsEl = document.getElementById('chainLangs');
+  var nameEl  = document.getElementById('chainName');
+  var countEl = document.getElementById('chainCount');
+
+  if (listEl && langsEl) {
+    var audio = null, revealTimers = [];
+
+    function stopAudio(){
+      if (audio) { try { audio.pause(); } catch(e){} audio = null; }
+      Array.prototype.forEach.call(listEl.children, function(c){ c.classList.remove('playing'); });
+    }
+
+    function play(url, row){
+      stopAudio();
+      if (!url) return;
+      try {
+        audio = new Audio(url);
+        row.classList.add('playing');
+        audio.addEventListener('ended', function(){ row.classList.remove('playing'); });
+        var pr = audio.play();
+        if (pr && pr['catch']) pr['catch'](function(){ row.classList.remove('playing'); });
+      } catch (e) { row.classList.remove('playing'); }
+    }
+
+    function render(code){
+      var data = CHAINS[code];
+      if (!data) return;
+      stopAudio();
+      revealTimers.forEach(clearTimeout);
+      revealTimers = [];
+      if (nameEl)  nameEl.textContent = data.n;
+      if (countEl) countEl.textContent = COUNTS[code] || COUNTS.es;
+      listEl.textContent = '';
+
+      data.links.forEach(function(link, i){
+        var row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'chain-row';
+
+        var tgt = document.createElement('div');
+        tgt.className = 'chain-tgt';
+        link.p.forEach(function(part){
+          if (part[1]) {
+            var hi = document.createElement('span');
+            hi.className = 'hi';
+            hi.textContent = part[0];
+            tgt.appendChild(hi);
+          } else {
+            tgt.appendChild(document.createTextNode(part[0]));
+          }
+        });
+        row.appendChild(tgt);
+
+        if (link.r) {
+          var rom = document.createElement('div');
+          rom.className = 'chain-rom';
+          rom.textContent = link.r;
+          row.appendChild(rom);
+        }
+
+        var en = document.createElement('div');
+        en.className = 'chain-en';
+        en.textContent = link.en;
+        row.appendChild(en);
+
+        var spk = document.createElement('span');
+        spk.className = 'spk';
+        spk.innerHTML = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">'
+          + '<path d="M8.5 2.5L4.8 5.5H2.5v5h2.3l3.7 3v-11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>'
+          + '<path d="M11.4 5.6a3.4 3.4 0 0 1 0 4.8M13.3 3.7a6 6 0 0 1 0 8.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+        spk.appendChild(document.createTextNode('Hear it'));
+        row.appendChild(spk);
+
+        row.setAttribute('aria-label', 'Hear "' + link.p.map(function(x){ return x[0]; }).join('') + '" — ' + link.en);
+        row.addEventListener('click', function(){ play(link.a, row); });
+        listEl.appendChild(row);
+
+        /* stagger the reveal so the CHANGE is what the eye follows */
+        revealTimers.push(setTimeout(function(){ row.classList.add('in'); }, 90 + i * 190));
+      });
+    }
+
+    Object.keys(CHAINS).forEach(function(code){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = CHAINS[code].c;
+      b.setAttribute('aria-pressed', code === 'es' ? 'true' : 'false');
+      b.setAttribute('aria-label', CHAINS[code].n);
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(langsEl.children, function(x){ x.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true');
+        render(code);
+      });
+      langsEl.appendChild(b);
+    });
+
+    render('es');
+  }
+
+  /* ---- the side door: same Brevo intake as /free.html (source 'kit-home') ---- */
+  (function(){
+    var form = document.getElementById('home-capture');
+    if (!form) return;
+    var input = document.getElementById('home-email'),
+        btn   = document.getElementById('home-capture-btn'),
+        msg   = document.getElementById('home-capture-msg'),
+        ok    = document.getElementById('home-capture-ok'),
+        RE    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function show(t){ msg.textContent = t; msg.style.display = 'block'; }
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      msg.style.display = 'none';
+      var email = (input.value || '').trim();
+      if (!RE.test(email)) { show('Please enter a valid email address.'); input.focus(); return; }
+      btn.disabled = true;
+      var old = btn.innerHTML;
+      btn.textContent = 'Sending…';
+      /* NO SERVER HERE, ON PURPOSE. This page used to POST to /api/subscribe on the
+         hosting account that is now disabled. Rather than leave a button that silently
+         fails, the form hands off to the capture path that is actually proven: a
+         prefilled mail. Fourteen people arrived that way today, every one was sent the
+         method automatically within the hour and added to the Brevo list. The reply is
+         automatic — the visitor is not being asked to wait on a human. */
+      var _lang = (document.querySelector('#home-capture [name=language], #home-capture input[type=text]')||{}).value || '';
+      window.location.href = 'mailto:hello@languyofficial.com'
+        + '?subject=' + encodeURIComponent('My language')
+        + '&body=' + encodeURIComponent("The language I'm learning: " + _lang + "\n\n");
+ }, function(){ return { ok:r.ok, d:{} }; }); })
+      .then(function(res){
+        if (res.ok && res.d && res.d.ok) {
+          form.style.display = 'none';
+          ok.style.display = 'block';
+          try { ok.scrollIntoView({ behavior:'smooth', block:'center' }); } catch(_){}
+        } else {
+          show((res.d && res.d.error) || 'Something went wrong. Please try again.');
+          btn.disabled = false; btn.innerHTML = old;
+        }
+      })
+      .catch(function(){
+        show('Network hiccup — please try again in a moment.');
+        btn.disabled = false; btn.innerHTML = old;
+      });
+    });
+  })();
+
+  /* First-party analytics (pageview / email_submit / buy-click / js_error) live
+     in the shared /feedback-widget.js loaded below. Don't duplicate the beacon. */
+})();
+</script>
+
+<script src="/unlock.js"></script>
+<script src="/feedback-widget.js" defer></script>
+</body>
+</html>
