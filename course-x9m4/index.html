@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Course check · Languy</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta property="og:title" content="Course check"><meta property="og:image" content="https://languyofficial.com/share.png">
+<meta property="og:description" content="Private review page."><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!--
+  PRIVATE REVIEW PAGE. Obscure path + noindex, and deliberately EXCERPTS ONLY (50s of
+  each track), never the full course. The course is a paid product and there is a scar
+  in this codebase about a paid deck sitting publicly readable; a review page is not a
+  reason to repeat it. Fifty seconds is enough to judge loudness, the trims and the
+  voice, which is all this page is for. The full tracks live in the private
+  languy-voice-masters repo.
+-->
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  :root{
+    /* Monochrome, deliberately. He rejected this page's previous palette in his own
+       words — "this stupid AI slop of this stupid blue, a cheap blue button" — and
+       LOCKED_DESIGN makes it law: default blue-on-near-black is the signature of
+       AI-generated UI, never the primary action colour again. Neutral black, not the
+       blue-tinted #080B12 that was here; paper-white primary; no colour at all, which
+       is also the only way to remove the banned thing without choosing his accent FOR
+       him. References pulled first, per the law: Savee, Chronicle and Open all ship a
+       paper primary on neutral black with zero hue. */
+    --bg:#0A0A0A; --edge:rgba(255,255,255,.09); --edge2:rgba(255,255,255,.16);
+    --ink:#F5F5F4; --dim:#A3A3A0; --dim2:#73736F;
+    --paper:#FAFAF9; --sink:#000;
+    --disp:'Archivo',system-ui,sans-serif;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font:16.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    padding:0 0 64px;overflow-x:hidden}
+  .wrap{max-width:600px;margin-inline:auto;padding:0 20px}
+
+  .hero{padding:46px 0 4px;position:relative}
+  .mark{font-family:var(--disp);font-weight:900;font-size:.74rem;letter-spacing:.24em;
+    color:var(--dim2);text-transform:uppercase;margin:0 0 22px;position:relative}
+  h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.05rem,8.4vw,3rem);
+    line-height:1.04;letter-spacing:-.035em;margin:0 0 18px;position:relative}
+  h1 em{font-style:normal;color:var(--ink);text-decoration:underline;
+    text-decoration-thickness:2px;text-underline-offset:7px;
+    text-decoration-color:rgba(255,255,255,.26)}
+  .sub{color:var(--dim);font-size:1.06rem;line-height:1.55;position:relative}
+  .sub b{color:var(--ink);font-weight:600}
+  .proof{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0;
+    border:1px solid var(--edge);border-radius:999px;padding:7px 15px 7px 11px;
+    background:rgba(255,255,255,.03);font-size:.86rem;color:var(--dim);position:relative}
+  .proof b{color:var(--ink);font-weight:700}
+  .dot{width:7px;height:7px;border-radius:50%;background:#2ED573;
+    box-shadow:0 0 0 3px rgba(46,213,115,.16)}
+
+  .card{margin:34px 0 0;border:1px solid var(--edge);border-radius:20px;overflow:hidden;
+    background:rgba(255,255,255,.022)}
+  .card-h{padding:19px 20px 15px;border-bottom:1px solid var(--edge)}
+  .card-k{font-family:var(--disp);font-weight:800;font-size:.68rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--dim2);margin:0 0 5px}
+  .card-t{font-family:var(--disp);font-weight:700;font-size:1.12rem;letter-spacing:-.02em}
+  ol{list-style:none;padding:16px 20px 6px;counter-reset:s}
+  li{position:relative;padding:0 0 17px 42px;color:var(--dim);line-height:1.5;font-size:.97rem}
+  li:last-child{padding-bottom:12px}
+  li b{color:var(--ink);font-weight:650}
+  li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
+    width:27px;height:27px;border-radius:9px;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.13);color:var(--ink);
+    font-family:var(--disp);font-weight:800;font-size:.8rem;
+    display:flex;align-items:center;justify-content:center}
+
+  .give{margin:30px 0 20px;font-size:1.04rem;color:var(--dim)}
+  .give b{color:var(--ink);font-weight:650}
+  .btn{display:flex;align-items:center;justify-content:center;min-height:58px;
+    border-radius:15px;text-decoration:none;font-family:var(--disp);font-weight:800;
+    font-size:1.02rem;margin:0 0 11px;transition:transform .12s}
+  .go{background:var(--paper);color:#0A0A0A;box-shadow:0 2px 0 rgba(0,0,0,.55)}
+  .go:active{transform:translateY(2px);box-shadow:0 0 0 var(--sink)}
+  .ghost{border:1px solid var(--edge2);color:var(--ink);background:rgba(255,255,255,.035)}
+  .ghost:active{transform:translateY(2px)}
+  .hint{font-size:.86rem;color:var(--dim2);margin:-4px 0 20px;line-height:1.5}
+  .hint b{color:var(--dim)}
+  .hint a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.32)}
+
+  .note{border:1px solid var(--edge);border-left:3px solid rgba(255,255,255,.34);
+    border-radius:0 13px 13px 0;padding:15px 17px;margin:26px 0 0;
+    background:rgba(255,255,255,.025);font-size:.93rem;color:var(--dim);line-height:1.55}
+  .note b{color:var(--ink)}
+
+  footer{margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--edge);
+    font-size:.82rem;color:var(--dim2);line-height:1.6}
+  footer a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--edge)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(10px);animation:up .55s cubic-bezier(.16,1,.3,1) forwards}
+    .reveal:nth-of-type(2){animation-delay:.05s}
+    .card{animation:up .6s .1s cubic-bezier(.16,1,.3,1) both}
+    @keyframes up{to{opacity:1;transform:none}}
+  }
+</style>
+<style>
+  .row{border:1px solid var(--edge);border-radius:16px;padding:14px 16px;margin:0 0 12px;
+    background:rgba(255,255,255,.022)}
+  .rh{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+  .rh b{font-family:var(--disp);font-weight:700;font-size:1rem;letter-spacing:-.01em;flex:1}
+  .num{width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.13);display:flex;align-items:center;justify-content:center;
+    font-family:var(--disp);font-weight:800;font-size:.72rem;flex:0 0 auto}
+  .len{color:var(--dim2);font-size:.8rem;flex:0 0 auto}
+  audio{width:100%;height:34px;margin:0 0 10px}
+  .btns{display:flex;gap:8px}
+  .b{flex:1;min-height:44px;border-radius:11px;border:1px solid var(--edge2);
+    background:rgba(255,255,255,.035);color:var(--ink);font-family:var(--disp);
+    font-weight:800;font-size:.9rem;cursor:pointer}
+  .b[aria-pressed="true"]{background:var(--paper);color:#0A0A0A;border-color:var(--paper)}
+  textarea{width:100%;min-height:150px;border-radius:14px;border:1px solid var(--edge);
+    background:rgba(255,255,255,.03);color:var(--ink);padding:13px;font:14px/1.5 ui-monospace,monospace;
+    margin:14px 0 10px}
+</style></head><body><div class="wrap">
+  <header class="hero">
+    <p class="mark">Languy · private</p>
+    <h1>Does the course <em>sound right</em>?</h1>
+    <p class="sub">Eleven tracks, 50 seconds of each — enough to hear the loudness and the trims.
+    <b>Nothing ships until you say so.</b></p>
+  </header>
+
+  <div class="note" style="margin:22px 0 20px"><b>What changed:</b> every track was about 19&nbsp;dB too
+  quiet (−35&nbsp;LUFS; spoken word wants −16) — that is fixed. And 29 seconds of dead air was removed
+  from 4 tracks. <b>Every duration was checked before and after: nothing else moved.</b> Your originals
+  are untouched.</div>
+
+  <div class="row">
+    <div class="rh"><span class="num">1</span><b>find your fire</b><span class="len">6.0 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/1-01-find-your-fire.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="1-01-find-your-fire" data-v="good">sounds right</button>
+      <button class="b" data-id="1-01-find-your-fire" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">2</span><b>language is a sport</b><span class="len">7.7 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/1-02-language-is-a-sport.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="1-02-language-is-a-sport" data-v="good">sounds right</button>
+      <button class="b" data-id="1-02-language-is-a-sport" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">3</span><b>delete schools lies</b><span class="len">3.2 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/1-03-delete-schools-lies.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="1-03-delete-schools-lies" data-v="good">sounds right</button>
+      <button class="b" data-id="1-03-delete-schools-lies" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">4</span><b>natural input assimil</b><span class="len">2.6 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/1-04-natural-input-assimil.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="1-04-natural-input-assimil" data-v="good">sounds right</button>
+      <button class="b" data-id="1-04-natural-input-assimil" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">5</span><b>anki spaced repetition</b><span class="len">8.3 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/1-05-anki-spaced-repetition.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="1-05-anki-spaced-repetition" data-v="good">sounds right</button>
+      <button class="b" data-id="1-05-anki-spaced-repetition" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">6</span><b>going native</b><span class="len">20.6 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/1-06-going-native.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="1-06-going-native" data-v="good">sounds right</button>
+      <button class="b" data-id="1-06-going-native" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">7</span><b>input before output</b><span class="len">4.0 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/2-07-input-before-output.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="2-07-input-before-output" data-v="good">sounds right</button>
+      <button class="b" data-id="2-07-input-before-output" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">8</span><b>reading and ereaders</b><span class="len">5.2 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/2-08-reading-and-ereaders.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="2-08-reading-and-ereaders" data-v="good">sounds right</button>
+      <button class="b" data-id="2-08-reading-and-ereaders" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">9</span><b>which app and ai</b><span class="len">5.4 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/2-09-which-app-and-ai.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="2-09-which-app-and-ai" data-v="good">sounds right</button>
+      <button class="b" data-id="2-09-which-app-and-ai" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">10</span><b>the method summary</b><span class="len">9.5 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/2-10-the-method-summary.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="2-10-the-method-summary" data-v="good">sounds right</button>
+      <button class="b" data-id="2-10-the-method-summary" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">11</span><b>fear mistakes and the journey</b><span class="len">8.9 min</span></div>
+    <audio preload="none" controls src="/course-x9m4/3-11-fear-mistakes-and-the-journey.mp3"></audio>
+    <div class="btns">
+      <button class="b" data-id="3-11-fear-mistakes-and-the-journey" data-v="good">sounds right</button>
+      <button class="b" data-id="3-11-fear-mistakes-and-the-journey" data-v="fix">needs work</button>
+    </div>
+  </div>
+  <p class="give" style="margin-top:26px"><b>Done? Tap below.</b> Your answers appear in the box —
+  copy them to me.</p>
+  <a class="btn go" id="send" href="#">Show my answers</a>
+  <textarea id="out" placeholder="your verdicts appear here" readonly></textarea>
+  <p class="hint">Anything you don't tap counts as not-yet-heard.</p>
+  <footer><a href="https://www.instagram.com/languyofficial">@languyofficial</a> · private review page</footer>
+</div>
+<script>
+/* Listener on the DOCUMENT, and every press repaints — both learned the hard way on the
+   voice picker, where the deciding buttons did nothing and then saved without confirming,
+   so a second tap silently toggled the verdict back off. */
+var picks={};
+function paint(){
+  [].forEach.call(document.querySelectorAll('.b'),function(b){
+    b.setAttribute('aria-pressed', picks[b.getAttribute('data-id')]===b.getAttribute('data-v')?'true':'false');
+  });
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.b'); 
+  if(b){ picks[b.getAttribute('data-id')]=b.getAttribute('data-v'); paint(); return; }
+  if(e.target.closest('#send')){
+    e.preventDefault();
+    var ks=Object.keys(picks), out=document.getElementById('out');
+    if(!ks.length){ out.value='(nothing tapped yet)'; return; }
+    var good=ks.filter(function(k){return picks[k]==='good';});
+    var fix =ks.filter(function(k){return picks[k]==='fix';});
+    out.value='COURSE CHECK\n\nSOUNDS RIGHT ('+good.length+'):\n'+(good.join('\n')||'  none')+
+              '\n\nNEEDS WORK ('+fix.length+'):\n'+(fix.join('\n')||'  none')+
+              '\n\nnot heard: '+(11-ks.length);
+    out.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+});
+</script></body></html>
