@@ -1,0 +1,602 @@
+/* =============================================================================
+   LANGUY — THE WORLD  ·  the game-world skin for index.html + products.html ONLY
+   -----------------------------------------------------------------------------
+   WHY THIS FILE EXISTS
+   Founder pivot (languy-empire/GAME_WORLD.md, locked 2026-07-27): "The funnel
+   itself is the UI of the game world." index.html is the TITLE SCREEN. products
+   .html is the MENU. Neither is a marketing page and neither is a shop. Only
+   those two documents load this stylesheet — nothing else inherits it.
+
+   THE THREE LAWS (ONE_WORLD_DESIGN.md §3 — these settle every argument)
+   1. ONE DOOR AT THE FOLD. Exactly one tappable primary action on a first
+      screen. Everything else is below it or behind it.
+   2. ONE CURRENCY: THE WORD. No XP, no gems, no coins, no streak. `.owned`
+      emerald is reserved for a word you own, or the word that changes inside a
+      chain. It is never a button, never a border, never decoration.
+   3. A PLACE, NOT A PRODUCT. A rung you have not opened yet shows what is
+      THERE, never "you can't". A free player reaches the edge of the map; they
+      never hit a locked door.
+
+   COLOUR — every colour has exactly one job, and no colour has two
+     --ground/--surface/--raised   the world (near-black, cool)
+     --action  #2563EB             the ONE accent, on actions only (GAME_WORLD
+                                   hard rule 4). Never a background wash.
+     --owned   #34D399             a word you own / the changed word. Nothing else.
+     --err     #FB7185             a message that something failed. Nothing else.
+     --ink/--ink-2/--dim           type. Contrast checked to AA on --ground.
+   Neutral/type/motion tokens still come from /assets/languy-tokens.css so these
+   pages cannot drift from the rest of the empire; this file overrides only what
+   near-black needs.
+
+   THE TWO-COLOUR RULE (enforced 2026-07-29 — this is the whole discipline)
+     BLUE = AN OPEN DOOR. Something you can act on: a button, a pressed choice,
+            the rung you can open now, a focus ring. Never a price, never a
+            kicker, never a border for decoration's sake.
+     EMERALD = A WORD YOU EARNED. Exactly four places survive: the passport word
+            count once you have words, the word that changed inside a chain, a
+            completed node on the road, and the "welcome back — N words" pill.
+            NOT success ticks, NOT feature checklists, NOT selection states, NOT
+            a $0 price, NOT an eyebrow. Those were removed; do not reintroduce.
+     NOTHING ELSE IS COLOURED. Error red is a functional state, not a hue we own.
+   NOTE ON --action: at 3.70:1 on --ground it is a FILL ONLY and never text.
+   Blue text on near-black is --action-text (#5B8DEF, 5.92:1 — AA).
+   The light-theme surfaces (/how-to, /read) still take their accent from
+   languy-tokens.css (#0F80F0 family). Closing that last split is the founder's
+   open "signature colour" ruling, not a defect fix — do not force it here.
+
+   FLAT LAW, kept: elevation is a 1px hairline + a surface step. No drop-shadow
+   spam, no button glow, no gradient buttons. The ONE permitted atmospheric is a
+   single very low-opacity radial "lamp" behind the title screen plus a dotted
+   world texture — texture, not shadow (BRAND.md §4 image canon; TIDE reference).
+
+   MOTION: house easing cubic-bezier(.16,1,.3,1) via var(--ease). Everything
+   collapses under prefers-reduced-motion.
+
+   REFERENCES ACTUALLY USED (Mobbin, 2026-07-29) — proven patterns, not freelanced
+     · Life Reset "Habit Academy" — the dark road: nodes ahead dimmed on a dotted
+       line, exactly ONE glowing node = where you are   → .road/.node
+     · Mimo — currency pills pinned above the path, one active node with a ring
+                                                        → .pp (passport bar)
+     · pliability — near-black, one honest question, exactly two option cards,
+       one Continue                                     → .fork
+     · Netflix Games (Storyteller) — key-art block, title, ONE white button, small
+       dark pills underneath for secondary actions      → .rung
+     · Elevate — one bright primary, the upsell ghosted beneath it, never two
+       primaries competing                              → .door + .door-ghost
+     · Apple Games / PlayStation — dark hero card, quiet rows below the fold
+     · Discord Shop — how "owned" reads premium on near-black
+   ============================================================================= */
+
+/* ---------------------------------------------------------------- tokens --- */
+:root{
+  color-scheme: dark;
+
+  /* THESE VALUES ARE FREE.HTML'S, VERBATIM. Two different darks would be the
+     same fragmentation wearing a new coat, so /free is the reference
+     implementation and these are aliases onto its exact numbers — a visitor
+     crossing /free → / → /products must not see the ground shift. If /free's
+     palette moves, move these with it. */
+  --ground:  #0B0F1A;                  /* free.html --world   */
+  --surface: #0E1421;                  /* free.html --world-2 */
+  --raised:  rgba(255,255,255,.035);   /* a panel on a panel  */
+  --line:    rgba(255,255,255,.08);    /* free.html --edge    */
+  --line-2:  rgba(255,255,255,.14);    /* free.html --edge-2  */
+
+  --ink:   #EEF2F8;                    /* free.html body colour */
+  --ink-2: #A8B3C4;                    /* free.html --dim-2 */
+  --dim:   #7C879B;                    /* free.html --dim   */
+
+  --action:      #2563EB;              /* free.html --blue — GAME_WORLD §5.4 */
+  --action-hi:   #1D57DA;              /* hover fill only — free.html darkens on
+                                          hover, so this darkens too. It used to
+                                          be #3B82F6, which meant the same button
+                                          got brighter here and darker on /free. */
+  --action-text: #5B8DEF;              /* free.html --blue-lit — blue TEXT on dark */
+  --action-soft: rgba(37,99,235,.13);
+
+  --owned:      #34D399;               /* free.html --earned — an earned word ONLY */
+  --owned-soft: rgba(52,211,153,.14);  /* free.html --earned-dim */
+
+  --err:        #FB7185;               /* free.html's error rose, 7.11:1 on ground.
+                                          Was #FCA5A5 here and #FB7185 on /free. */
+
+  --maxw: 1080px;
+  --pad: 22px;
+  --ease: cubic-bezier(.16,1,.3,1);
+  --t: .24s var(--ease);
+  --r-sm: 12px; --r: 16px; --r-lg: 22px; --r-pill: 999px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+/* display:flex/grid on a component silently beats the `hidden` attribute — this is
+   why the passport chip once rendered "0 words" to a brand-new visitor. */
+[hidden]{ display:none !important; }
+html{ -webkit-text-size-adjust:100%; background:var(--ground); }
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:17px; line-height:1.55; letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{ max-width:100%; }
+img{ display:block; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; }
+::selection{ background:var(--action); color:#fff; }
+
+h1,h2,h3{
+  margin:0; font-family:'Archivo',-apple-system,system-ui,sans-serif;
+  font-weight:760; letter-spacing:-.032em; line-height:1.0;
+}
+p{ margin:0; }
+
+.wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); }
+.only-sr{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+:where(a,button,summary,input,[tabindex]):focus-visible{
+  outline:2px solid var(--action-text); outline-offset:3px; border-radius:6px;
+}
+
+/* the dotted world texture — TIDE. Subtle enough to read as paper grain at 1x. */
+.tex{ position:relative; }
+.tex::before{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.045) 1px, transparent 0);
+  background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent);
+          mask-image:linear-gradient(180deg,#000,transparent);
+}
+.tex > *{ position:relative; z-index:1; }
+
+/* --------------------------------------------------------------- eyebrow --- */
+.kick{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Archivo',sans-serif; font-stretch:112%;
+  font-size:11.5px; font-weight:800; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--dim);          /* free.html's .mono instrument label, exactly */
+}
+.kick::before{ content:""; width:22px; height:2px; background:var(--line-2); border-radius:2px; flex:none; }
+/* .open is the ONLY kicker that goes blue — it marks a place that is open to
+   you right now. It is state, not decoration. */
+.kick.open{ color:var(--action-text); }
+.kick.open::before{ background:var(--action); }
+.kick.quiet{ color:var(--dim); }
+
+/* ------------------------------------------------------- THE PASSPORT BAR ---
+   Mimo's currency pills. ONE_WORLD_DESIGN: "Same on EVERY screen. Never changes
+   shape." Left: who you are. Right: what you own. It is not navigation. */
+.pp{
+  position:sticky; top:0; z-index:60;
+  background:rgba(11,15,26,.72);
+  -webkit-backdrop-filter:blur(14px) saturate(160%); backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid transparent; transition:border-color var(--t), background var(--t);
+}
+.pp.stuck{ border-bottom-color:var(--line); background:rgba(11,15,26,.92); }
+.pp-in{
+  height:52px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.pp-mark{ display:inline-flex; align-items:center; gap:9px; min-height:44px; }
+/* THE EMBLEM — founder-locked 2026-07-29: the globe wearing pixelated
+   sunglasses, and nothing else. The bar renders it at 22px, so it wears the
+   MICRO tier (brand/emblem-globe-micro-ondark.svg); >=64px surfaces wear the
+   render. Tier table + measurements: brand/SIZE-TRUTH.md.
+   The emblem is IDENTITY, not an action: the only colours it may bring to the
+   top of the page are its own — ocean blue and land green. It must never be
+   recoloured into --action blue, which is what a tappable thing looks like. */
+.pp-mark svg{ width:22px; height:22px; flex:none; color:var(--ink); }
+.pp-mark img.lgy-emblem{ width:22px; height:22px; flex:none; display:block; }
+.pp-mark b{
+  font-family:'Archivo',sans-serif; font-weight:800; font-size:16px;
+  letter-spacing:.15em; text-transform:uppercase;
+}
+.pp-right{ display:flex; align-items:center; gap:8px; }
+.pp-chip{
+  display:inline-flex; align-items:center; gap:7px; min-height:36px; padding:0 13px;
+  border:1px solid var(--line-2); border-radius:var(--r-pill);
+  font-size:13px; font-weight:600; color:var(--ink-2); background:var(--surface);
+  white-space:nowrap;
+}
+.pp-chip .n{ font-variant-numeric:tabular-nums; font-weight:800; color:var(--ink); }
+.pp-chip.has .n{ color:var(--owned); }
+/* the star is emerald only once there IS something earned — on an empty passport
+   it was an emerald decoration next to a grey "0 words". */
+.pp-chip .star{ width:12px; height:12px; color:var(--dim); flex:none; }
+.pp-chip.has .star{ color:var(--owned); }
+.pp-go{
+  display:inline-flex; align-items:center; min-height:44px; padding:0 17px;
+  border-radius:var(--r-pill); background:var(--action); color:#fff;
+  font-weight:700; font-size:14.5px; transition:background var(--t), transform var(--t);
+}
+.pp-go:hover{ background:var(--action-hi); }
+.pp-go:active{ transform:scale(.97); }
+
+/* ------------------------------------------------------------- THE DOOR ---
+   The single primary action. There is never more than one per screen. */
+.door{
+  display:inline-flex; align-items:center; justify-content:center; gap:11px;
+  min-height:56px; padding:0 22px; width:100%; max-width:440px;
+  background:var(--action); color:#fff; border:0; border-radius:var(--r-pill);
+  font-family:'Archivo',sans-serif; font-weight:750; font-size:17px; letter-spacing:-.015em;
+  cursor:pointer; transition:background var(--t), transform var(--t);
+}
+.door:hover{ background:var(--action-hi); }
+.door:active{ transform:scale(.985); }
+.door svg{ width:17px; height:17px; flex:none; }
+.door-ghost{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  min-height:50px; padding:0 22px;
+  border:1px solid var(--line-2); border-radius:var(--r-pill);
+  background:transparent; color:var(--ink-2); font-weight:650; font-size:15.5px;
+  cursor:pointer; transition:border-color var(--t), color var(--t);
+}
+.door-ghost:hover{ border-color:var(--dim); color:var(--ink); }
+.door-ghost svg{ width:15px; height:15px; flex:none; }
+.door-fine{ margin-top:14px; font-size:13.5px; color:var(--dim); line-height:1.5; }
+
+/* ---------------------------------------------------------- THE CHAIN ------
+   The 5-second proof, and the reason these pages are not a phrasebook. Four
+   consecutive lines from a real family in the shipped corpus. ONE word changes
+   and that word is the only highlighted thing on the screen. The highlight IS
+   the teaching — there is no explanatory copy, on purpose. */
+.chain{
+  border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface);
+  padding:22px 18px 18px; overflow:hidden;
+}
+.chain-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  flex-wrap:wrap; margin-bottom:16px;
+}
+.chain-langs{ display:grid; grid-template-columns:repeat(4,1fr); gap:7px; width:100%; }
+.chain-langs button{
+  min-height:44px; padding:0 10px; border-radius:var(--r-pill);
+  border:1px solid var(--line-2); background:transparent; color:var(--dim);
+  font-size:12.5px; font-weight:700; letter-spacing:.06em; cursor:pointer;
+  transition:color var(--t), border-color var(--t), background var(--t);
+}
+.chain-langs button:hover{ color:var(--ink-2); }
+.chain-langs button[aria-pressed="true"]{
+  color:var(--ink); border-color:var(--action); background:var(--action-soft);
+}
+.chain-list{ display:flex; flex-direction:column; gap:2px; }
+.chain-row{
+  display:block; width:100%; text-align:left; background:transparent;
+  border:0; border-radius:var(--r); padding:13px 14px; cursor:pointer;
+  opacity:0; transform:translateY(9px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease), background var(--t);
+}
+.chain-row.in{ opacity:1; transform:none; }
+.chain-row:hover{ background:var(--raised); }
+.chain-tgt{
+  font-family:'Archivo',sans-serif; font-weight:700; font-size:clamp(21px,5.4vw,28px);
+  letter-spacing:-.025em; line-height:1.25; color:var(--ink-2);
+}
+/* THE ONE HIGHLIGHT — a word that changed. Emerald, per law 2. */
+.chain-tgt .hi{
+  color:var(--owned); background:var(--owned-soft);
+  border-radius:6px; padding:0 .12em; margin:0 -.02em;
+}
+.chain-en{ margin-top:5px; font-size:14.5px; color:var(--dim); line-height:1.4; }
+.chain-rom{ font-size:13px; color:var(--dim); opacity:.8; margin-top:2px; }
+.chain-row .spk{
+  display:inline-flex; align-items:center; gap:6px; margin-top:7px;
+  font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--dim); transition:color var(--t);
+}
+.chain-row:hover .spk{ color:var(--action-text); }
+.chain-row .spk svg{ width:13px; height:13px; }
+/* playing is an ACTION state, not an earned word — it takes the blue that hover
+   already uses, so the row does not flash emerald at you for pressing play. */
+.chain-row.playing .spk{ color:var(--action-text); }
+.chain-foot{
+  margin-top:16px; padding-top:15px; border-top:1px solid var(--line);
+  font-size:14.5px; color:var(--ink-2); line-height:1.5;
+}
+.chain-foot b{ color:var(--ink); font-weight:700; }
+
+/* ------------------------------------------------------------- THE ROAD ----
+   Life Reset's Habit Academy. A vertical dotted road. Nodes further along are
+   dimmed but fully legible — you can always READ what is up there. Exactly one
+   node is lit: where you are. Nothing says "locked". */
+.road{ position:relative; padding-left:44px; }
+.road::before{
+  content:""; position:absolute; left:17px; top:12px; bottom:12px; width:2px;
+  background-image:linear-gradient(var(--line-2) 45%, transparent 0);
+  background-size:2px 9px;
+}
+.node{ position:relative; padding:0 0 26px; }
+.node:last-child{ padding-bottom:0; }
+.node::before{
+  content:""; position:absolute; left:-34px; top:5px; width:16px; height:16px;
+  border-radius:50%; background:var(--ground); border:2px solid var(--line-2);
+  transition:border-color var(--t), box-shadow var(--t);
+}
+.node.here::before{ border-color:var(--action); box-shadow:0 0 0 5px var(--action-soft); }
+.node.done::before{ border-color:var(--owned); background:var(--owned); }
+.node-k{
+  font-family:'Archivo',sans-serif; font-size:11px; font-weight:800;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+}
+.node.here .node-k{ color:var(--action-text); }
+.node-t{ margin-top:3px; font-size:18px; font-weight:700; color:var(--ink); }
+.node-d{ margin-top:3px; font-size:14.5px; color:var(--dim); line-height:1.5; }
+.node.ahead .node-t{ color:var(--ink-2); }
+
+/* ------------------------------------------------------------- THE FORK ----
+   pliability. The ONE question. Two cards, no third option, no "compare all".
+   Answering is the personalisation: the chosen card stamps, the other steps
+   back, and the world below rearranges itself around the answer. */
+.fork{ display:grid; gap:14px; }
+.fork-card{
+  position:relative; display:block; width:100%; text-align:left; cursor:pointer;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg);
+  padding:22px 20px 20px; color:inherit;
+  transition:border-color var(--t), background var(--t), transform var(--t), opacity var(--t);
+}
+.fork-card:hover{ border-color:var(--line-2); background:var(--raised); }
+.fork-card:active{ transform:scale(.99); }
+.fork-card .fc-k{
+  font-family:'Archivo',sans-serif; font-size:11px; font-weight:800;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+}
+.fork-card h3{ margin-top:9px; font-size:clamp(22px,5vw,27px); }
+.fork-card p{ margin-top:9px; font-size:15px; color:var(--ink-2); line-height:1.55; }
+.fork-card .fc-p{
+  margin-top:15px; display:inline-flex; align-items:center; gap:9px;
+  font-size:14px; font-weight:700; color:var(--action-text);
+}
+.fork-card .fc-p svg{ width:14px; height:14px; }
+.fork-card .fc-tick{
+  position:absolute; top:18px; right:18px; width:26px; height:26px; border-radius:50%;
+  border:1px solid var(--line-2); display:grid; place-items:center;
+  color:transparent; transition:all var(--t);
+}
+.fork-card .fc-tick svg{ width:14px; height:14px; }
+/* a chosen language is a CHOICE you acted on, not a word you earned — blue. */
+.fork-card[aria-pressed="true"]{ border-color:var(--action); background:var(--raised); }
+.fork-card[aria-pressed="true"] .fc-tick{ border-color:var(--action); background:var(--action); color:#fff; }
+.fork-card[aria-pressed="true"] .fc-k{ color:var(--action-text); }
+.fork.answered .fork-card:not([aria-pressed="true"]){ opacity:.42; }
+.fork.answered .fork-card:not([aria-pressed="true"]):hover{ opacity:.75; }
+
+/* SHELF REVEAL — the gate is real now (2026-07-29).
+   The page promises, in its own hero: "Answer one question and you'll see at
+   most three prices — never a wall of them." Until today the answer only set
+   `opacity:.3` on the shelf you did NOT choose. Dimmed is not gated: that shelf
+   stayed in flow, stayed scrollable, stayed readable, stayed in the a11y tree,
+   and every one of its prices stayed on screen. Worse, before ANY answer there
+   was no `.fork-live` at all, so both shelves rendered at FULL opacity — a
+   five-persona walk counted eleven distinct figures across 9,685px, about 11.5
+   phone screens, on the page that disclaims exactly that. True copy sitting on
+   top of a false mechanism is the worst of both: it reads as a lie.
+
+   `.fork-gated` is set by JS on boot and NEVER written into the HTML, so a
+   visitor with JS disabled degrades to the old always-open page and can still
+   read and buy everything — the gate can hide a shelf, never a purchase. */
+.shelf{ transition:opacity .45s var(--ease); }
+.fork-gated .shelf[data-shelf]{ display:none; }
+.fork-gated .shelf[data-shelf].on{ display:block; animation:shelf-in .45s var(--ease) both; }
+/* the divider only earns its keep while both shelves are actually on screen */
+.fork-gated .rule{ display:none; }
+@keyframes shelf-in{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion:reduce){
+  .fork-gated .shelf[data-shelf].on{ animation:none; }
+}
+
+/* -------------------------------------------------------------- THE RUNG ---
+   Netflix Games' Storyteller detail sheet: a key-art band, the name, the price
+   as a fact, what is inside, then ONE button and small quiet pills beneath. */
+.rung{
+  border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface);
+  overflow:hidden;
+}
+.rung + .rung{ margin-top:16px; }
+.rung.lit{ border-color:var(--action); }
+.rung-art{
+  position:relative; padding:20px; border-bottom:1px solid var(--line);
+  display:grid; gap:18px;
+  background:
+    radial-gradient(120% 90% at 18% 0%, rgba(37,99,235,.16), transparent 62%),
+    var(--raised);
+}
+/* THE KEY ART — a real screenshot of the real thing, never an illustration of
+   it. Netflix Games puts the art above the name; so do we on a phone
+   (`order:-1`), and beside it on desktop. Cropped from the top so the screen's
+   own headline survives the crop. */
+.rung-shot{
+  /* height:auto is load-bearing: the width/height ATTRIBUTES map to height:1600px
+     in the UA sheet, which beats aspect-ratio and renders the shot at full
+     natural height (it doubled the page). Explicit height:auto hands control
+     back to aspect-ratio. */
+  order:-1; width:100%; height:auto; aspect-ratio:16/10;
+  /* object-position was `top center`, and every product shot here is a PORTRAIT
+     phone screenshot (940x1600, 604x1410). Cover into a 16:10 box shows only
+     27-41% of the image, and top-cropping picks the emptiest strip there is:
+     the status bar and the dead space above the content. On /products the $39
+     Method Kit card therefore rendered as a near-featureless dark rectangle —
+     71% of play-sentence-card.jpg's pixels are near-black, and the part that
+     sells it ("No se.", the Hear-it button, the mascot) sat entirely below the
+     crop. This is the page 5 buy-clicks land on and where nobody has bought.
+     38% centres the visible slice on the content instead of the chrome. */
+  object-fit:cover; object-position:center 38%;   /* default; each shot in products.html
+     overrides this inline with a value MEASURED from where its own content actually sits —
+     these are portrait phone screenshots and the right slice differs per image (0%..100%). */
+  border-radius:var(--r); border:1px solid var(--line-2); background:var(--ground);
+}
+.rung-art-t{ min-width:0; }
+/* was an emerald gradient wash behind the free-kit art — decoration, and the FLAT
+   LAW bans gradient washes anyway. The rung reads as free from its price and
+   its copy, not from a green glow. */
+.rung.owned-art .rung-art{ background:var(--raised); }
+.rung-k{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:'Archivo',sans-serif; font-size:11px; font-weight:800;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+}
+/* only the rung you can open right now wears the accent */
+.rung.lit .rung-k{ color:var(--action-text); }
+.rung-k .sep{ color:var(--line-2); }
+.rung-name{
+  margin-top:12px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+}
+.rung-name h3{ font-size:clamp(25px,6vw,34px); }
+.rung-price{
+  font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(23px,5.4vw,30px);
+  color:var(--ink); letter-spacing:-.03em; font-variant-numeric:tabular-nums;
+}
+/* THE ANCHOR, SEEN INSTEAD OF READ (2026-08-01, Mobbin reference pass).
+   Both bundles already carried an honest anchor — 7 kits singly is $273, the two
+   shelves separately are $176 — but only inside a paragraph BELOW the price, so
+   the saving had to be read to be felt. Every reference that does this well
+   (Craft, Kit, Programa) puts the struck-through number beside the live one, at
+   the moment the eye lands on the price.
+   NOTHING IS INVENTED. $273 is 7 x $39 and $176 is $97 + $79, and every component
+   genuinely sells at that price today — which is the only reason this is legal
+   under the site's own rule that the discount must be subtraction the buyer can
+   do themselves. A struck-through number that was never a real price is the
+   oldest lie in retail and is exactly what this brand does not do. */
+.rung-was{
+  font-family:'Archivo',sans-serif; font-weight:700; font-size:clamp(15px,3.4vw,19px);
+  color:var(--ink-2); letter-spacing:-.02em; font-variant-numeric:tabular-nums;
+  text-decoration:line-through; text-decoration-thickness:2px;
+  opacity:.62; margin-right:9px;
+}
+/* a price is a fact, not an earned word — "Free" reads in --ink like every other
+   price so the ladder is comparable at a glance. */
+.rung-body{ padding:20px; }
+.rung-body > p{ font-size:15.5px; color:var(--ink-2); line-height:1.6; }
+.rung-why{
+  margin-top:14px; padding:13px 15px; border-radius:var(--r);
+  background:var(--raised); border:1px solid var(--line);
+  font-size:14px; color:var(--ink-2); line-height:1.55;
+}
+.rung-why b{ color:var(--ink); }
+.inside{ list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.inside li{
+  display:flex; gap:11px; align-items:flex-start;
+  font-size:14.5px; color:var(--ink-2); line-height:1.5;
+}
+/* "what's inside" ticks are a feature list, not earned words — quiet grey. */
+.inside li svg{ width:16px; height:16px; margin-top:3px; flex:none; color:var(--dim); }
+.inside li b{ color:var(--ink); font-weight:650; }
+.rung-cta{ margin-top:20px; display:flex; flex-direction:column; gap:10px; align-items:stretch; }
+.rung-cta .door{ max-width:none; }
+.rung-note{ margin-top:13px; font-size:13.5px; color:var(--dim); line-height:1.55; }
+.rung-note a{ color:var(--ink-2); text-decoration:underline; text-underline-offset:2px; }
+
+/* ------------------------------------------------------- edge-of-the-map ---
+   The honest lock. It never says "you can't" — it says what is over there. */
+.edge{
+  display:flex; gap:12px; align-items:flex-start; padding:15px 16px;
+  border:1px dashed var(--line-2); border-radius:var(--r);
+  font-size:14px; color:var(--dim); line-height:1.55;
+}
+.edge svg{ width:17px; height:17px; margin-top:2px; flex:none; color:var(--dim); }
+.edge b{ color:var(--ink-2); font-weight:650; }
+
+/* ------------------------------------------------------------ stat strip --- */
+.stats{
+  display:grid; grid-template-columns:repeat(2,1fr);
+  border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden;
+  background:var(--surface);
+}
+.stats div{ padding:20px 16px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+.stats div:nth-child(2n){ border-right:0; }
+.stats div:nth-child(n+3){ border-bottom:0; }
+.stats .v{
+  font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,6vw,32px);
+  letter-spacing:-.03em; color:var(--ink); line-height:1;
+}
+.stats .l{
+  margin-top:7px; font-size:10.5px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--dim); line-height:1.4;
+}
+
+/* ---------------------------------------------------------------- panels --- */
+.panel{
+  border:1px solid var(--line); border-radius:var(--r-lg);
+  background:var(--surface); padding:22px 20px;
+}
+.panel.quiet{ background:transparent; }
+.sec{ padding:64px 0; }
+.sec.tight{ padding:44px 0; }
+.sec-h{ font-size:clamp(30px,7.5vw,52px); line-height:1.02; }
+.sec-p{ margin-top:14px; font-size:16.5px; color:var(--ink-2); line-height:1.6; max-width:60ch; }
+.rule{ border:0; border-top:1px solid var(--line); margin:0; }
+
+/* ------------------------------------------------------------------- FAQ --- */
+.q{ border-bottom:1px solid var(--line); }
+.q summary{
+  list-style:none; cursor:pointer; padding:17px 34px 17px 0; position:relative;
+  font-size:16.5px; font-weight:650; color:var(--ink); min-height:44px;
+  display:flex; align-items:center;
+}
+.q summary::-webkit-details-marker{ display:none; }
+.q summary::after{
+  content:""; position:absolute; right:6px; top:50%; width:9px; height:9px;
+  border-right:2px solid var(--dim); border-bottom:2px solid var(--dim);
+  transform:translateY(-70%) rotate(45deg); transition:transform var(--t);
+}
+.q[open] summary::after{ transform:translateY(-30%) rotate(225deg); }
+.q .a{ padding:0 0 19px; font-size:15.5px; color:var(--ink-2); line-height:1.65; max-width:64ch; }
+.q .a a{ color:var(--action-text); text-decoration:underline; text-underline-offset:2px; }
+
+/* ---------------------------------------------------------------- footer --- */
+.wfoot{ border-top:1px solid var(--line); padding:40px 0 46px; }
+.wfoot .lad{
+  font-family:'Archivo',sans-serif; font-size:10.5px; font-weight:800;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--dim);
+}
+.wfoot nav{ margin-top:15px; display:flex; flex-wrap:wrap; gap:9px; }
+.wfoot nav a{
+  display:inline-flex; align-items:center; min-height:44px; padding:0 15px;
+  border:1px solid var(--line); border-radius:var(--r-pill);
+  font-size:13.5px; color:var(--ink-2); transition:border-color var(--t), color var(--t);
+}
+.wfoot nav a:hover{ border-color:var(--line-2); color:var(--ink); }
+.wfoot .legal{ margin-top:22px; font-size:13px; color:var(--dim); }
+.wfoot .legal a{ color:var(--dim); text-decoration:underline; text-underline-offset:2px; }
+
+/* ---------------------------------------------------------------- reveal --- */
+.rv{ opacity:0; transform:translateY(14px); }
+.rv.in{ opacity:1; transform:none; transition:opacity .6s var(--ease), transform .6s var(--ease); }
+
+/* ------------------------------------------------------------- desktop ----
+   1440 must look deliberate, not a stretched phone. Two columns where a second
+   column earns its place; the fold stays one decision. */
+@media (min-width:760px){
+  :root{ --pad:32px; }
+  .sec{ padding:96px 0; }
+  .sec.tight{ padding:64px 0; }
+  .chain{ padding:30px 26px 24px; }
+  .fork{ grid-template-columns:1fr 1fr; gap:18px; }
+  .fork-card{ padding:28px 26px 24px; }
+  .stats{ grid-template-columns:repeat(4,1fr); }
+  .stats div{ border-bottom:0; padding:26px 22px; }
+  .stats div:nth-child(2n){ border-right:1px solid var(--line); }
+  .stats div:last-child{ border-right:0; }
+  .rung-art{ padding:28px 30px; }
+  .rung.has-art .rung-art{ grid-template-columns:1fr .78fr; align-items:center; gap:26px; }
+  .rung.has-art .rung-shot{ order:0; aspect-ratio:4/3; }
+  .rung-body{ padding:28px 30px 30px; }
+  .rung-cta{ flex-direction:row; align-items:center; flex-wrap:wrap; }
+  .rung-cta .door{ width:auto; min-width:280px; }
+  .door{ width:auto; min-height:58px; padding:0 30px; font-size:18px; }
+  .chain-langs{ display:flex; width:auto; gap:7px; }
+  .chain-langs button{ min-width:44px; }
+  .pp-in{ height:60px; }
+}
+@media (min-width:1080px){
+  .split{ display:grid; grid-template-columns:1.02fr .98fr; gap:56px; align-items:center; }
+}
+
+/* -------------------------------------------------------------- a11y ------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important; scroll-behavior:auto !important;
+  }
+  .rv,.chain-row{ opacity:1 !important; transform:none !important; }
+}

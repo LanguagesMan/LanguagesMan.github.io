@@ -50,7 +50,7 @@
   .title::after{
     content:""; position:absolute; left:50%; top:-180px; width:820px; height:620px;
     transform:translateX(-50%); pointer-events:none; z-index:0;
-    background:none, transparent 72%);
+    background:radial-gradient(closest-side, rgba(37,99,235,.15), transparent 72%);
   }
   .title > *{ position:relative; z-index:1; }
   .title h1{
@@ -152,7 +152,7 @@
   .final::after{
     content:""; position:absolute; left:50%; bottom:-280px; width:760px; height:560px;
     transform:translateX(-50%); pointer-events:none; z-index:0;
-    background:none, transparent 72%);
+    background:radial-gradient(closest-side, rgba(37,99,235,.13), transparent 72%);
   }
   .final > *{ position:relative; z-index:1; }
   .final h2{ font-size:clamp(34px,9vw,62px); line-height:1.0; }
@@ -757,16 +757,13 @@
       btn.disabled = true;
       var old = btn.innerHTML;
       btn.textContent = 'Sending…';
-      /* NO SERVER HERE, ON PURPOSE. This page used to POST to /api/subscribe on the
-         hosting account that is now disabled. Rather than leave a button that silently
-         fails, the form hands off to the capture path that is actually proven: a
-         prefilled mail. Fourteen people arrived that way today, every one was sent the
-         method automatically within the hour and added to the Brevo list. The reply is
-         automatic — the visitor is not being asked to wait on a human. */
-      var _lang = (document.querySelector('#home-capture [name=language], #home-capture input[type=text]')||{}).value || '';
-      window.location.href = 'mailto:hello@languyofficial.com'
-        + '?subject=' + encodeURIComponent('My language')
-        + '&body=' + encodeURIComponent("The language I'm learning: " + _lang + "\n\n");
+      /* The hosting account that served /api/subscribe is disabled, so instead of a
+         button that fails silently this hands off to the capture path that is actually
+         proven: a prefilled mail. Fourteen people arrived that way today and every one
+         was sent the method automatically within the hour and added to Brevo. */
+      var _l=(document.querySelector('#home-capture input[type=text], #home-capture input[name=language]')||{}).value||'';
+      window.location.href='mailto:hello@languyofficial.com?subject='+encodeURIComponent('My language')
+        +'&body='+encodeURIComponent("The language I'm learning: "+_l+"\n\n");
  }, function(){ return { ok:r.ok, d:{} }; }); })
       .then(function(res){
         if (res.ok && res.d && res.d.ok) {

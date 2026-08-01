@@ -1,0 +1,107 @@
+/* ============================================================================
+   LANGUY — CANONICAL DESIGN TOKENS  (the single source of truth)
+   ----------------------------------------------------------------------------
+   This is THE file. Every Languy marketing/funnel surface imports THIS — nobody
+   hand-copies a :root anymore. Change a value here → it changes everywhere. This
+   ends the drift that made surfaces look inconsistent.
+
+   Usage:  <link rel="stylesheet" href="/assets/languy-tokens.css">
+           then use the vars:  background:var(--bg); color:var(--ink); ...
+
+   DEFAULT = LIGHT, warm-premium (the funnel/marketing theme — F6 Fable ruling
+   2026-07-16: "#0F80F0 bright azure, light-first. FINAL", superseding the dark
+   #2563EB theme). Add class="theme-dark" on <html> or a wrapper for the deep
+   app/game theme (/play, arcade).
+
+   LAWS ENCODED HERE (do not override per-page):
+   • FLAT. No drop-shadows, no button glow, no gradient washes. Elevation =
+     surface color (white cards on warm-white page) + a 1px hairline border.
+   • ONE primary accent = bright azure #0F80F0. No emerald co-primary (retired
+     2026-07: one-accent law). Green/red only ever mean success/error, never brand.
+   • Display = Archivo (strong weight, sentence case — NOT black-caps).
+     Body/UI = Instrument Sans. Nothing else.
+   ============================================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Brand core (LOCKED — never per-page) ---- */
+  --accent:        #0F80F0;   /* THE brand azure: borders, focus, chalk, featured, large accent text */
+  --accent-cta:    #0B63C7;   /* solid button FILL + inline body links — white/link text stays AA (>=4.5:1) */
+  --accent-bright: #0B63C7;   /* eyebrow/link text on light (AA-safe azure) — "bright" name kept for back-compat */
+  --accent-deep:   #0A56AD;   /* pressed / hover-darken on solid fills */
+  --accent-soft:   #EAF3FE;   /* pale azure tint fill: chips, active pills, soft info panels */
+  --chalk:         #0F80F0;   /* the signature underline stroke — azure */
+  --good:          #0B63C7;   /* success text (azure, one-accent law) */
+  --good-soft:     #EAF3FE;   /* success panel fill */
+  --amber:         #B45309;   /* streak / caution (AA-safe on light) */
+  --danger:        #DC2626;   /* errors (AA-safe on light) */
+
+  /* ---- LIGHT theme neutrals (default: funnel/marketing) ---- */
+  --bg:        #FBFBFA;   /* warm off-white paper — the page */
+  --bg-2:      #F4F6F9;   /* cool half-tone for banded sections */
+  --bg-soft:   #F4F6F9;   /* input fills / soft blocks */
+  --paper:     #FFFFFF;   /* raised cards (white on off-white = flat elevation) */
+  --paper-2:   #F7F9FC;   /* second-level surface */
+  --ink:       #0E1420;   /* primary text (near-black, faintly warm) */
+  --ink-2:     #3A4453;   /* secondary text */
+  --muted:     #6A7482;   /* labels / kickers / placeholders */
+  --muted-2:   #6A7482;   /* alias */
+  --line:      #E7EAF0;   /* hairline */
+  --line-2:    #D6DCE6;   /* stronger hairline / control borders */
+
+  /* ---- Type ---- */
+  --disp: 'Archivo',-apple-system,system-ui,sans-serif;   /* display: strong weight, sentence case */
+  --wide: 'Archivo',sans-serif;
+  --sans: 'Instrument Sans',-apple-system,system-ui,sans-serif;
+  /* Type scale — exactly 5 sizes, ~1.25 ratio (Linear/Vercel discipline). No in-betweens. */
+  --fs-display: clamp(2.25rem, 5vw, 3.5rem);
+  --fs-h2:      clamp(1.75rem, 3.5vw, 2.5rem);
+  --fs-h3:      1.25rem;
+  --fs-body:    1rem;
+  --fs-small:   .8125rem;
+
+  /* ---- Shape ---- */
+  --r-sm: 12px; --r: 16px; --r-lg: 22px; --r-pill: 999px;
+
+  /* ---- Spacing scale (8px grid — kill odd off-grid values) ---- */
+  --sp-section-desktop: 96px;
+  --sp-section-mobile:  56px;
+  --sp-card-pad-desktop: 32px;
+  --sp-card-pad-mobile:  20px;
+  --sp-gap-desktop: 24px;
+  --sp-gap-mobile:  16px;
+  --maxw: 1120px;   /* per-page override allowed */
+  --pad:  24px;     /* per-page override allowed */
+
+  /* ---- Motion (house easing — design law) ---- */
+  --ease: cubic-bezier(.16,1,.3,1);   /* house spring */
+  --t:    .22s cubic-bezier(.16,1,.3,1);
+
+  /* ---- FLAT LAW: elevation is a hairline, never a glow/drop-shadow ---- */
+  --shadow:    inset 0 0 0 1px rgba(14,20,32,.04);
+  --btn-depth: none;
+}
+
+/* ---- DARK theme (app/game surfaces: /play, arcade) — same azure, deep neutrals ---- */
+.theme-dark {
+  color-scheme: dark;
+  --bg:        #0A0E17;
+  --bg-2:      #0C111C;
+  --bg-soft:   #10141F;
+  --paper:     #121826;
+  --paper-2:   #0F1421;
+  --ink:       #F2F5FA;
+  --ink-2:     #B7C0CE;
+  --muted:     #6E7889;
+  --muted-2:   #6E7889;
+  --line:      #1A2130;
+  --line-2:    #27303F;
+  --accent-cta:    #0B63C7;
+  --accent-bright: #53A9F6;   /* on dark, "bright" is a light azure for links */
+  --accent-soft:   #0A1F38;
+  --good:          #53A9F6;
+  --good-soft:     #0A1F38;
+  --shadow:    inset 0 0 0 1px rgba(255,255,255,.06);
+  --btn-depth: inset 0 0 0 1px rgba(255,255,255,.06);
+}
