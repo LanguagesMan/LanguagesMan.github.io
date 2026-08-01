@@ -267,7 +267,15 @@ noise reduction, no tightening, no pauses removed. This is what you recorded.</p
     document.getElementById('send').disabled = done===0;
   }
 
-  list.addEventListener('click', function(e){
+  /* LISTEN ON THE DOCUMENT, NOT ON #list (fixed 2026-08-01).
+     The three most important buttons on this page — "are these the originals",
+     "do the repair", "yes these are the six" — live in .row blocks ABOVE #list,
+     so a listener bound to #list never saw them. Tapping them did nothing: no
+     highlight, no save, and they were absent from the sent picks. He could have
+     ruled on the whole audio question, hit send, and shipped me a message saying
+     he had decided nothing. Verified before the fix: localStorage held only the
+     one module row I clicked inside the list. */
+  document.addEventListener('click', function(e){
     var b=e.target.closest && e.target.closest('[data-v]');
     if(!b) return;
     var id=b.getAttribute('data-id'), v=b.getAttribute('data-v');
