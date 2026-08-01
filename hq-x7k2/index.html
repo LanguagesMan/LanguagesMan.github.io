@@ -1,0 +1,170 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>HQ · Languy</title><meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!--
+  THE HUB. Built 2026-08-01 because he kept typing a dashboard address and landing on
+  the marketing page: the stand-in serves the home page for every unknown path, which
+  is fine for a stranger and useless for him.
+
+  NO PRIVATE DATA ON THIS PAGE, EVER. It is a set of links and a status list. Names,
+  emails, revenue, location and anything from his inner life stay off it — there is
+  already a scar in this codebase from a private file being served publicly, and an
+  obscure URL is not access control.
+-->
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  :root{
+    /* Monochrome, deliberately. He rejected this page's previous palette in his own
+       words — "this stupid AI slop of this stupid blue, a cheap blue button" — and
+       LOCKED_DESIGN makes it law: default blue-on-near-black is the signature of
+       AI-generated UI, never the primary action colour again. Neutral black, not the
+       blue-tinted #080B12 that was here; paper-white primary; no colour at all, which
+       is also the only way to remove the banned thing without choosing his accent FOR
+       him. References pulled first, per the law: Savee, Chronicle and Open all ship a
+       paper primary on neutral black with zero hue. */
+    --bg:#0A0A0A; --edge:rgba(255,255,255,.09); --edge2:rgba(255,255,255,.16);
+    --ink:#F5F5F4; --dim:#A3A3A0; --dim2:#73736F;
+    --paper:#FAFAF9; --sink:#000;
+    --disp:'Archivo',system-ui,sans-serif;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font:16.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    padding:0 0 64px;overflow-x:hidden}
+  .wrap{max-width:600px;margin-inline:auto;padding:0 20px}
+
+  .hero{padding:46px 0 4px;position:relative}
+  .mark{font-family:var(--disp);font-weight:900;font-size:.74rem;letter-spacing:.24em;
+    color:var(--dim2);text-transform:uppercase;margin:0 0 22px;position:relative}
+  h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.05rem,8.4vw,3rem);
+    line-height:1.04;letter-spacing:-.035em;margin:0 0 18px;position:relative}
+  h1 em{font-style:normal;color:var(--ink);text-decoration:underline;
+    text-decoration-thickness:2px;text-underline-offset:7px;
+    text-decoration-color:rgba(255,255,255,.26)}
+  .sub{color:var(--dim);font-size:1.06rem;line-height:1.55;position:relative}
+  .sub b{color:var(--ink);font-weight:600}
+  .proof{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0;
+    border:1px solid var(--edge);border-radius:999px;padding:7px 15px 7px 11px;
+    background:rgba(255,255,255,.03);font-size:.86rem;color:var(--dim);position:relative}
+  .proof b{color:var(--ink);font-weight:700}
+  .dot{width:7px;height:7px;border-radius:50%;background:#2ED573;
+    box-shadow:0 0 0 3px rgba(46,213,115,.16)}
+
+  .card{margin:34px 0 0;border:1px solid var(--edge);border-radius:20px;overflow:hidden;
+    background:rgba(255,255,255,.022)}
+  .card-h{padding:19px 20px 15px;border-bottom:1px solid var(--edge)}
+  .card-k{font-family:var(--disp);font-weight:800;font-size:.68rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--dim2);margin:0 0 5px}
+  .card-t{font-family:var(--disp);font-weight:700;font-size:1.12rem;letter-spacing:-.02em}
+  ol{list-style:none;padding:16px 20px 6px;counter-reset:s}
+  li{position:relative;padding:0 0 17px 42px;color:var(--dim);line-height:1.5;font-size:.97rem}
+  li:last-child{padding-bottom:12px}
+  li b{color:var(--ink);font-weight:650}
+  li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
+    width:27px;height:27px;border-radius:9px;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.13);color:var(--ink);
+    font-family:var(--disp);font-weight:800;font-size:.8rem;
+    display:flex;align-items:center;justify-content:center}
+
+  .give{margin:30px 0 20px;font-size:1.04rem;color:var(--dim)}
+  .give b{color:var(--ink);font-weight:650}
+  .btn{display:flex;align-items:center;justify-content:center;min-height:58px;
+    border-radius:15px;text-decoration:none;font-family:var(--disp);font-weight:800;
+    font-size:1.02rem;margin:0 0 11px;transition:transform .12s}
+  .go{background:var(--paper);color:#0A0A0A;box-shadow:0 2px 0 rgba(0,0,0,.55)}
+  .go:active{transform:translateY(2px);box-shadow:0 0 0 var(--sink)}
+  .ghost{border:1px solid var(--edge2);color:var(--ink);background:rgba(255,255,255,.035)}
+  .ghost:active{transform:translateY(2px)}
+  .hint{font-size:.86rem;color:var(--dim2);margin:-4px 0 20px;line-height:1.5}
+  .hint b{color:var(--dim)}
+  .hint a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.32)}
+
+  .note{border:1px solid var(--edge);border-left:3px solid rgba(255,255,255,.34);
+    border-radius:0 13px 13px 0;padding:15px 17px;margin:26px 0 0;
+    background:rgba(255,255,255,.025);font-size:.93rem;color:var(--dim);line-height:1.55}
+  .note b{color:var(--ink)}
+
+  footer{margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--edge);
+    font-size:.82rem;color:var(--dim2);line-height:1.6}
+  footer a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--edge)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(10px);animation:up .55s cubic-bezier(.16,1,.3,1) forwards}
+    .reveal:nth-of-type(2){animation-delay:.05s}
+    .card{animation:up .6s .1s cubic-bezier(.16,1,.3,1) both}
+    @keyframes up{to{opacity:1;transform:none}}
+  }
+</style>
+<style>
+  .card2{border:1px solid var(--edge);border-radius:16px;padding:16px 18px;margin:0 0 12px;
+    background:rgba(255,255,255,.022);display:block;text-decoration:none;color:inherit}
+  .card2 b{font-family:var(--disp);font-weight:800;font-size:1.05rem;display:block;margin:0 0 4px}
+  .card2 span{color:var(--dim);font-size:.93rem;line-height:1.5;display:block}
+  .tag{display:inline-block;font-family:var(--disp);font-weight:800;font-size:.66rem;
+    letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:999px;
+    border:1px solid var(--edge2);color:var(--dim2);margin:0 0 8px}
+  .live{color:#2ED573;border-color:rgba(46,213,115,.4)}
+  .dead{color:#FF6B6B;border-color:rgba(255,107,107,.4)}
+  .st{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--edge);
+    font-size:.93rem;color:var(--dim)}
+  .st:last-child{border:0}
+  .st b{color:var(--ink);font-weight:600}
+</style></head><body><div class="wrap">
+  <header class="hero">
+    <p class="mark">Languy · HQ</p>
+    <h1>Your <em>one page</em>.</h1>
+    <p class="sub">Bookmark this. Everything you need to look at or decide is here.</p>
+  </header>
+
+  <a class="card2" href="/course-x9m4/">
+    <span class="tag live">needs you · 10 min</span>
+    <b>Check the course →</b>
+    <span>11 tracks, 50 seconds of each. Loudness fixed (they were ~19&nbsp;dB too quiet) and
+    29 seconds of dead air removed. Tap "sounds right" or "needs work" on each, then copy me your
+    answers. <b>Nothing ships until you do this.</b></span>
+  </a>
+
+  <a class="card2" href="https://github.com/LanguagesMan/languy-empire/blob/master/WHAT-TO-DO-NOW.md">
+    <span class="tag">the money</span>
+    <b>What to do now →</b>
+    <span>The BoldVoice reply is written and waiting in your Gmail. Three more people asked your
+    rate and never got an answer.</span>
+  </a>
+
+  <a class="card2" href="https://github.com/LanguagesMan/languy-empire/blob/master/PEOPLE-WHO-ASKED.md">
+    <span class="tag">no need to act</span>
+    <b>Who asked for the method →</b>
+    <span>Everyone here was already sent it automatically and added to your list.
+    <b>You are not emailed about these.</b> Open it only when you're curious.</span>
+  </a>
+
+  <div class="card2" style="cursor:default">
+    <span class="tag dead">blocked on the bill</span>
+    <b>Why nothing can be sold right now</b>
+    <span>The checkout lives on the hosting account that is disabled, so
+    <b>there is no way for anyone to pay you</b> — not a pricing problem, a switched-off store.
+    The moment the bill clears, a watcher tells you and one command puts it all back.</span>
+  </div>
+
+  <section class="card" style="margin-top:26px">
+    <div class="card-h"><p class="card-k">Status</p><p class="card-t">What is actually true</p></div>
+    <div style="padding:6px 20px 14px">
+      <div class="st"><span>The free door</span><b>live</b></div>
+      <div class="st"><span>Method sent automatically</span><b>live · hourly</b></div>
+      <div class="st"><span>Emails added to your list</span><b>live</b></div>
+      <div class="st"><span>Course audio</span><b>fixed · awaiting your ear</b></div>
+      <div class="st"><span>Course videos</span><b>waiting on your verdict</b></div>
+      <div class="st"><span>Checkout / payments</span><b>OFFLINE — hosting bill</b></div>
+    </div>
+  </section>
+
+  <div class="note" style="margin-top:22px"><b>Nothing is released without you.</b> The course page is
+  private and noindex, the videos are not built yet, and no email goes to anyone who did not write to
+  you first.</div>
+
+  <footer><a href="https://www.instagram.com/languyofficial">@languyofficial</a> · private · not indexed</footer>
+</div></body></html>
