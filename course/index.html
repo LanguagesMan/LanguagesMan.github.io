@@ -49,11 +49,16 @@
   replace it: the free promise DELIVERED on the page rather than promised in a
   player. No bandwidth, no permission, nothing to distrust.
 
-  CAPTURE FOLLOWS THE TRAFFIC. Measured before the outage: 163 Instagram bio, 122
-  Instagram, 40 TikTok — almost everyone arrives inside an in-app webview where a
-  mailto frequently does nothing at all. So the primary action is an Instagram DM:
-  same app they came from, one tap, no keyboard, no mail client. Mail is secondary
-  and the address is visible text with a copy button beneath both.
+  CAPTURE IS EMAIL, DELIBERATELY (changed 2026-08-01 on founder instruction: "Why the
+  fuck did you tell them to message me on Instagram? Don't tell them that. Just get
+  them."). An Instagram DM is not a contact — it cannot be added to a list, cannot be
+  mailed later, and lands in an inbox he has to work by hand. An email address is an
+  asset he owns. Fourteen people came in this way today and every one was fulfilled
+  automatically and added to Brevo, which a DM could never have done.
+
+  The mailto prefills ONE line — which language — because that is the single fact that
+  makes the reply personal and the list segmentable. The address stays visible as text
+  with a copy button for the webviews where mailto does nothing.
 -->
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
@@ -172,11 +177,9 @@
   If you want, tell me which language you're learning and I'll send you your first real sentence in it:
   not a grammar rule, something you can say to a person today.</p>
 
-  <a class="btn go" id="ig" href="https://ig.me/m/languyofficial">DM me &ldquo;<span id="kw">METHOD</span>&rdquo; on Instagram</a>
-  <p class="hint">You're probably already in the app — one tap, no email, no forms. Tell me your
-  language and I'll reply with a real sentence in it.</p>
-
-  <a class="btn ghost" id="mail" href="mailto:hello@languyofficial.com?subject=My%20language&body=The%20language%20I%27m%20learning%3A%20%0A%0A(Send%20me%20my%20first%20real%20sentence%20in%20it.)">Or email me instead</a>
+  <a class="btn go" id="mail" href="mailto:hello@languyofficial.com?subject=My%20language&body=The%20language%20I%27m%20learning%3A%20%0A%0A">Send me the sentences</a>
+  <p class="hint">Your mail app opens with one line to fill in: which language. That's it —
+  <b>it comes back automatically</b>, usually within the hour.</p>
   <p class="hint">If nothing opened, write to <b id="addr">hello@languyofficial.com</b> —
   <a href="#" id="cp">tap to copy</a>.</p>
 
@@ -202,20 +205,20 @@
 (function(){
   var INTENT = {
     packs:  { on:['/products','/course','/lessons','/sample'],
-              kw:'PACKS', subj:'The sentence packs',
+              subj:'The sentence packs',
               give:'You came for the packs. <b>They’re back in a few hours</b> — the sentences, the '+
                    'audio and the game, in the six languages. Ask me for them and you’ll be first.',
               note:'<b>You came here to buy something, and it isn’t loading — that’s on me, not '+
                    'you.</b> A hosting bill, a few hours. Ask and I’ll send it to you the moment '+
                    'it’s back, before it goes out to anyone else.' },
     game:   { on:['/play','/game'],
-              kw:'GAME', subj:'The game',
+              subj:'The game',
               give:'You came for the game. <b>It’s back in a few hours.</b> The method above is how '+
                    'it works underneath — it’s worth the four minutes either way.',
               note:'<b>The game is offline for a few hours</b> while I sort a hosting bill. Ask me for it '+
                    'and I’ll tell you the minute it’s up.' },
     reader: { on:['/read','/world'],
-              kw:'READER', subj:'The reader',
+              subj:'The reader',
               give:'You came for the reader. <b>It’s back in a few hours.</b> The method above is the '+
                    'order it teaches in.',
               note:'<b>The reader is offline for a few hours</b> while I sort a hosting bill. Ask me for '+
@@ -226,7 +229,6 @@
   for (var k in INTENT) if (INTENT[k].on.indexOf(path) > -1) { hit = INTENT[k]; break; }
   if (!hit) return;                                  // '/', '/free', '/method' keep the default ask
 
-  var kw = document.getElementById('kw'); if (kw) kw.textContent = hit.kw;
   var give = document.getElementById('give'); if (give) give.innerHTML = hit.give;
   var note = document.getElementById('note'); if (note) note.innerHTML = hit.note;
   var mail = document.getElementById('mail');
