@@ -11,7 +11,7 @@
     font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     padding:26px 18px 60px;max-width:620px;margin-inline:auto}
   .kick{font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:#7FB8F5;font-weight:800;margin:0 0 10px}
-  h1{font-size:1.72rem;line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+  h1{font-size:2rem;line-height:1.12;margin:0 0 14px;letter-spacing:-.03em;font-weight:800}
   p{color:#A9B2C1;margin:0 0 14px}
   p b,li b{color:#EAF0F7}
   video{width:100%;border-radius:14px;background:#000;display:block;margin:18px 0 8px}
@@ -27,6 +27,18 @@
   li{margin:0 0 7px;color:#A9B2C1}
   .foot{margin-top:30px;font-size:.82rem;color:#6E7789}
   .foot a{color:#7FB8F5}
+  .steps{border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:20px 20px 8px;
+    background:linear-gradient(180deg,rgba(15,128,240,.07),rgba(15,128,240,.02));margin:26px 0 22px}
+  .sk{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#7FB8F5;
+    font-weight:800;margin:0 0 14px}
+  .steps ol{margin:0;padding:0 0 0 4px;counter-reset:s;list-style:none}
+  .steps li{counter-increment:s;position:relative;padding:0 0 15px 40px;color:#A9B2C1;line-height:1.5}
+  .steps li:last-child{padding-bottom:6px}
+  .steps li b{color:#EAF0F7}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;
+    border-radius:8px;background:#0B63C7;color:#fff;font-weight:800;font-size:.82rem;
+    display:flex;align-items:center;justify-content:center}
+
 </style>
 </head>
 <body>
@@ -34,17 +46,25 @@
 <p class="kick">Languy</p>
 <h1>There is exactly one superpower a human can actually get. And it's learnable.</h1>
 
-<p>Speaking someone's own language changes what they'll say to you, what doors open, who you get to be
-anywhere on earth. <b>It isn't talent and it isn't school</b> — it's a method. I used it to get to 15,
-and 2.4M people watch me use it on strangers.</p>
+<p>Speaking someone's own language changes what they'll say to you, what opens, and who you get to be
+anywhere on earth. <b>It isn't talent and it isn't school</b> — it's a method. I used it to get to 15.</p>
 
-<p><b>The method is yours, free.</b> The full site is offline for a few hours while I sort a hosting
-bill, so here's the real first lesson playing right now, and the rest arrives by email the moment the
-doors reopen.</p>
+<div class="steps">
+  <p class="sk">The method, in the order it works</p>
+  <ol>
+    <li><b>Ears before mouth.</b> You understand long before you speak. Stop forcing output.</li>
+    <li><b>One frame at a time.</b> Learn a sentence you can bend, not a word you can only recite.</li>
+    <li><b>Say it out loud, immediately.</b> Once. Badly. That's the rep.</li>
+    <li><b>Input you actually like.</b> Boring material is the reason people quit, not difficulty.</li>
+    <li><b>Mistakes are the scoring system.</b> The careful learner loses. Every time.</li>
+    <li><b>Real people, early.</b> Sooner than you feel ready — that's the whole point.</li>
+    <li><b>Show up small, daily.</b> Ten honest minutes beats a heroic Sunday.</li>
+  </ol>
+</div>
 
-<video controls playsinline preload="metadata"
-  src="https://cazq8fu3gfxsr73i.public.blob.vercel-storage.com/course-free-natural/module-01a-your-why.mp4"></video>
-<p class="cap">Lesson 1 — Your Why. This is the actual opening of my course, not a trailer.</p>
+<p><b>That's the method. It's free and it always will be.</b> The full site — the game, the reader, the
+sentence packs — is offline for a few hours while I sort a hosting bill. Put your email in and I'll send
+you the whole thing, in order, the moment the doors reopen.</p>
 
 <a class="btn" href="mailto:hello@languyofficial.com?subject=Put%20me%20on%20the%20list&body=Send%20me%20the%20free%20method%20when%20the%20site%20is%20back.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Put me on the list — send me the method →</a>
 <a class="btn ghost" href="https://www.instagram.com/languyofficial">Follow @languyofficial</a>
