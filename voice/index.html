@@ -117,6 +117,31 @@ noise reduction, no tightening, no pauses removed. This is what you recorded.</p
   </div>
 </div>
 
+<div class="row" style="border-color:rgba(46,157,99,.55);background:rgba(46,157,99,.09)">
+  <div class="rt"><span class="rn" style="color:#80DCAF">THE FIND</span><span class="rl">Your raw session recordings — I think these are the real ones</span></div>
+  <p class="rd">In <code>languy-empire/course-pages/recordings</code>, in a folder whose own README says
+  <b>"YOUR RAW RECORDINGS — drop your files here."</b> Half-hour sessions, not module cuts.</p>
+  <p class="rd">Measured on the <b>whole file</b>, not a sample, against the signature your own verdicts
+  gave me:<br>
+  <b style="color:#80DCAF">Module 1 — 30.9 min · 65.3% speech · longest silence 6.2s · ZERO gaps over 8s</b><br>
+  <b style="color:#80DCAF">Module 2 — 28.8 min · 57.6% speech · longest silence 5.2s · ZERO gaps over 8s</b><br>
+  <b style="color:#F0C868">Module 3 — 57.1 min · 59.2% speech · longest 20.9s · 3 long gaps in 57 min</b>
+  </p>
+  <p class="rd"><b>These are cleaner than the files that were called "raw masters."</b> Those had 12–25
+  second holes. These have none. That is the opposite of what a damaged file looks like — and I still
+  cannot hear them, so you decide.</p>
+  <div class="oline"><b>Module 1 — Motivation (from 10 min in)</b>
+    <audio controls preload="none" src="/voice-picks/SESSION-module1.m4a"></audio></div>
+  <div class="oline"><b>Module 2 (from 9 min in)</b>
+    <audio controls preload="none" src="/voice-picks/SESSION-module2.m4a"></audio></div>
+  <div class="oline"><b>Module 3 (from 15 min in)</b>
+    <audio controls preload="none" src="/voice-picks/SESSION-module3.m4a"></audio></div>
+  <div class="btns" style="margin-top:6px">
+    <button class="k" data-id="SESSIONS" data-v="keep" aria-pressed="false">YES — these are the originals</button>
+    <button class="d" data-id="SESSIONS" data-v="drop" aria-pressed="false">No — still not it</button>
+  </div>
+</div>
+
 <div class="row" style="border-color:rgba(232,163,23,.5);background:rgba(232,163,23,.07)">
   <div class="rt"><span class="rn" style="color:#F0C868">FOUND</span><span class="rl">Six long originals — are these the ones?</span></div>
   <p class="rd">You said <b>"maybe there are six recordings… very long files, quite a few minutes long."</b>
@@ -254,8 +279,8 @@ noise reduction, no tightening, no pauses removed. This is what you recorded.</p
       if(picks[m[0]]==='keep') keep.push(m[0]+' '+m[1]);
       if(picks[m[0]]==='drop') drop.push(m[0]+' '+m[1]);
     });
-    ['REPAIR','ORIGINALS'].forEach(function(k){
-      if(picks[k]) (picks[k]==='keep'?keep:drop).push(k==='REPAIR'?'REPAIR the six (cap dead air)':'The six 48kHz ORIGINALS are the right ones');
+    ['REPAIR','ORIGINALS','SESSIONS'].forEach(function(k){
+      if(picks[k]) (picks[k]==='keep'?keep:drop).push(k==='REPAIR'?'REPAIR the six (cap dead air)':(k==='SESSIONS'?'The RAW SESSION recordings (Module 1/2/3) are the originals':'The six 48kHz ORIGINALS are the right ones'));
     });
     var body='MY VOICE PICKS\n\nKEEP ('+keep.length+'):\n'+(keep.join('\n')||'none')+
              '\n\nNOT THIS ('+drop.length+'):\n'+(drop.join('\n')||'none')+
