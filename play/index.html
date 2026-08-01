@@ -136,19 +136,19 @@
     </ol>
   </section>
 
-  <p class="give">That's the whole method. <b>Want the rest — the sentences, the audio, the game?</b>
-  Say the word and I'll send it.</p>
+  <p class="give" id="give">That's the whole method. <b>Want the rest — the sentences, the audio, the
+  game?</b> Say the word and I'll send it.</p>
 
-  <a class="btn go" id="ig" href="https://ig.me/m/languyofficial">DM me &ldquo;METHOD&rdquo; on Instagram</a>
+  <a class="btn go" id="ig" href="https://ig.me/m/languyofficial">DM me &ldquo;<span id="kw">METHOD</span>&rdquo; on Instagram</a>
   <p class="hint">You're probably already in the app — one tap, no email, no forms.</p>
 
-  <a class="btn ghost" href="mailto:hello@languyofficial.com?subject=Send%20me%20the%20method&body=Send%20me%20the%20method.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Or email me instead</a>
+  <a class="btn ghost" id="mail" href="mailto:hello@languyofficial.com?subject=Send%20me%20the%20method&body=Send%20me%20the%20method.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Or email me instead</a>
   <p class="hint">If nothing opened, write to <b id="addr">hello@languyofficial.com</b> —
   <a href="#" id="cp">tap to copy</a>.</p>
 
-  <div class="note"><b>The full site is back shortly.</b> The game, the reader and the sentence packs are
-  offline for a few hours while I sort a hosting bill. Everything above is free either way — and it's the
-  part that actually matters.</div>
+  <div class="note" id="note"><b>The full site is back shortly.</b> The game, the reader and the sentence
+  packs are offline for a few hours while I sort a hosting bill. Everything above is free either way — and
+  it's the part that actually matters.</div>
 
   <footer>
     <a href="https://www.instagram.com/languyofficial">@languyofficial</a> · 15 languages ·
@@ -157,6 +157,50 @@
 
 </div>
 
+<script>
+/* MEET THEM WHERE THEY AIMED.
+   Every path here serves this same page, so someone who tapped /products from an old
+   comment — a person who came to BUY — was being greeted as a stranger and told to ask
+   for the free thing. That is the highest-intent visitor on the site handled as the
+   lowest. Nothing about the method changes; only the ask does, and the KEYWORD changes
+   with it, so buy-intent DMs are distinguishable from free-method DMs in his inbox
+   instead of arriving as one undifferentiated pile. */
+(function(){
+  var INTENT = {
+    packs:  { on:['/products','/course','/lessons','/sample'],
+              kw:'PACKS', subj:'The sentence packs',
+              give:'You came for the packs. <b>They’re back in a few hours</b> — the sentences, the '+
+                   'audio and the game, in the six languages. Ask me for them and you’ll be first.',
+              note:'<b>You came here to buy something, and it isn’t loading — that’s on me, not '+
+                   'you.</b> A hosting bill, a few hours. Ask and I’ll send it to you the moment '+
+                   'it’s back, before it goes out to anyone else.' },
+    game:   { on:['/play','/game'],
+              kw:'GAME', subj:'The game',
+              give:'You came for the game. <b>It’s back in a few hours.</b> The method above is how '+
+                   'it works underneath — it’s worth the four minutes either way.',
+              note:'<b>The game is offline for a few hours</b> while I sort a hosting bill. Ask me for it '+
+                   'and I’ll tell you the minute it’s up.' },
+    reader: { on:['/read','/world'],
+              kw:'READER', subj:'The reader',
+              give:'You came for the reader. <b>It’s back in a few hours.</b> The method above is the '+
+                   'order it teaches in.',
+              note:'<b>The reader is offline for a few hours</b> while I sort a hosting bill. Ask me for '+
+                   'it and I’ll tell you the minute it’s up.' }
+  };
+  var path = location.pathname.replace(/\/+$/,'') || '/';
+  var hit = null;
+  for (var k in INTENT) if (INTENT[k].on.indexOf(path) > -1) { hit = INTENT[k]; break; }
+  if (!hit) return;                                  // '/', '/free', '/method' keep the default ask
+
+  var kw = document.getElementById('kw'); if (kw) kw.textContent = hit.kw;
+  var give = document.getElementById('give'); if (give) give.innerHTML = hit.give;
+  var note = document.getElementById('note'); if (note) note.innerHTML = hit.note;
+  var mail = document.getElementById('mail');
+  if (mail) mail.href = 'mailto:hello@languyofficial.com?subject=' + encodeURIComponent(hit.subj) +
+    '&body=' + encodeURIComponent(hit.subj + ' — send it to me when it’s back.\n\n' +
+                                  '(The language I want to learn: )');
+})();
+</script>
 <script>
 /* Copy fallback for webviews that block the clipboard API — his traffic is mostly
    in-app browsers and some refuse navigator.clipboard outright, so the selection
