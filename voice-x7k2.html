@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Pick the voice · Languy</title>
+<!--
+  THE AUDIO PICK PAGE (2026-08-01). He said: "we already have the voice clips on the
+  computer, I'm already recording them — give me them on the dashboard and I'll tell
+  you which ones are the correct ones."
+
+  WHY THESE 24-SECOND EXCERPTS AND NOT THE LESSONS. The 20 files in
+  Desktop/LANGUY-AUDIO-CHOOSE-CORRECT/01-RAW-MASTERS-course-lessons ARE the correct
+  takes — but they are also the $97 product. This page answers 200 to anyone with the
+  link (proven today: the dashboard is unlisted, not private), so publishing whole
+  lessons here would hand the course away. 24 seconds is enough to hear his voice and
+  his pace and not enough to be the thing people pay for. Each excerpt starts 15% into
+  the take so he is judging the middle of a lesson, not its throat-clear.
+
+  WHY ONE SEND BUTTON INSTEAD OF THE DASHBOARD'S VOTE ENGINE. That engine stores ONE
+  choice per decision block; this is twenty independent keep/reject calls. Twenty
+  blocks would mean twenty round trips and twenty chances to lose his place. He taps
+  through the list at his own pace and sends once.
+-->
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  :root{
+    --world:#0B0F1A; --world-2:#0E1421; --edge:rgba(255,255,255,.12);
+    --ink:#EAF0F7; --dim:#8A93A3;
+    --blue:#0F80F0; --blue-fill:#0B63C7; --blue-lit:#7FB8F5;
+    --good:#1F9D55; --bad:#B4442E;
+    --disp:'Archivo Black',system-ui,sans-serif;
+  }
+  body{margin:0;background:var(--world);color:var(--ink);
+    font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    padding:20px 16px 140px;max-width:680px;margin-inline:auto}
+  h1{font-family:var(--disp);font-size:1.45rem;line-height:1.15;margin:0 0 10px}
+  .kick{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-lit);
+    font-weight:800;margin:0 0 8px}
+  .lede{color:var(--dim);margin:0 0 6px}
+  .lede b{color:var(--ink)}
+  .note{background:rgba(15,128,240,.08);border:1px solid rgba(15,128,240,.25);
+    border-radius:12px;padding:12px 14px;margin:16px 0 22px;font-size:.93rem;color:#C6D2E2}
+  .row{background:var(--world-2);border:1px solid var(--edge);border-radius:14px;
+    padding:13px 13px 11px;margin:0 0 11px}
+  .row.keep{border-color:rgba(31,157,85,.55);background:rgba(31,157,85,.07)}
+  .row.drop{border-color:rgba(180,68,46,.5);background:rgba(180,68,46,.06);opacity:.75}
+  .rt{display:flex;align-items:baseline;gap:8px;margin:0 0 3px}
+  .rn{font-family:var(--disp);font-size:.78rem;color:var(--blue-lit);letter-spacing:.06em}
+  .rl{font-weight:700;font-size:1rem}
+  .rd{color:var(--dim);font-size:.8rem;margin:0 0 9px}
+  audio{width:100%;height:36px;display:block;margin:0 0 10px}
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;color:inherit;cursor:pointer;border-radius:10px;padding:11px 8px;
+    font-weight:700;font-size:.9rem;border:1px solid var(--edge);background:rgba(255,255,255,.05)}
+  button[aria-pressed="true"].k{background:var(--good);border-color:var(--good);color:#fff}
+  button[aria-pressed="true"].d{background:var(--bad);border-color:var(--bad);color:#fff}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(11,15,26,.97);
+    border-top:1px solid var(--edge);padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    backdrop-filter:blur(8px)}
+  .bar .inner{max-width:680px;margin-inline:auto;display:flex;gap:10px;align-items:center}
+  .count{flex:1;font-size:.86rem;color:var(--dim)}
+  .count b{color:var(--ink)}
+  .send{background:var(--blue-fill);border-color:var(--blue-fill);color:#fff;
+    font-family:var(--disp);letter-spacing:.05em;padding:13px 20px;min-width:150px}
+  .send[disabled]{opacity:.4;cursor:default}
+  .state{margin:10px 0 0;font-size:.88rem;color:var(--dim);text-align:center}
+  .state.good{color:#7FD8A6}.state.bad{color:#F2A08E}
+  code{background:rgba(255,255,255,.07);padding:1px 5px;border-radius:5px;font-size:.85em}
+  .oline{margin:0 0 9px}
+  .oline b{display:block;font-size:.9rem;margin:0 0 3px}
+</style>
+</head>
+<body>
+
+<p class="kick">Languy · the voice</p>
+<h1>Which of these is right?</h1>
+<p class="lede">Twenty takes, straight off your own masters. <b>Nothing here has been processed</b> — no
+noise reduction, no tightening, no pauses removed. This is what you recorded.</p>
+
+<div class="note">
+  <b>You were right about 01a–01f, and I found what they have in common.</b> Every take you called bad
+  has <b>blocks of dead air 12 to 25 seconds long</b>. Every take you called good tops out around 2 to 6.
+  That is the whole difference — measured, not guessed:
+  <br><br>
+  <span style="color:#F2A08E"><b>01a 18.8s · 01b 12.3s · 01c 21.1s · 01d 24.5s · 01e 16.8s · 01f 13.7s</b></span><br>
+  <span style="color:#7FD8A6"><b>02 6.6s · 03 5.2s · 07a 2.4s · 07b 3.5s</b></span>
+  <br><br>
+  <b>So they were never "processed wrong" — they are the takes where you paused longest, still uncut.</b>
+  They are only 31–36% speech; the good ones are 38–62%. And the earlier "fix" went the other way and
+  crushed <em>every</em> pause to 0.6s, which is the version that felt like double speed.
+  <b>Neither is right.</b> The middle is: cut only the dead air, leave every real pause alone.
+  <br><br>
+  <b>That also answers 10a and 10b — both good</b> (4.2s and 5.7s longest). You hadn't ruled on those.
+  <br><br>
+  Hear the repair below, then go down the list. Each clip is 24 seconds from the middle of a take —
+  short on purpose, because this page opens for anyone with the link and the full lessons are what
+  people pay for.
+</div>
+
+<div class="row" style="border-color:rgba(15,128,240,.45);background:rgba(15,128,240,.07)">
+  <div class="rt"><span class="rn">01A</span><span class="rl">The repair, before and after</span></div>
+  <p class="rd">Same 40 seconds of your take. The first has a 9-second hole in it. The second caps that
+  hole at 1.4s and touches nothing else — the whole lesson goes 372s → 292s, where the broken version
+  went to 194s.</p>
+  <p class="rd" style="color:#F2A08E;margin-bottom:4px"><b>BEFORE — the dead air</b></p>
+  <audio controls preload="none" src="/voice-picks/AB-01a-BEFORE-dead-air.m4a"></audio>
+  <p class="rd" style="color:#7FD8A6;margin:8px 0 4px"><b>AFTER — dead air capped, every real pause kept</b></p>
+  <audio controls preload="none" src="/voice-picks/AB-01a-AFTER-repaired.m4a"></audio>
+  <div class="btns" style="margin-top:10px">
+    <button class="k" data-id="REPAIR" data-v="keep" aria-pressed="false">Do this to all six</button>
+    <button class="d" data-id="REPAIR" data-v="drop" aria-pressed="false">No — re-record them</button>
+  </div>
+</div>
+
+<div class="row" style="border-color:rgba(232,163,23,.5);background:rgba(232,163,23,.07)">
+  <div class="rt"><span class="rn" style="color:#F0C868">FOUND</span><span class="rl">Six long originals — are these the ones?</span></div>
+  <p class="rd">You said <b>"maybe there are six recordings… very long files, quite a few minutes long."</b>
+  There are exactly six, in <code>Desktop/languy-audio-to-enhance</code>, and they are <b>48kHz</b> where
+  everything on the list below is 44.1k — a different, earlier generation.</p>
+  <p class="rd">By the dead-air test they are all clean: <b>longest silence 0.8s to 1.9s</b>, against 12–25s
+  in the six you rejected.
+  <b style="color:#F0C868">But I am not calling them good without you.</b> m1 is 95.7% speech — that is
+  <em>less</em> silence than even the over-tightened version had, which could mean a clean continuous take
+  or an aggressive edit. That is exactly the thing a number cannot tell me and your ear can.</p>
+  <div id="orig"></div>
+  <div class="btns" style="margin-top:4px">
+    <button class="k" data-id="ORIGINALS" data-v="keep" aria-pressed="false">Yes — these are the originals</button>
+    <button class="d" data-id="ORIGINALS" data-v="drop" aria-pressed="false">No — keep looking</button>
+  </div>
+</div>
+
+<div id="list"></div>
+
+<div class="bar"><div class="inner">
+  <div class="count" id="count">Nothing picked yet</div>
+  <button class="send" id="send" disabled>Send my picks</button>
+</div>
+<p class="state" id="state"></p>
+</div>
+
+<script>
+(function(){
+  var MODULES = [
+    ['01a','Your why','YOU SAID BAD · 18.8s of dead air'],
+    ['01b','You are not broken','YOU SAID BAD · 12.3s of dead air'],
+    ['01c','The climb','YOU SAID BAD · 21.1s of dead air'],
+    ['01d','The scam','YOU SAID BAD · 24.5s of dead air'],
+    ['01e','The best investment','YOU SAID BAD · 16.8s of dead air'],
+    ['01f','Your why, out loud','YOU SAID BAD · 13.7s of dead air'],
+    ['02','Kill the fear','YOU SAID GOOD · longest pause 6.6s'],
+    ['03','Three lies','YOU SAID GOOD · longest pause 5.2s'],
+    ['04','How you learn','the mechanism'],
+    ['05','Find your level','placing yourself honestly'],
+    ['06','Input before output','the core order'],
+    ['07a','Natural input · Assimil','YOU SAID GOOD · longest pause 2.4s'],
+    ['07b','Anki and SRS','YOU SAID GOOD · longest pause 3.5s'],
+    ['08','Starting from zero','day one'],
+    ['09','Reading and e-readers','reading in'],
+    ['10a','Going native','measures GOOD · longest pause 4.2s'],
+    ['10b','Apps and AI','measures GOOD · longest pause 5.7s'],
+    ['11','Fear and mistakes','mistakes as the engine'],
+    ['12','The wall','the plateau'],
+    ['13','Daily routine','what a day looks like']
+  ];
+  var FILES = {
+    '01a':'module-01a-your-why','01b':'module-01b-not-broken','01c':'module-01c-the-climb',
+    '01d':'module-01d-the-scam','01e':'module-01e-best-investment','01f':'module-01f-your-why-out',
+    '02':'module-02-kill-the-fear','03':'module-03-three-lies','04':'module-04-how-you-learn',
+    '05':'module-05-find-your-level','06':'module-06-input-before-output',
+    '07a':'module-07a-natural-input-assimil','07b':'module-07b-anki-srs',
+    '08':'module-08-starting-from-zero','09':'module-09-reading-ereaders',
+    '10a':'module-10a-going-native','10b':'module-10b-apps-and-ai',
+    '11':'module-11-fear-mistakes','12':'module-12-the-wall','13':'module-13-daily-routine'
+  };
+  var KEY='languy_voice_picks_v2';
+  var picks={};
+  try{ picks=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ picks={}; }
+
+  // the six 48kHz long takes, rendered before the 20-file list
+  var ORIG = [
+    ['m1','11.4 min · 95.7% speech · longest silence 1.8s'],
+    ['m2','4.0 min · 72.7% speech · longest silence 1.6s'],
+    ['m3','2.0 min · 69.5% speech · longest silence 1.9s'],
+    ['m4','5.0 min · 74.4% speech · longest silence 1.4s'],
+    ['m5','3.5 min · 76.3% speech · longest silence 1.6s'],
+    ['m6','5.6 min · 84.8% speech · longest silence 0.8s']
+  ];
+  var oh=document.getElementById('orig');
+  if(oh) oh.innerHTML = ORIG.map(function(o){
+    return '<div class="oline"><b>'+o[0].toUpperCase()+' — '+o[1]+'</b>'+
+           '<audio controls preload="none" src="/voice-picks/ORIGINAL-'+o[0]+'.m4a"></audio></div>';
+  }).join('');
+
+  var list=document.getElementById('list');
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+
+  MODULES.forEach(function(m){
+    var id=m[0], f=FILES[id];
+    var d=document.createElement('div');
+    d.className='row'; d.id='r-'+id;
+    d.innerHTML =
+      '<div class="rt"><span class="rn">'+esc(id.toUpperCase())+'</span><span class="rl">'+esc(m[1])+'</span></div>'+
+      '<p class="rd">'+esc(m[2])+'</p>'+
+      '<audio controls preload="none" src="/voice-picks/'+f+'.m4a"></audio>'+
+      '<div class="btns">'+
+        '<button class="k" data-id="'+id+'" data-v="keep" aria-pressed="false">Keep this</button>'+
+        '<button class="d" data-id="'+id+'" data-v="drop" aria-pressed="false">Not this one</button>'+
+      '</div>';
+    list.appendChild(d);
+  });
+
+  function paint(){
+    var k=0,d=0;
+    MODULES.forEach(function(m){
+      var id=m[0], row=document.getElementById('r-'+id), v=picks[id];
+      row.className='row'+(v==='keep'?' keep':v==='drop'?' drop':'');
+      row.querySelectorAll('[data-v]').forEach(function(b){
+        b.setAttribute('aria-pressed', b.getAttribute('data-v')===v ? 'true':'false');
+      });
+      if(v==='keep')k++; if(v==='drop')d++;
+    });
+    var done=k+d;
+    document.getElementById('count').innerHTML = done
+      ? '<b>'+k+'</b> keep · <b>'+d+'</b> no · '+(MODULES.length-done)+' left'
+      : 'Nothing picked yet';
+    document.getElementById('send').disabled = done===0;
+  }
+
+  list.addEventListener('click', function(e){
+    var b=e.target.closest && e.target.closest('[data-v]');
+    if(!b) return;
+    var id=b.getAttribute('data-id'), v=b.getAttribute('data-v');
+    picks[id] = (picks[id]===v) ? undefined : v;
+    if(picks[id]===undefined) delete picks[id];
+    try{ localStorage.setItem(KEY, JSON.stringify(picks)); }catch(e){}
+    paint();
+  });
+
+  document.getElementById('send').addEventListener('click', function(){
+    /* THE API IS ON THE DEAD HOST (2026-08-01). This page used to POST his picks
+       to /api/tell-claude, which lives on the Vercel account that is disabled — so
+       the button looked like it worked and reached nobody. A mailto needs no
+       server, cannot silently fail, and puts the picks in his own sent folder as a
+       record. It also copies them to the clipboard, so if the mail client misfires
+       he still has them. */
+    var st=document.getElementById('state');
+    var keep=[], drop=[];
+    MODULES.forEach(function(m){
+      if(picks[m[0]]==='keep') keep.push(m[0]+' '+m[1]);
+      if(picks[m[0]]==='drop') drop.push(m[0]+' '+m[1]);
+    });
+    ['REPAIR','ORIGINALS'].forEach(function(k){
+      if(picks[k]) (picks[k]==='keep'?keep:drop).push(k==='REPAIR'?'REPAIR the six (cap dead air)':'The six 48kHz ORIGINALS are the right ones');
+    });
+    var body='MY VOICE PICKS\n\nKEEP ('+keep.length+'):\n'+(keep.join('\n')||'none')+
+             '\n\nNOT THIS ('+drop.length+'):\n'+(drop.join('\n')||'none')+
+             '\n\nRebuild anything voiced from ONLY the KEEP takes.';
+    try{ navigator.clipboard && navigator.clipboard.writeText(body); }catch(e){}
+    st.className='state good';
+    st.textContent='Opening your mail with '+keep.length+' keep and '+drop.length+' no. Also copied to your clipboard.';
+    location.href='mailto:hello@languyofficial.com?subject='+encodeURIComponent('My voice picks')+
+                  '&body='+encodeURIComponent(body);
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>
