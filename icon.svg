@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Languy">
+  <!-- Placeholder mark, drawn as a path so it renders identically without a webfont.
+       The real emblem is an OPEN founder decision (the emblem re-cut) — this exists
+       because /favicon.ico was a 404 and every tab and bookmark showed a blank page
+       icon. Monochrome on purpose, matching the page. Replace, don't extend. -->
+  <rect width="64" height="64" rx="14" fill="#0A0A0A"/>
+  <path d="M20 15 H33 V38.5 H47 V49 H20 Z" fill="#FAFAF9"/>
+</svg>
