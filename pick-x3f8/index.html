@@ -1,20 +1,12 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>HQ · Languy</title><meta name="robots" content="noindex, nofollow, noarchive">
+<title>Pick the sound · Languy</title><meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
-<!--
-  THE HUB. Built 2026-08-01 because he kept typing a dashboard address and landing on
-  the marketing page: the stand-in serves the home page for every unknown path, which
-  is fine for a stranger and useless for him.
-
-  NO PRIVATE DATA ON THIS PAGE, EVER. It is a set of links and a status list. Names,
-  emails, revenue, location and anything from his inner life stay off it — there is
-  already a scar in this codebase from a private file being served publicly, and an
-  obscure URL is not access control.
--->
+<!-- Same 60 seconds, five different cleanings. Every one is exactly 60.00s: these filters
+     change tone, never timing, so nothing can be silently cut the way it was before. -->
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
   :root{
@@ -100,78 +92,73 @@
   }
 </style>
 <style>
-  .card2{border:1px solid var(--edge);border-radius:16px;padding:16px 18px;margin:0 0 12px;
-    background:rgba(255,255,255,.022);display:block;text-decoration:none;color:inherit}
-  .card2 b{font-family:var(--disp);font-weight:800;font-size:1.05rem;display:block;margin:0 0 4px}
-  .card2 span{color:var(--dim);font-size:.93rem;line-height:1.5;display:block}
-  .tag{display:inline-block;font-family:var(--disp);font-weight:800;font-size:.66rem;
-    letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:999px;
-    border:1px solid var(--edge2);color:var(--dim2);margin:0 0 8px}
-  .live{color:#2ED573;border-color:rgba(46,213,115,.4)}
-  .dead{color:#FF6B6B;border-color:rgba(255,107,107,.4)}
-  .st{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--edge);
-    font-size:.93rem;color:var(--dim)}
-  .st:last-child{border:0}
-  .st b{color:var(--ink);font-weight:600}
+  .row{border:1px solid var(--edge);border-radius:16px;padding:14px 16px;margin:0 0 12px;background:rgba(255,255,255,.022)}
+  .rh{display:flex;align-items:center;gap:10px;margin:0 0 4px}
+  .rh b{font-family:var(--disp);font-weight:700;font-size:1rem;flex:1}
+  .num{width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
+    display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:.72rem;flex:0 0 auto}
+  .d{color:var(--dim2);font-size:.85rem;margin:0 0 10px;line-height:1.45}
+  audio{width:100%;height:34px;margin:0 0 10px}
+  .b{width:100%;min-height:44px;border-radius:11px;border:1px solid var(--edge2);background:rgba(255,255,255,.035);
+    color:var(--ink);font-family:var(--disp);font-weight:800;font-size:.9rem;cursor:pointer}
+  .b[aria-pressed="true"]{background:var(--paper);color:#0A0A0A;border-color:var(--paper)}
+  textarea{width:100%;min-height:90px;border-radius:14px;border:1px solid var(--edge);background:rgba(255,255,255,.03);
+    color:var(--ink);padding:13px;font:14px/1.5 ui-monospace,monospace;margin:14px 0 10px}
 </style></head><body><div class="wrap">
-  <header class="hero">
-    <p class="mark">Languy · HQ</p>
-    <h1>Your <em>one page</em>.</h1>
-    <p class="sub">Bookmark this. Everything you need to look at or decide is here.</p>
-  </header>
+  <header class="hero"><p class="mark">Languy · private</p>
+  <h1>Which one kills the <em>mouth sounds</em>?</h1>
+  <p class="sub">The same 60 seconds, cleaned five ways. <b>Listen on headphones.</b> Pick the one that
+  sounds cleanest <em>without</em> sounding processed — if a voice starts sounding underwater or lispy,
+  that is too far.</p></header>
+  <div class="note" style="margin:22px 0 18px"><b>All five are exactly 60.00 seconds.</b> These filters
+  change tone, never timing — nothing can be cut the way it was last time.</div>
 
-  <a class="card2" href="/course-x9m4/">
-    <span class="tag live">needs you · 10 min</span>
-    <b>Check the course →</b>
-    <span>11 tracks, 50 seconds of each. Loudness fixed (they were ~19&nbsp;dB too quiet) and
-    29 seconds of dead air removed. Tap "sounds right" or "needs work" on each, then copy me your
-    answers. <b>Nothing ships until you do this.</b></span>
-  </a>
-
-  <a class="card2" href="/pick-x3f8/">
-    <span class="tag live">needs you · 5 min</span>
-    <b>Kill the mouth sounds →</b>
-    <span>The same 60 seconds cleaned five ways. Pick the one that sounds cleanest without sounding
-    processed, and I apply it to everything.</span>
-  </a>
-
-  <a class="card2" href="https://github.com/LanguagesMan/languy-empire/blob/master/WHAT-TO-DO-NOW.md">
-    <span class="tag">the money</span>
-    <b>What to do now →</b>
-    <span>The BoldVoice reply is written and waiting in your Gmail. Three more people asked your
-    rate and never got an answer.</span>
-  </a>
-
-  <a class="card2" href="https://github.com/LanguagesMan/languy-empire/blob/master/PEOPLE-WHO-ASKED.md">
-    <span class="tag">no need to act</span>
-    <b>Who asked for the method →</b>
-    <span>Everyone here was already sent it automatically and added to your list.
-    <b>You are not emailed about these.</b> Open it only when you're curious.</span>
-  </a>
-
-  <div class="card2" style="cursor:default">
-    <span class="tag dead">blocked on the bill</span>
-    <b>Why nothing can be sold right now</b>
-    <span>The checkout lives on the hosting account that is disabled, so
-    <b>there is no way for anyone to pay you</b> — not a pricing problem, a switched-off store.
-    The moment the bill clears, a watcher tells you and one command puts it all back.</span>
+  <div class="row">
+    <div class="rh"><span class="num">0</span><b>As it is now</b></div>
+    <p class="d">normalized + trimmed, nothing else removed</p>
+    <audio preload="none" controls src="/pick-x3f8/A0-original.mp3"></audio>
+    <div class="btns"><button class="b" data-v="A0-original">this one</button></div>
   </div>
-
-  <section class="card" style="margin-top:26px">
-    <div class="card-h"><p class="card-k">Status</p><p class="card-t">What is actually true</p></div>
-    <div style="padding:6px 20px 14px">
-      <div class="st"><span>The free door</span><b>live</b></div>
-      <div class="st"><span>Method sent automatically</span><b>live · hourly</b></div>
-      <div class="st"><span>Emails added to your list</span><b>live</b></div>
-      <div class="st"><span>Course audio</span><b>fixed · awaiting your ear</b></div>
-      <div class="st"><span>Course videos</span><b>waiting on your verdict</b></div>
-      <div class="st"><span>Checkout / payments</span><b>OFFLINE — hosting bill</b></div>
-    </div>
-  </section>
-
-  <div class="note" style="margin-top:22px"><b>Nothing is released without you.</b> The course page is
-  private and noindex, the videos are not built yet, and no email goes to anyone who did not write to
-  you first.</div>
-
-  <footer><a href="https://www.instagram.com/languyofficial">@languyofficial</a> · private · not indexed</footer>
-</div></body></html>
+  <div class="row">
+    <div class="rh"><span class="num">1</span><b>1 · Gentle</b></div>
+    <p class="d">click removal only — the safest, least altered</p>
+    <audio preload="none" controls src="/pick-x3f8/A1-gentle-declick.mp3"></audio>
+    <div class="btns"><button class="b" data-v="A1-gentle-declick">this one</button></div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">2</span><b>2 · Clicks + softer S</b></div>
+    <p class="d">adds a dip at 6.8k/8.2k where mouth noise sits</p>
+    <audio preload="none" controls src="/pick-x3f8/A2-declick-plus-deess.mp3"></audio>
+    <div class="btns"><button class="b" data-v="A2-declick-plus-deess">this one</button></div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">3</span><b>3 · Plus light denoise</b></div>
+    <p class="d">same, plus a gentle broadband clean</p>
+    <audio preload="none" controls src="/pick-x3f8/A3-plus-soft-denoise.mp3"></audio>
+    <div class="btns"><button class="b" data-v="A3-plus-soft-denoise">this one</button></div>
+  </div>
+  <div class="row">
+    <div class="rh"><span class="num">4</span><b>4 · Strongest</b></div>
+    <p class="d">most aggressive — listen for anything that sounds processed</p>
+    <audio preload="none" controls src="/pick-x3f8/A4-strongest.mp3"></audio>
+    <div class="btns"><button class="b" data-v="A4-strongest">this one</button></div>
+  </div>
+  <a class="btn go" id="send" href="#" style="margin-top:24px">Show my pick</a>
+  <textarea id="out" placeholder="your pick appears here" readonly></textarea>
+  <p class="hint">Tell me the number and I apply it to all 11 tracks and the full recordings.</p>
+  <footer><a href="/hq-x7k2/">← HQ</a> · private</footer>
+</div>
+<script>
+var pick=null;
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.b');
+  if(b){ pick=b.getAttribute('data-v');
+    [].forEach.call(document.querySelectorAll('.b'),function(x){
+      x.setAttribute('aria-pressed', x.getAttribute('data-v')===pick?'true':'false'); });
+    return; }
+  if(e.target.closest('#send')){ e.preventDefault();
+    var o=document.getElementById('out');
+    o.value = pick ? ('SOUND PICK: '+pick) : '(nothing picked yet)';
+    o.scrollIntoView({behavior:'smooth',block:'center'}); }
+});
+</script></body></html>
