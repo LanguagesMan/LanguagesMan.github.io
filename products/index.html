@@ -5,101 +5,162 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Languy — the method, free</title>
-<meta name="description" content="The method that gets you speaking — free.">
+<title>Languy — the method that gets you speaking</title>
+<meta name="description" content="There is exactly one superpower a human can actually get. Here is the method, free.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!--
+  THE DOOR. Built 2026-08-01 while the main site is offline (the hosting account is
+  disabled), and it is what languyofficial.com currently serves — so it is what his
+  bio link, his comments and 2.4M people arrive on.
+
+  NO VIDEO, ANYWHERE, ON PURPOSE. He has ruled twice that the course videos are not
+  to be shown, and the audio question behind them is still open — his raw session
+  recordings sit on /voice waiting for his ear. A page that plays a recording he has
+  not approved is the mistake that already happened once today. The seven steps
+  replace it: the free promise DELIVERED on the page rather than promised in a
+  player. No bandwidth, no permission, nothing to distrust.
+
+  CAPTURE FOLLOWS THE TRAFFIC. Measured before the outage: 163 Instagram bio, 122
+  Instagram, 40 TikTok — almost everyone arrives inside an in-app webview where a
+  mailto frequently does nothing at all. So the primary action is an Instagram DM:
+  same app they came from, one tap, no keyboard, no mail client. Mail is secondary
+  and the address is visible text with a copy button beneath both.
+-->
 <style>
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  body{margin:0;background:#0B0F1A;color:#EAF0F7;
-    font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    padding:26px 18px 60px;max-width:620px;margin-inline:auto}
-  .kick{font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:#7FB8F5;font-weight:800;margin:0 0 10px}
-  h1{font-size:2rem;line-height:1.12;margin:0 0 14px;letter-spacing:-.03em;font-weight:800}
-  p{color:#A9B2C1;margin:0 0 14px}
-  p b,li b{color:#EAF0F7}
-  video{width:100%;border-radius:14px;background:#000;display:block;margin:18px 0 8px}
-  .cap{font-size:.82rem;color:#8A93A3;margin:0 0 26px}
-  .btn{display:flex;align-items:center;justify-content:center;min-height:56px;
-    background:#0B63C7;color:#fff;border-radius:13px;text-decoration:none;
-    font-weight:800;font-size:1.02rem;letter-spacing:.02em;box-shadow:0 3px 0 #08417C;margin:0 0 10px}
-  .btn:active{transform:translateY(2px);box-shadow:0 1px 0 #08417C}
-  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.16);box-shadow:none;color:#EAF0F7}
-  .note{background:rgba(15,128,240,.08);border:1px solid rgba(15,128,240,.24);
-    border-radius:13px;padding:14px 15px;margin:24px 0 0;font-size:.92rem;color:#C6D2E2}
-  ul{padding-left:20px;margin:0 0 16px}
-  li{margin:0 0 7px;color:#A9B2C1}
-  .foot{margin-top:30px;font-size:.82rem;color:#6E7789}
-  .foot a{color:#7FB8F5}
-  .steps{border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:20px 20px 8px;
-    background:linear-gradient(180deg,rgba(15,128,240,.07),rgba(15,128,240,.02));margin:26px 0 22px}
-  .sk{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#7FB8F5;
-    font-weight:800;margin:0 0 14px}
-  .steps ol{margin:0;padding:0 0 0 4px;counter-reset:s;list-style:none}
-  .steps li{counter-increment:s;position:relative;padding:0 0 15px 40px;color:#A9B2C1;line-height:1.5}
-  .steps li:last-child{padding-bottom:6px}
-  .steps li b{color:#EAF0F7}
-  .steps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;
-    border-radius:8px;background:#0B63C7;color:#fff;font-weight:800;font-size:.82rem;
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  :root{
+    --bg:#080B12; --edge:rgba(255,255,255,.10); --edge2:rgba(255,255,255,.16);
+    --ink:#F2F5F9; --dim:#98A2B3; --dim2:#6E7889;
+    --blue:#0F80F0; --fill:#0B63C7; --lit:#7FB8F5; --lip:#08417C;
+    --disp:'Archivo',system-ui,sans-serif;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font:16.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    padding:0 0 64px;overflow-x:hidden}
+  .wrap{max-width:600px;margin-inline:auto;padding:0 20px}
+
+  .hero{padding:46px 0 4px;position:relative}
+  .hero::before{content:"";position:absolute;left:50%;top:-150px;width:520px;height:340px;
+    transform:translateX(-50%);pointer-events:none;
+    background:radial-gradient(closest-side,rgba(15,128,240,.20),transparent 72%)}
+  .mark{font-family:var(--disp);font-weight:900;font-size:.74rem;letter-spacing:.24em;
+    color:var(--lit);text-transform:uppercase;margin:0 0 22px;position:relative}
+  h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.05rem,8.4vw,3rem);
+    line-height:1.04;letter-spacing:-.035em;margin:0 0 18px;position:relative}
+  h1 em{font-style:normal;color:var(--lit)}
+  .sub{color:var(--dim);font-size:1.06rem;line-height:1.55;position:relative}
+  .sub b{color:var(--ink);font-weight:600}
+  .proof{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0;
+    border:1px solid var(--edge);border-radius:999px;padding:7px 15px 7px 11px;
+    background:rgba(255,255,255,.03);font-size:.86rem;color:var(--dim);position:relative}
+  .proof b{color:var(--ink);font-weight:700}
+  .dot{width:7px;height:7px;border-radius:50%;background:#2ED573;
+    box-shadow:0 0 0 3px rgba(46,213,115,.16)}
+
+  .card{margin:34px 0 0;border:1px solid var(--edge);border-radius:20px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(15,128,240,.075),rgba(15,128,240,.015))}
+  .card-h{padding:19px 20px 15px;border-bottom:1px solid var(--edge)}
+  .card-k{font-family:var(--disp);font-weight:800;font-size:.68rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--lit);margin:0 0 5px}
+  .card-t{font-family:var(--disp);font-weight:700;font-size:1.12rem;letter-spacing:-.02em}
+  ol{list-style:none;padding:16px 20px 6px;counter-reset:s}
+  li{position:relative;padding:0 0 17px 42px;color:var(--dim);line-height:1.5;font-size:.97rem}
+  li:last-child{padding-bottom:12px}
+  li b{color:var(--ink);font-weight:650}
+  li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
+    width:27px;height:27px;border-radius:9px;background:rgba(15,128,240,.16);
+    border:1px solid rgba(15,128,240,.34);color:var(--lit);
+    font-family:var(--disp);font-weight:800;font-size:.8rem;
     display:flex;align-items:center;justify-content:center}
 
+  .give{margin:30px 0 20px;font-size:1.04rem;color:var(--dim)}
+  .give b{color:var(--ink);font-weight:650}
+  .btn{display:flex;align-items:center;justify-content:center;min-height:58px;
+    border-radius:15px;text-decoration:none;font-family:var(--disp);font-weight:800;
+    font-size:1.02rem;margin:0 0 11px;transition:transform .12s}
+  .go{background:var(--fill);color:#fff;box-shadow:0 3px 0 var(--lip)}
+  .go:active{transform:translateY(3px);box-shadow:0 0 0 var(--lip)}
+  .ghost{border:1px solid var(--edge2);color:var(--ink);background:rgba(255,255,255,.035)}
+  .ghost:active{transform:translateY(2px)}
+  .hint{font-size:.86rem;color:var(--dim2);margin:-4px 0 20px;line-height:1.5}
+  .hint b{color:var(--dim)}
+  .hint a{color:var(--lit);text-decoration:none;border-bottom:1px solid rgba(127,184,245,.4)}
+
+  .note{border:1px solid var(--edge);border-left:3px solid var(--blue);
+    border-radius:0 13px 13px 0;padding:15px 17px;margin:26px 0 0;
+    background:rgba(255,255,255,.025);font-size:.93rem;color:var(--dim);line-height:1.55}
+  .note b{color:var(--ink)}
+
+  footer{margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--edge);
+    font-size:.82rem;color:var(--dim2);line-height:1.6}
+  footer a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--edge)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(10px);animation:up .55s cubic-bezier(.16,1,.3,1) forwards}
+    .reveal:nth-of-type(2){animation-delay:.05s}
+    .card{animation:up .6s .1s cubic-bezier(.16,1,.3,1) both}
+    @keyframes up{to{opacity:1;transform:none}}
+  }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<p class="kick">Languy</p>
-<h1>There is exactly one superpower a human can actually get. And it's learnable.</h1>
+  <header class="hero">
+    <p class="mark reveal">Languy</p>
+    <h1 class="reveal">There is exactly one superpower a human can actually get. And it's <em>learnable</em>.</h1>
+    <p class="sub reveal">Speaking someone's own language changes what they'll say to you, what opens, and
+    who you get to be anywhere on earth. <b>It isn't talent and it isn't school</b> — it's a method. I used
+    it to get to 15.</p>
+    <div class="proof reveal"><span class="dot"></span><b>2.4M</b> watch me use it on strangers</div>
+  </header>
 
-<p>Speaking someone's own language changes what they'll say to you, what opens, and who you get to be
-anywhere on earth. <b>It isn't talent and it isn't school</b> — it's a method. I used it to get to 15.</p>
+  <section class="card">
+    <div class="card-h">
+      <p class="card-k">Free, and always will be</p>
+      <p class="card-t">The method, in the order it works</p>
+    </div>
+    <ol>
+      <li><b>Ears before mouth.</b> You understand long before you can speak. Stop forcing output.</li>
+      <li><b>One frame at a time.</b> Learn a sentence you can bend — not a word you can only recite.</li>
+      <li><b>Say it out loud, immediately.</b> Once. Badly. That's the rep.</li>
+      <li><b>Input you actually like.</b> Boring material is why people quit — not difficulty.</li>
+      <li><b>Mistakes are the scoring system.</b> The careful learner loses. Every time.</li>
+      <li><b>Real people, early.</b> Sooner than you feel ready. That's the whole point.</li>
+      <li><b>Show up small, daily.</b> Ten honest minutes beats a heroic Sunday.</li>
+    </ol>
+  </section>
 
-<div class="steps">
-  <p class="sk">The method, in the order it works</p>
-  <ol>
-    <li><b>Ears before mouth.</b> You understand long before you speak. Stop forcing output.</li>
-    <li><b>One frame at a time.</b> Learn a sentence you can bend, not a word you can only recite.</li>
-    <li><b>Say it out loud, immediately.</b> Once. Badly. That's the rep.</li>
-    <li><b>Input you actually like.</b> Boring material is the reason people quit, not difficulty.</li>
-    <li><b>Mistakes are the scoring system.</b> The careful learner loses. Every time.</li>
-    <li><b>Real people, early.</b> Sooner than you feel ready — that's the whole point.</li>
-    <li><b>Show up small, daily.</b> Ten honest minutes beats a heroic Sunday.</li>
-  </ol>
+  <p class="give">That's the whole method. <b>Want the rest — the sentences, the audio, the game?</b>
+  Say the word and I'll send it.</p>
+
+  <a class="btn go" id="ig" href="https://ig.me/m/languyofficial">DM me &ldquo;METHOD&rdquo; on Instagram</a>
+  <p class="hint">You're probably already in the app — one tap, no email, no forms.</p>
+
+  <a class="btn ghost" href="mailto:hello@languyofficial.com?subject=Send%20me%20the%20method&body=Send%20me%20the%20method.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Or email me instead</a>
+  <p class="hint">If nothing opened, write to <b id="addr">hello@languyofficial.com</b> —
+  <a href="#" id="cp">tap to copy</a>.</p>
+
+  <div class="note"><b>The full site is back shortly.</b> The game, the reader and the sentence packs are
+  offline for a few hours while I sort a hosting bill. Everything above is free either way — and it's the
+  part that actually matters.</div>
+
+  <footer>
+    <a href="https://www.instagram.com/languyofficial">@languyofficial</a> · 15 languages ·
+    <a href="mailto:hello@languyofficial.com">hello@languyofficial.com</a>
+  </footer>
+
 </div>
-
-<p><b>That's the method. It's free and it always will be.</b> The full site — the game, the reader, the
-sentence packs — is offline for a few hours while I sort a hosting bill. Put your email in and I'll send
-you the whole thing, in order, the moment the doors reopen.</p>
-
-<a class="btn" id="ig" href="https://ig.me/m/languyofficial">DM me "METHOD" on Instagram &rarr;</a>
-<p class="cap" style="margin:-2px 0 18px">You're probably already in the app. One tap, no email needed —
-I'll send you the whole thing there.</p>
-
-<a class="btn ghost" href="mailto:hello@languyofficial.com?subject=Put%20me%20on%20the%20list&body=Send%20me%20the%20method.%0A%0A(The%20language%20I%20want%20to%20learn%3A%20)">Or email me instead</a>
-<p class="cap" id="mailfall">If nothing opened, my address is
-<b id="addr">hello@languyofficial.com</b> — <a href="#" id="cp">tap to copy</a>.</p>
-
-<div class="note">
-  <b>What lands in your inbox</b>, free, no card, nothing to cancel:
-  <ul style="margin-top:10px">
-    <li>The <b>7 steps</b> of the method, named and explained in order</li>
-    <li>Real sentences in your language, <b>with audio</b>, to try tonight</li>
-    <li>Chapter 1 of the book, and the game you play it in</li>
-  </ul>
-  Put the language you want in the email and I'll send the right one.
-</div>
-
-<p class="foot">
-  The full site is back shortly — everything above is free either way.
-</p>
 
 <script>
-/* IN-APP BROWSERS EAT MAILTO (2026-08-01). His traffic is overwhelmingly Instagram
-   and TikTok webviews, where a mailto often does nothing at all and the visitor
-   simply leaves — so the ONLY capture on the live site was one a majority of
-   arrivals could not use. The Instagram DM link is the real fix: they are already
-   inside that app, so it is one tap and no context switch. The address below is
-   visible text with a copy button, so even the worst webview leaves them something
-   they can act on. */
+/* Copy fallback for webviews that block the clipboard API — his traffic is mostly
+   in-app browsers and some refuse navigator.clipboard outright, so the selection
+   path has to exist or the address is a dead end. */
 (function(){
   var cp=document.getElementById('cp'), addr=document.getElementById('addr');
   if(!cp||!addr) return;
@@ -109,10 +170,10 @@ I'll send you the whole thing there.</p>
     var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
     try{ document.execCommand('copy'); done(); }catch(e){ cp.textContent='select and copy'; }
   }
-  cp.addEventListener('click', function(e){
+  cp.addEventListener('click',function(e){
     e.preventDefault();
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(addr.textContent.trim()).then(done, sel);
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr.textContent.trim()).then(done,sel);
     } else sel();
   });
 })();
