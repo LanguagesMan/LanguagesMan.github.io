@@ -251,6 +251,17 @@ noise reduction, no tightening, no pauses removed. This is what you recorded.</p
   });
 
   function paint(){
+    /* THE SPECIAL BUTTONS MUST SHOW THEIR STATE TOO (fixed 2026-08-01).
+       paint() only walked MODULES, so SESSIONS / REPAIR / ORIGINALS saved his tap
+       and then looked untouched. The danger is not cosmetic: a button that does not
+       confirm gets tapped again, and a second tap TOGGLES THE VERDICT OFF — so the
+       interface quietly undid the answer he had just given it. */
+    ['SESSIONS','REPAIR','ORIGINALS'].forEach(function(k){
+      var v=picks[k];
+      [].forEach.call(document.querySelectorAll('[data-id="'+k+'"]'), function(b){
+        b.setAttribute('aria-pressed', b.getAttribute('data-v')===v ? 'true':'false');
+      });
+    });
     var k=0,d=0;
     MODULES.forEach(function(m){
       var id=m[0], row=document.getElementById('r-'+id), v=picks[id];
