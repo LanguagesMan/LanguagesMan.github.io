@@ -1,192 +1,826 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>HQ · Languy</title><meta name="robots" content="noindex, nofollow, noarchive">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
-<!--
-  THE HUB. Built 2026-08-01 because he kept typing a dashboard address and landing on
-  the marketing page: the stand-in serves the home page for every unknown path, which
-  is fine for a stranger and useless for him.
-
-  NO PRIVATE DATA ON THIS PAGE, EVER. It is a set of links and a status list. Names,
-  emails, revenue, location and anything from his inner life stay off it — there is
-  already a scar in this codebase from a private file being served publicly, and an
-  obscure URL is not access control.
--->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="color-scheme" content="dark">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>Your control room — Languy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
-  :root{
-    /* Monochrome, deliberately. He rejected this page's previous palette in his own
-       words — "this stupid AI slop of this stupid blue, a cheap blue button" — and
-       LOCKED_DESIGN makes it law: default blue-on-near-black is the signature of
-       AI-generated UI, never the primary action colour again. Neutral black, not the
-       blue-tinted #080B12 that was here; paper-white primary; no colour at all, which
-       is also the only way to remove the banned thing without choosing his accent FOR
-       him. References pulled first, per the law: Savee, Chronicle and Open all ship a
-       paper primary on neutral black with zero hue. */
-    --bg:#0A0A0A; --edge:rgba(255,255,255,.09); --edge2:rgba(255,255,255,.16);
-    --ink:#F5F5F4; --dim:#A3A3A0; --dim2:#73736F;
-    --paper:#FAFAF9; --sink:#000;
-    --disp:'Archivo',system-ui,sans-serif;
-  }
-  html{-webkit-text-size-adjust:100%}
-  body{background:var(--bg);color:var(--ink);
-    font:16.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
-    padding:0 0 64px;overflow-x:hidden}
-  .wrap{max-width:600px;margin-inline:auto;padding:0 20px}
+:root{
+  --bg:#0b0f1a; --paper:#111827; --soft:#0f1522; --line:#1c2740; --line2:#2a3855;
+  --ink:#EAF0F8; --ink2:#AAB7CC; --mute:#75849B;
+  --blue:#2563EB; --blue-b:#5B9BFF; --blue-wash:#0f1e3d;
+  --em:#34D399; --em-wash:#0d2a22;
+  --amber:#F59E0B; --amber-wash:#2b2110;
+  --red:#F87171; --red-wash:#2b1418;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Instrument Sans',-apple-system,system-ui,sans-serif;
+  line-height:1.5;-webkit-font-smoothing:antialiased;
+  padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 40px);
+}
+.wrap{max-width:620px;margin:0 auto}
+@media (min-width:1000px){
+  body{padding-top:40px}
+  .wrap{max-width:960px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-  .hero{padding:46px 0 4px;position:relative}
-  .mark{font-family:var(--disp);font-weight:900;font-size:.74rem;letter-spacing:.24em;
-    color:var(--dim2);text-transform:uppercase;margin:0 0 22px;position:relative}
-  h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.05rem,8.4vw,3rem);
-    line-height:1.04;letter-spacing:-.035em;margin:0 0 18px;position:relative}
-  h1 em{font-style:normal;color:var(--ink);text-decoration:underline;
-    text-decoration-thickness:2px;text-underline-offset:7px;
-    text-decoration-color:rgba(255,255,255,.26)}
-  .sub{color:var(--dim);font-size:1.06rem;line-height:1.55;position:relative}
-  .sub b{color:var(--ink);font-weight:600}
-  .proof{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0;
-    border:1px solid var(--edge);border-radius:999px;padding:7px 15px 7px 11px;
-    background:rgba(255,255,255,.03);font-size:.86rem;color:var(--dim);position:relative}
-  .proof b{color:var(--ink);font-weight:700}
-  .dot{width:7px;height:7px;border-radius:50%;background:#2ED573;
-    box-shadow:0 0 0 3px rgba(46,213,115,.16)}
+/* ── type ── */
+h1{font-family:Archivo,sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;line-height:1.15}
+h2{font-family:Archivo,sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;line-height:1.2}
+h3{font-family:Archivo,sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.kick{font-family:Archivo,sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.num{font-family:Archivo,sans-serif;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+p{color:var(--ink2);font-size:15px}
+a{color:inherit}
 
-  .card{margin:34px 0 0;border:1px solid var(--edge);border-radius:20px;overflow:hidden;
-    background:rgba(255,255,255,.022)}
-  .card-h{padding:19px 20px 15px;border-bottom:1px solid var(--edge)}
-  .card-k{font-family:var(--disp);font-weight:800;font-size:.68rem;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--dim2);margin:0 0 5px}
-  .card-t{font-family:var(--disp);font-weight:700;font-size:1.12rem;letter-spacing:-.02em}
-  ol{list-style:none;padding:16px 20px 6px;counter-reset:s}
-  li{position:relative;padding:0 0 17px 42px;color:var(--dim);line-height:1.5;font-size:.97rem}
-  li:last-child{padding-bottom:12px}
-  li b{color:var(--ink);font-weight:650}
-  li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
-    width:27px;height:27px;border-radius:9px;background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.13);color:var(--ink);
-    font-family:var(--disp);font-weight:800;font-size:.8rem;
-    display:flex;align-items:center;justify-content:center}
+/* ── shell ── */
+header{margin-bottom:22px}
+header .kick{color:var(--blue-b)}
+header h1{margin-top:4px}
+header .when{color:var(--mute);font-size:12.5px;margin-top:5px;font-variant-numeric:tabular-nums}
 
-  .give{margin:30px 0 20px;font-size:1.04rem;color:var(--dim)}
-  .give b{color:var(--ink);font-weight:650}
-  .btn{display:flex;align-items:center;justify-content:center;min-height:58px;
-    border-radius:15px;text-decoration:none;font-family:var(--disp);font-weight:800;
-    font-size:1.02rem;margin:0 0 11px;transition:transform .12s}
-  .go{background:var(--paper);color:#0A0A0A;box-shadow:0 2px 0 rgba(0,0,0,.55)}
-  .go:active{transform:translateY(2px);box-shadow:0 0 0 var(--sink)}
-  .ghost{border:1px solid var(--edge2);color:var(--ink);background:rgba(255,255,255,.035)}
-  .ghost:active{transform:translateY(2px)}
-  .hint{font-size:.86rem;color:var(--dim2);margin:-4px 0 20px;line-height:1.5}
-  .hint b{color:var(--dim)}
-  .hint a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.32)}
+section{margin:0 0 26px}
+.shead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 10px}
+.shead .kick{flex:0 0 auto}
 
-  .note{border:1px solid var(--edge);border-left:3px solid rgba(255,255,255,.34);
-    border-radius:0 13px 13px 0;padding:15px 17px;margin:26px 0 0;
-    background:rgba(255,255,255,.025);font-size:.93rem;color:var(--dim);line-height:1.55}
-  .note b{color:var(--ink)}
+/* ── cards ── */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px}
+.card + .card{margin-top:10px}
 
-  footer{margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--edge);
-    font-size:.82rem;color:var(--dim2);line-height:1.6}
-  footer a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--edge)}
+/* the ONE thing */
+.one{
+  background:linear-gradient(168deg,#16233f 0%,#101a2f 45%,#0f1522 100%);
+  border:1px solid #294477;border-radius:20px;padding:20px;position:relative;overflow:hidden;
+}
+.one::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-b))}
+.one .kick{color:var(--blue-b)}
+.one h2{margin:8px 0 0;font-size:23px}
+.one p.d{margin-top:9px;font-size:15.5px;color:var(--ink2)}
+.one ol{margin:14px 0 0;padding-left:0;list-style:none;counter-reset:s}
+.one ol li{counter-increment:s;position:relative;padding-left:30px;margin-bottom:9px;font-size:14.5px;color:var(--ink2)}
+.one ol li::before{
+  content:counter(s);position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;
+  background:#16233f;border:1px solid var(--line2);color:var(--blue-b);
+  font-family:Archivo,sans-serif;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center
+}
 
-  @media (prefers-reduced-motion:no-preference){
-    .reveal{opacity:0;transform:translateY(10px);animation:up .55s cubic-bezier(.16,1,.3,1) forwards}
-    .reveal:nth-of-type(2){animation-delay:.05s}
-    .card{animation:up .6s .1s cubic-bezier(.16,1,.3,1) both}
-    @keyframes up{to{opacity:1;transform:none}}
-  }
+/* buttons */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  min-height:52px;padding:14px 18px;border-radius:13px;border:0;cursor:pointer;
+  background:var(--blue);color:#fff;text-decoration:none;
+  font-family:Archivo,sans-serif;font-weight:800;font-size:15.5px;letter-spacing:-.01em;
+  margin-top:14px;transition:transform .18s var(--ease),background .18s var(--ease);
+}
+.btn:hover{background:#1d4fd8}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--ink);font-size:14.5px;min-height:48px}
+.btn.ghost:hover{background:#141d31}
+
+/* the honesty stamp — every claim carries its origin */
+.src{
+  display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;
+  font-size:11.5px;color:var(--mute);letter-spacing:.01em;
+}
+.src b{font-weight:600;color:var(--ink2)}
+.src.hand{color:#c79a4a}
+.stamp{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:14px 12px;min-width:0}
+.tile .v{font-family:Archivo,sans-serif;font-weight:800;font-size:25px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.05;color:#fff;overflow-wrap:anywhere}
+.tile .v.dim{color:var(--mute);font-size:18px}
+.tile .l{font-size:12px;color:var(--ink2);margin-top:5px;line-height:1.3}
+.tile .s{font-size:10.5px;color:var(--mute);margin-top:6px;line-height:1.3}
+@media (max-width:359px){.tiles{grid-template-columns:1fr 1fr}}
+
+/* rows */
+.row{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit;min-height:50px}
+.row:first-child{border-top:none}
+.row .l{flex:1;min-width:0}
+.row .l b{display:block;font-size:14.5px;font-weight:600;color:var(--ink)}
+.row .l small{display:block;font-size:12px;color:var(--mute);margin-top:2px;overflow-wrap:anywhere}
+.row .r{flex:0 0 auto;text-align:right}
+.dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--mute)}
+.dot.ok{background:var(--em);box-shadow:0 0 0 3px var(--em-wash)}
+.dot.warn{background:var(--amber);box-shadow:0 0 0 3px var(--amber-wash)}
+.dot.bad{background:var(--red);box-shadow:0 0 0 3px var(--red-wash)}
+.dot.wait{background:#33415c}
+.tag{font-family:Archivo,sans-serif;font-size:11px;font-weight:700;letter-spacing:.02em;padding:4px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--ink2);white-space:nowrap}
+.tag.ok{color:var(--em);border-color:#1c4b3b;background:var(--em-wash)}
+.tag.warn{color:var(--amber);border-color:#4a3a12;background:var(--amber-wash)}
+.tag.bad{color:var(--red);border-color:#4d2126;background:var(--red-wash)}
+.tag.hand{color:#c79a4a;border-color:#463618;background:#241c0d}
+.time{font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums;margin-top:3px}
+
+/* verdict banner */
+.verdict{display:flex;align-items:center;gap:12px;padding:15px 16px;border-radius:15px;border:1px solid var(--line);background:var(--paper)}
+.verdict.ok{border-color:#1c4b3b;background:linear-gradient(180deg,#0f2a22,#0f1522)}
+.verdict.bad{border-color:#4d2126;background:linear-gradient(180deg,#2a1418,#0f1522)}
+.verdict .vi{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;background:#16233f;color:var(--blue-b)}
+.verdict.ok .vi{background:var(--em-wash);color:var(--em)}
+.verdict.bad .vi{background:var(--red-wash);color:var(--red)}
+.verdict b{display:block;font-family:Archivo,sans-serif;font-weight:800;font-size:16px;letter-spacing:-.01em;color:#fff}
+.verdict small{display:block;color:var(--mute);font-size:12px;margin-top:2px;font-variant-numeric:tabular-nums}
+
+/* progress */
+.bar{height:7px;border-radius:99px;background:#18213a;overflow:hidden;margin-top:9px}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--blue-b));transition:width .6s var(--ease)}
+.bar i.em{background:linear-gradient(90deg,#1f9d74,var(--em))}
+.ratio{font-family:Archivo,sans-serif;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;color:#fff;white-space:nowrap}
+
+/* details */
+details{border-top:1px solid var(--line);padding:2px 0}
+details:first-of-type{border-top:none}
+summary{cursor:pointer;list-style:none;padding:13px 0;font-size:14px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";color:var(--mute);font-size:15px;flex:0 0 auto}
+details[open] summary::after{content:"－"}
+details .body{padding:0 0 12px}
+
+/* misc */
+.note{font-size:12.5px;color:var(--mute);margin-top:10px;line-height:1.45}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.quick a{
+  display:flex;flex-direction:column;justify-content:center;gap:2px;
+  background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:13px 14px;
+  text-decoration:none;min-height:56px;
+}
+.quick a b{font-family:Archivo,sans-serif;font-weight:700;font-size:14px;color:var(--ink)}
+.quick a small{font-size:11.5px;color:var(--mute)}
+.quick a:hover{border-color:var(--line2);background:#141d31}
+footer{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);color:var(--mute);font-size:12px;line-height:1.6}
+.skel{color:var(--mute);font-size:13.5px}
+.hide{display:none!important}
 </style>
-<style>
-  .card2{border:1px solid var(--edge);border-radius:16px;padding:16px 18px;margin:0 0 12px;
-    background:rgba(255,255,255,.022);display:block;text-decoration:none;color:inherit}
-  .card2 b{font-family:var(--disp);font-weight:800;font-size:1.05rem;display:block;margin:0 0 4px}
-  .card2 span{color:var(--dim);font-size:.93rem;line-height:1.5;display:block}
-  .tag{display:inline-block;font-family:var(--disp);font-weight:800;font-size:.66rem;
-    letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:999px;
-    border:1px solid var(--edge2);color:var(--dim2);margin:0 0 8px}
-  .live{color:#2ED573;border-color:rgba(46,213,115,.4)}
-  .dead{color:#FF6B6B;border-color:rgba(255,107,107,.4)}
-  .st{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--edge);
-    font-size:.93rem;color:var(--dim)}
-  .st:last-child{border:0}
-  .st b{color:var(--ink);font-weight:600}
-</style></head><body><div class="wrap">
-  <header class="hero">
-    <p class="mark">Languy · HQ</p>
-    <h1>Your <em>one page</em>.</h1>
-    <p class="sub">Bookmark this. Everything you need to look at or decide is here.</p>
-  </header>
+</head>
+<body>
+<div class="wrap">
 
-  <a class="card2" href="/course-x9m4/">
-    <span class="tag live">needs you · 10 min</span>
-    <b>Check the course →</b>
-    <span>11 tracks, 50 seconds of each. Loudness fixed (they were ~19&nbsp;dB too quiet) and
-    29 seconds of dead air removed. Tap "sounds right" or "needs work" on each, then copy me your
-    answers. <b>Nothing ships until you do this.</b></span>
-  </a>
+<header>
+  <p class="kick">Languy · your control room</p>
+  <h1>Everything, in one page.</h1>
+  <p class="when">Opened <span id="openedAt">—</span> · every green light below was checked live, just now.</p>
+</header>
 
-  <a class="card2" href="/tapes-x2n7/">
-    <span class="tag live">the big one</span>
-    <b>The tapes — 100 unheard minutes →</b>
-    <span>Eight raw sessions, all transcribed. The course uses 82 minutes of 186, so about an hour and
-    a half of you has never been cut into anything. Skim the text, mark what's gold, and that becomes
-    the rest of the course.</span>
-  </a>
+<!-- ══ 1 ══ THE ONE THING ═══════════════════════════════════════════════ -->
+<section id="s1">
+  <div class="shead"><p class="kick">1 · Do this now</p></div>
+  <div class="one" id="oneCard">
+    <p class="kick">Your one move</p>
+    <h2 id="oneHead">Loading your move…</h2>
+    <p class="d" id="oneDetail"></p>
+    <ol id="oneSteps"></ol>
+    <a class="btn hide" id="oneBtn" href="#">Open it</a>
+    <div class="stamp"><span class="src hand" id="oneSrc">Checking where this came from…</span></div>
+  </div>
+  <div class="card hide" id="waitingCard" style="margin-top:10px">
+    <details>
+      <summary><span id="waitingHead">Also waiting on your answer</span></summary>
+      <div class="body" id="waitingList"></div>
+    </details>
+  </div>
+</section>
 
-  <a class="card2" href="/preview-x5r1/">
-    <span class="tag live">verify before release</span>
-    <b>Your real page is back →</b>
-    <span>The full site page, ported off the dead host. Nothing about it is live yet — the home page
-    still shows the simple door until you say go.</span>
-  </a>
+<!-- ══ 2 ══ IS MONEY COMING IN? ═════════════════════════════════════════ -->
+<section id="s2">
+  <div class="shead"><p class="kick">2 · Is money coming in?</p></div>
 
-  <a class="card2" href="/pick-x3f8/">
-    <span class="tag live">needs you · 5 min</span>
-    <b>Kill the mouth sounds →</b>
-    <span>The same 60 seconds cleaned five ways. Pick the one that sounds cleanest without sounding
-    processed, and I apply it to everything.</span>
-  </a>
-
-  <a class="card2" href="https://github.com/LanguagesMan/languy-empire/blob/master/WHAT-TO-DO-NOW.md">
-    <span class="tag">the money</span>
-    <b>What to do now →</b>
-    <span>The BoldVoice reply is written and waiting in your Gmail. Three more people asked your
-    rate and never got an answer.</span>
-  </a>
-
-  <a class="card2" href="https://github.com/LanguagesMan/languy-empire/blob/master/PEOPLE-WHO-ASKED.md">
-    <span class="tag">no need to act</span>
-    <b>Who asked for the method →</b>
-    <span>Everyone here was already sent it automatically and added to your list.
-    <b>You are not emailed about these.</b> Open it only when you're curious.</span>
-  </a>
-
-  <div class="card2" style="cursor:default">
-    <span class="tag dead">blocked on the bill</span>
-    <b>Why nothing can be sold right now</b>
-    <span>The checkout lives on the hosting account that is disabled, so
-    <b>there is no way for anyone to pay you</b> — not a pricing problem, a switched-off store.
-    The moment the bill clears, a watcher tells you and one command puts it all back.</span>
+  <div class="tiles">
+    <div class="tile">
+      <div class="v dim" id="mMoney">—</div>
+      <div class="l">Money in, all time</div>
+      <div class="s" id="mMoneySrc">checking…</div>
+    </div>
+    <div class="tile">
+      <div class="v dim" id="mBuyers">—</div>
+      <div class="l">People who paid</div>
+      <div class="s" id="mBuyersSrc">checking…</div>
+    </div>
+    <div class="tile">
+      <div class="v dim" id="mList">—</div>
+      <div class="l">People on your list</div>
+      <div class="s" id="mListSrc">checking…</div>
+    </div>
   </div>
 
-  <section class="card" style="margin-top:26px">
-    <div class="card-h"><p class="card-k">Status</p><p class="card-t">What is actually true</p></div>
-    <div style="padding:6px 20px 14px">
-      <div class="st"><span>The free door</span><b>live</b></div>
-      <div class="st"><span>Method sent automatically</span><b>live · hourly</b></div>
-      <div class="st"><span>Emails added to your list</span><b>live</b></div>
-      <div class="st"><span>Course audio</span><b>fixed · awaiting your ear</b></div>
-      <div class="st"><span>Course videos</span><b>waiting on your verdict</b></div>
-      <div class="st"><span>Checkout / payments</span><b>OFFLINE — hosting bill</b></div>
+  <div class="card" style="margin-top:10px" id="moneyLockedCard">
+    <h3>Your real Stripe numbers are not on this phone yet</h3>
+    <p style="font-size:14px;margin-top:6px">This page refuses to guess. Paste your money password once and it stays on this phone only — never in the page, never sent anywhere but Stripe's own check.</p>
+    <button class="btn" type="button" id="connectMoney">Connect the money numbers</button>
+    <a class="btn ghost" href="https://dashboard.stripe.com/payments" target="_blank" rel="noopener">Or just open Stripe →</a>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <a class="row" id="rowFounding" href="https://dashboard.stripe.com/payments" target="_blank" rel="noopener">
+      <span class="dot wait"></span>
+      <span class="l"><b>Founding bundles sold</b><small id="foundingSrc">checking Stripe…</small></span>
+      <span class="r"><span class="ratio" id="foundingRatio">—</span></span>
+    </a>
+    <div class="row hide" id="rowDeals">
+      <span class="dot warn"></span>
+      <span class="l"><b id="dealsHead">Sponsor replies</b><small id="dealsSrc"></small></span>
+      <span class="r"><span class="ratio" id="dealsRatio">—</span></span>
     </div>
-  </section>
+  </div>
 
-  <div class="note" style="margin-top:22px"><b>Nothing is released without you.</b> The course page is
-  private and noindex, the videos are not built yet, and no email goes to anyone who did not write to
-  you first.</div>
+  <div class="card hide" id="dealsCard" style="margin-top:10px">
+    <details>
+      <summary>See the brands that replied</summary>
+      <div class="body" id="dealsList"></div>
+    </details>
+    <details id="asksBox" class="hide">
+      <summary>Questions only you can answer</summary>
+      <div class="body" id="asksList"></div>
+    </details>
+  </div>
+</section>
 
-  <footer><a href="https://www.instagram.com/languyofficial">@languyofficial</a> · private · not indexed</footer>
-</div></body></html>
+<!-- ══ 3 ══ WHAT IS LIVE / WHAT IS BROKEN ═══════════════════════════════ -->
+<section id="s3">
+  <div class="shead"><p class="kick">3 · What customers can use right now</p></div>
+
+  <div class="verdict" id="verdict">
+    <span class="vi" id="verdictIcon">…</span>
+    <span><b id="verdictText">Checking every page and every payment door…</b><small id="verdictWhen">this takes a few seconds</small></span>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <h3>Can people pay you?</h3>
+    <p class="note" style="margin-top:2px">The checkout, the unlock links and the receipt handler — asked directly, right now.</p>
+    <div id="payRows" style="margin-top:6px"><p class="skel">asking your payment doors…</p></div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <h3>The pages that lead to money</h3>
+    <p class="note" style="margin-top:2px">Each address below was opened by this page a moment ago. Green means it answered. Anything else that broke gets pulled up here too.</p>
+    <div id="siteRows" style="margin-top:6px"><p class="skel">opening every page…</p></div>
+  </div>
+</section>
+
+<!-- ══ 4 ══ WHAT YOU ARE BUILDING ═══════════════════════════════════════ -->
+<section id="s4">
+  <div class="shead"><p class="kick">4 · What you're building</p></div>
+
+  <div class="card" id="courseCard">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+      <h3>The full course</h3>
+      <span class="ratio" id="courseRatio">—</span>
+    </div>
+    <div class="bar"><i id="courseBar" style="width:0%"></i></div>
+    <p class="note" id="courseNote">counting the lessons that are actually live…</p>
+    <a class="btn ghost" id="courseBtn" href="https://languyofficial.com/founder-course/?founder=1">Watch what's finished</a>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+      <h3>Your shop</h3>
+      <span class="ratio" id="shopRatio">—</span>
+    </div>
+    <div class="bar"><i id="shopBar" class="em" style="width:0%"></i></div>
+    <p class="note" id="shopNote">counting the product pages that answered…</p>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <h3>Your world — every place you've built</h3>
+    <p class="note" style="margin-top:2px">One tap opens it. The light is a live check, not a note someone wrote.</p>
+    <div id="worldRows" style="margin-top:6px"><p class="skel">building your map…</p></div>
+  </div>
+
+  <div class="card hide" id="wipCard" style="margin-top:10px">
+    <details>
+      <summary>Work happening behind the scenes</summary>
+      <div class="body">
+        <p class="note" style="margin-top:0">These are the machine's own working names — not products. Nothing here needs you.</p>
+        <div id="wipList" style="margin-top:6px"></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══ QUICK DOORS ══════════════════════════════════════════════════════ -->
+<section id="s5">
+  <div class="shead"><p class="kick">Doors</p></div>
+  <div class="quick">
+    <a href="https://languyofficial.com/free"><b>The free door</b><small>where your bio link points</small></a>
+    <a href="https://languyofficial.com/products"><b>Your shop</b><small>everything for sale</small></a>
+    <a href="https://languyofficial.com/founder-course/?founder=1"><b>Your course</b><small>watch it as a buyer</small></a>
+    <a href="https://dashboard.stripe.com/payments" target="_blank" rel="noopener"><b>Stripe</b><small>the real money truth</small></a>
+  </div>
+  <div class="card hide" id="unlockCard" style="margin-top:12px">
+    <h3>Some of this is still locked</h3>
+    <p style="font-size:14px;margin-top:6px">Your course progress, your sponsor replies and your product list need your HQ code once. It stays on this phone.</p>
+    <button class="btn" type="button" id="unlockBtn">Unlock the rest</button>
+  </div>
+</section>
+
+
+<!-- ══ WHAT SHIPPED — added 2026-07-31 ══════════════════════════════════════
+     The founder: "sometimes I'm being lazy and I don't see the products" and "if
+     it's on my dashboard I should see everything, I don't even need to open the
+     site". Both are the same complaint: he had to go somewhere else to find out
+     what changed, so he didn't. His taste is the highest-value input in this
+     whole system — he caught a bad headline two graders approved, and a brand
+     risk nobody else saw — so an input that expensive must never depend on him
+     remembering to go and look.
+     Reads hq/build-feed.json, regenerated from real git history (see the
+     generator note in CONTINUE_HERE). Every row carries a LIVE link, so seeing
+     the change and opening it are one tap apart. Fails silent: if the feed is
+     missing the section simply hides rather than showing a broken shell. -->
+<section id="sBuild">
+  <h2 class="lede">What shipped</h2>
+  <p class="when">Straight from the code that is live right now — newest first. Tap any line to open it.</p>
+  <div class="card" id="buildCard"><div class="body" id="buildList">Loading…</div></div>
+</section>
+<script>
+(function(){
+  var host=document.getElementById('buildList'), sec=document.getElementById('sBuild');
+  if(!host) return;
+  fetch('/hq/build-feed.json',{cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      if(!j||!j.items||!j.items.length){ if(sec) sec.style.display='none'; return; }
+      host.innerHTML=j.items.map(function(it){
+        var what=String(it.what||'').replace(/[<>&]/g,'');
+        return '<a class="row" href="'+it.see+'" target="_blank" rel="noopener">'+
+               '<span class="l"><b>'+what+'</b><small>'+it.at+' · see it on '+it.see+'</small></span>'+
+               '<span class="r">→</span></a>';
+      }).join('');
+    })
+    .catch(function(){ if(sec) sec.style.display='none'; });
+})();
+</script>
+
+<footer>
+  <p><b style="color:var(--ink2)">How to read this page.</b> A green light means this page opened the thing and it answered — a machine checked it while you were looking. An amber “written by hand” label means a person typed it and nobody has re-checked it since that date. Numbers with no source are never shown at all.</p>
+  <p style="margin-top:8px">If a number here disagrees with Stripe, Stripe wins.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── helpers ───────────────────────────────────────────────────────────── */
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function clock(d){ d=d||new Date(); return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
+function clockS(d){ d=d||new Date(); return d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+function money(n){
+  if(n===null||n===undefined||isNaN(n)) return null;
+  return '$' + Number(n).toLocaleString(undefined,{maximumFractionDigits: (Number(n)%1?2:0)});
+}
+function human(dateish){
+  if(!dateish) return '';
+  var m = String(dateish).match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return String(dateish);
+  var d = new Date(+m[1], +m[2]-1, +m[3]);
+  var days = Math.round((Date.now() - d.getTime())/86400000);
+  var pretty = d.toLocaleDateString([], {day:'numeric', month:'short'});
+  if(days <= 0) return pretty + ' (today)';
+  if(days === 1) return pretty + ' (yesterday)';
+  return pretty + ' (' + days + ' days ago)';
+}
+function getJSON(url, opts){
+  var u = url + (url.indexOf('?')<0?'?':'&') + '_t=' + Date.now();
+  return fetch(u, Object.assign({cache:'no-store', credentials:'same-origin'}, opts||{}))
+    .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); });
+}
+/* first source that answers wins — the page works on the phone link AND the home link */
+function firstOf(urls){
+  var i = -1;
+  function next(){
+    i++;
+    if(i >= urls.length) return Promise.reject(new Error('none'));
+    return getJSON(urls[i]).catch(next);
+  }
+  return next();
+}
+
+var HQ_KEY = 'languy_founder';       // HQ code (private board)
+var MONEY_KEY = 'languy_money_key';  // Stripe read password — this phone only
+/* every link must work from the private home link too, where a bare "/…" would
+   point at the wrong computer — so make them all absolute */
+function absolute(u){
+  u = String(u || '');
+  return u.charAt(0) === '/' ? 'https://languyofficial.com' + u : u;
+}
+function store(k){ try{ return localStorage.getItem(k) || ''; }catch(e){ return ''; } }
+function keep(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function drop(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+$('openedAt').textContent = clock();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   1 · THE ONE THING
+   Source: /now-data.json (public link) or /dashboard-data.json (home link).
+   This is WRITTEN BY A PERSON, so it is labelled as such with its date.
+   ══════════════════════════════════════════════════════════════════════════ */
+firstOf(['/now-data.json','/dashboard-data.json','/hq/dashboard-data.json']).then(function(d){
+  var om = d.oneMove || {};
+  $('oneHead').textContent = om.headline || 'No move written yet';
+  $('oneDetail').textContent = om.detail || '';
+  if(!om.detail) $('oneDetail').classList.add('hide');
+
+  var steps = (om.steps || []).filter(Boolean).slice(0,4);
+  $('oneSteps').innerHTML = steps.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('');
+
+  if(om.url){
+    var b = $('oneBtn');
+    b.href = absolute(om.url);
+    b.textContent = om.linkLabel || 'Open it →';
+    b.classList.remove('hide');
+  }
+  var when = human(d.updated) || String(d.updated || 'no date');
+  $('oneSrc').innerHTML = '<span class="tag hand">written by hand</span> <b>'+esc(when)+'</b> — a person typed this, no machine has re-checked it.';
+
+  /* every other open decision — kept one tap away so the ONE move stays alone */
+  var waits = (d.then || []).filter(function(it){ return it && it.text; });
+  if(waits.length){
+    $('waitingCard').classList.remove('hide');
+    $('waitingHead').textContent = waits.length === 1
+      ? '1 more thing is waiting on your answer'
+      : waits.length + ' more things are waiting on your answer';
+    $('waitingList').innerHTML = waits.map(function(it){
+      var link = it.url
+        ? '<a class="btn ghost" style="margin-top:8px" href="'+esc(absolute(it.url))+'">'+esc(it.linkLabel || 'Open it →')+'</a>'
+        : '';
+      return '<div class="row" style="align-items:flex-start"><span class="dot warn" style="margin-top:5px"></span>'
+        + '<span class="l"><b style="font-weight:500;color:var(--ink2)">'+esc(it.text)+'</b>'+link+'</span></div>';
+    }).join('');
+  }
+}).catch(function(){
+  $('oneHead').textContent = 'Could not read today’s move';
+  $('oneDetail').textContent = 'Everything below still works — it is checked live by this page. Pull down to refresh when you have signal.';
+  $('oneSrc').innerHTML = '<span class="tag bad">not loaded</span> nothing is being guessed here.';
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2 · IS MONEY COMING IN?
+   Real sources only:
+     /score.json          → real Stripe totals (home link; server holds the key)
+     /api/revenue?key=…   → real Stripe totals (phone link; key kept on this phone)
+     /api/founding-counter→ real, public, source "stripe-live"
+     /api/metrics         → real list size
+   If none can be read, the tiles stay empty and say so. Never a made-up number.
+   ══════════════════════════════════════════════════════════════════════════ */
+function paintMoney(stripe, how){
+  var t = clock();
+  if(stripe && stripe.connected){
+    if(stripe.total !== undefined && stripe.total !== null){
+      $('mMoney').textContent = money(stripe.total);
+      $('mMoney').classList.remove('dim');
+      $('mMoneySrc').textContent = 'Stripe · ' + how + ' · ' + t;
+    }
+    if(stripe.sales !== undefined && stripe.sales !== null){
+      $('mBuyers').textContent = String(stripe.sales);
+      $('mBuyers').classList.remove('dim');
+      $('mBuyersSrc').textContent = 'Stripe · paid orders · ' + t;
+    }
+    $('moneyLockedCard').classList.add('hide');
+    return true;
+  }
+  return false;
+}
+function moneyUnreadable(reason){
+  $('mMoney').textContent = 'locked';
+  $('mMoneySrc').textContent = reason || 'not readable from this phone';
+  $('mBuyers').textContent = 'locked';
+  $('mBuyersSrc').textContent = reason || 'not readable from this phone';
+  $('moneyLockedCard').classList.remove('hide');
+}
+
+/* The password travels in a HEADER, never in the address. Anything in an address
+   ends up in server logs and browser history; a header does not. */
+function loadRevenueWithKey(key){
+  return getJSON('/api/revenue', {headers:{'x-dashboard-key': key}}).then(function(r){
+    if(r && r.ok && r.stripe && r.stripe.connected) return r.stripe;
+    throw new Error((r && r.stripe && r.stripe.reason) || 'not connected');
+  });
+}
+
+/* home link first (no key needed there), then this phone's saved key */
+getJSON('/score.json').then(function(s){
+  if(s && s.revenueTotal !== null && s.revenueTotal !== undefined){
+    return paintMoney({connected:true, total:s.revenueTotal}, 'live read');
+  }
+  throw new Error('no revenue in score');
+}).catch(function(){
+  var k = store(MONEY_KEY);
+  if(!k){ moneyUnreadable('needs your money password once'); return; }
+  return loadRevenueWithKey(k)
+    .then(function(st){ paintMoney(st, 'live read'); })
+    .catch(function(e){
+      drop(MONEY_KEY);
+      moneyUnreadable('that password no longer works');
+    });
+});
+
+$('connectMoney').addEventListener('click', function(){
+  var v = window.prompt('Your money password (it stays on this phone)');
+  if(v === null) return;
+  v = v.trim();
+  if(!v) return;
+  $('connectMoney').textContent = 'Checking with Stripe…';
+  loadRevenueWithKey(v).then(function(st){
+    keep(MONEY_KEY, v);
+    paintMoney(st, 'live read');
+    $('connectMoney').textContent = 'Connected';
+  }).catch(function(){
+    $('connectMoney').textContent = 'Connect the money numbers';
+    window.alert('That password did not open Stripe. Nothing was saved and no number was invented.');
+  });
+});
+
+/* real list size */
+getJSON('/api/metrics').then(function(m){
+  if(!m || !m.ok || m.subscribers === undefined) throw 0;
+  $('mList').textContent = String(m.subscribers);
+  $('mList').classList.remove('dim');
+  $('mListSrc').textContent = 'your email list · ' + clock();
+}).catch(function(){
+  $('mList').textContent = '—';
+  $('mListSrc').textContent = 'could not read your list just now';
+});
+
+/* real Stripe-sourced founding counter (public, no key) */
+getJSON('/api/founding-counter').then(function(f){
+  if(!f || !f.ok) throw 0;
+  $('foundingRatio').textContent = f.sold + ' of ' + f.total;
+  $('rowFounding').querySelector('.dot').className = 'dot ' + (f.sold > 0 ? 'ok' : 'wait');
+  $('foundingSrc').textContent = 'read from Stripe · ' + clock() + (f.sold === 0 ? ' · nobody has bought one yet' : '');
+}).catch(function(){
+  $('foundingRatio').textContent = '—';
+  $('foundingSrc').textContent = 'could not reach Stripe just now';
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   3 · WHAT IS LIVE / WHAT IS BROKEN — machine-checked, never typed
+   ══════════════════════════════════════════════════════════════════════════ */
+var checks = { total:0, bad:0, done:0 };
+function bumpVerdict(){
+  var v = $('verdict'), t = $('verdictText'), w = $('verdictWhen'), i = $('verdictIcon');
+  if(checks.bad > 0){
+    v.className = 'verdict bad'; i.textContent = '!';
+    t.textContent = checks.bad === 1 ? '1 thing is down' : checks.bad + ' things are down';
+    w.textContent = 'the red lights below are the ones to fix · checked ' + clockS();
+  } else if(checks.done >= checks.total && checks.total > 0){
+    v.className = 'verdict ok'; i.textContent = '✓';
+    t.textContent = 'Everything customers touch is working';
+    w.textContent = checks.total + ' things checked live · ' + clockS();
+  }
+}
+
+/* 3a — the payment doors, asked by the server itself */
+getJSON('/api/health').then(function(h){
+  if(!h || !h.ok || !h.endpoints) throw 0;
+  var NAMES = {
+    'Checkout (create-checkout)':'The checkout — where people pay',
+    'Book unlock':'The $9 book unlock link',
+    'Pack (dialogues) unlock':'The $39 pack unlock link',
+    'Course unlock':'The course unlock link',
+    'Stripe webhook':'The receipt handler (Stripe → you)',
+    'Daily membership subscribe':'The membership sign-up'
+  };
+  var t = clockS();
+  $('payRows').innerHTML = h.endpoints.map(function(e){
+    var up = e.status === 'up';
+    if(!up) checks.bad++;
+    checks.total++; checks.done++;
+    return '<div class="row"><span class="dot '+(up?'ok':'bad')+'"></span>'
+      + '<span class="l"><b>'+esc(NAMES[e.name] || e.name)+'</b><small>answered at '+t+'</small></span>'
+      + '<span class="r"><span class="tag '+(up?'ok':'bad')+'">'+(up?'working':'down')+'</span></span></div>';
+  }).join('');
+  bumpVerdict();
+}).catch(function(){
+  $('payRows').innerHTML = '<p class="skel">Could not ask your payment doors just now. That is not the same as “they are broken” — try again in a moment.</p>';
+});
+
+/* 3b — every customer page, opened for real by this page */
+/* When this page is served from the shop itself, the browser will hand us the real
+   answer code for every address. When it is served from your private home link, it
+   is a different website, so the browser only lets us know whether it answered at
+   all — we say exactly that and never claim more. */
+var SITE = 'https://languyofficial.com';
+var SAME_ORIGIN = false;
+/* Ask once, do not assume: if this page's own address serves the shop, the browser
+   gives us the real answer code for every address below. */
+function decideMode(){
+  return fetch('/free', {method:'GET', cache:'no-store'})
+    .then(function(r){ SAME_ORIGIN = r.ok; })
+    .catch(function(){ SAME_ORIGIN = false; });
+}
+var PAGES = [
+  {n:'The free door',            u:'/free',                 what:'where your bio link points', shop:false},
+  {n:'Your shop',                u:'/products.html',        what:'everything for sale',        shop:true},
+  {n:'The $9 book',              u:'/reader-zk7p3/',        what:'the Languy Method',          shop:true},
+  {n:'The $39 pack — play it',   u:'/play',                 what:'sentences + audio',          shop:true},
+  {n:'Japanese letters ($12)',   u:'/products/master-kana/',   what:'Master Kana',             shop:true},
+  {n:'Korean letters ($12)',     u:'/products/master-hangul/', what:'Master Hangul',           shop:true},
+  {n:'Your course (as a buyer)', u:'/founder-course/?founder=1', what:'what a buyer watches',  shop:true},
+  {n:'The arcade',               u:'/arcade/',              what:'all the free games',         shop:false},
+  {n:'Where Are You From?',      u:'/wayf-x8p2/',           what:'the street game',            shop:false},
+  {n:'Daily Duel',               u:'/duel',                 what:'free game',                  shop:false},
+  {n:'Baby Mode',                u:'/baby',                 what:'free game',                  shop:false}
+];
+var EXTERNAL = [
+  {n:'Languide — your home base', u:'https://languide.app',                        what:'languide.app'},
+  {n:'Command Empire',            u:'https://languy-command-empire.vercel.app',    what:'the strategy game'}
+];
+
+function reachOnly(url){
+  return fetch(url, {mode:'no-cors', cache:'no-store'})
+    .then(function(){ return true; }).catch(function(){ return false; });
+}
+function checkPage(p){
+  checks.total++;
+  var job = SAME_ORIGIN
+    ? fetch(p.u, {method:'GET', cache:'no-store', redirect:'follow'})
+        .then(function(r){ return {ok:r.ok, code:r.status, opaque:false}; })
+        .catch(function(){ return {ok:false, code:null, opaque:false}; })
+    : reachOnly(SITE + p.u).then(function(hit){ return {ok:hit, code:null, opaque:true}; });
+  return job.then(function(res){
+    checks.done++;
+    if(!res.ok) checks.bad++;
+    p._ok = res.ok; p._code = res.code; p._opaque = res.opaque; p._at = clockS();
+    return p;
+  });
+}
+function checkExternal(p){
+  checks.total++;
+  /* another website — the browser will not tell us its answer code, only whether
+     it answered at all. We say exactly that, and never claim more. */
+  return reachOnly(p.u).then(function(reached){
+    checks.done++;
+    if(!reached) checks.bad++;
+    p._ok = reached; p._opaque = true; p._external = true; p._at = clockS();
+    return p;
+  });
+}
+function pageRow(p){
+  var href = p._external ? p.u : (SITE + p.u);
+  var tag = p._ok
+    ? '<span class="tag ok">'+(p._opaque?'answered':'live')+'</span>'
+    : '<span class="tag bad">no answer</span>';
+  var sub = p._opaque
+    ? p.what + ' · answered, but we cannot read more from here · ' + p._at
+    : p.what + ' · checked ' + p._at;
+  return '<a class="row" href="'+esc(href)+'" target="_blank" rel="noopener">'
+    + '<span class="dot '+(p._ok?'ok':'bad')+'"></span>'
+    + '<span class="l"><b>'+esc(p.n)+'</b><small>'+esc(sub)+'</small></span>'
+    + '<span class="r">'+tag+'</span></a>';
+}
+
+decideMode().then(function(){
+  return Promise.all(PAGES.map(checkPage).concat(EXTERNAL.map(checkExternal)));
+}).then(function(all){
+  var pages = all.slice(0, PAGES.length);
+  var ext   = all.slice(PAGES.length);
+
+  /* This card carries the money path. Anything else that BROKE is pulled up into
+     it too, so a red light can never hide further down the page. */
+  var core = all.filter(function(p){ return p.shop || p.n === 'The free door' || !p._ok; });
+  core.sort(function(a,b){ return (a._ok?1:0) - (b._ok?1:0); });
+  $('siteRows').innerHTML = core.map(pageRow).join('');
+
+  /* slot 4 — the shop ratio and the world map are built from these SAME live checks */
+  var shop = pages.filter(function(p){ return p.shop; });
+  var open = shop.filter(function(p){ return p._ok; }).length;
+  $('shopRatio').textContent = open + ' of ' + shop.length + ' open';
+  $('shopBar').style.width = Math.round(open / shop.length * 100) + '%';
+  $('shopNote').textContent = open === shop.length
+    ? 'Every page a buyer needs answered when this page opened it, at ' + clockS() + '.'
+    : (shop.length - open) + ' of your paid pages did not answer. They are red in the list above.';
+
+  var world = pages.filter(function(p){ return !p.shop && p.n !== 'The free door'; }).concat(ext);
+  $('worldRows').innerHTML = world.map(pageRow).join('');
+  bumpVerdict();
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+   4 · WHAT YOU ARE BUILDING (the parts behind your HQ code)
+   ══════════════════════════════════════════════════════════════════════════ */
+function boardFetch(code){
+  return fetch('/api/private-board', {
+    method:'POST', cache:'no-store',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({code: code})
+  }).then(function(r){
+    if(r.status === 401) throw new Error('wrong');
+    if(!r.ok) throw new Error('unreachable');
+    return r.json();
+  }).then(function(j){
+    if(!j || !j.ok || !j.board) throw new Error('unreachable');
+    return j.board;
+  });
+}
+
+function renderBoard(b){
+  $('unlockCard').classList.add('hide');
+  var asOf = human(b.generated) || String(b.generated || '');
+
+  /* ── the course: a REAL ratio, counted from the lists — never a typed percent */
+  var c = (b.projects && b.projects.course) || {};
+  var live = (c.liveOnUnlock || []).length;
+  var seen = {};
+  (c.modules || []).forEach(function(m){ seen[String(m).replace('module-','')] = 1; });
+  (c.liveOnUnlock || []).forEach(function(m){ seen[String(m)] = 1; });
+  (c.renderingNow || []).forEach(function(m){ seen[String(m)] = 1; });
+  var total = Object.keys(seen).length;
+  if(total > 0){
+    $('courseRatio').textContent = live + ' of ' + total + ' live';
+    $('courseBar').style.width = Math.round(live/total*100) + '%';
+    var still = (c.renderingNow || []).length;
+    $('courseNote').innerHTML = '<span class="tag hand">counted ' + esc(asOf) + '</span> '
+      + live + ' lessons a buyer can watch today'
+      + (still ? '. ' + still + ' more are still being made.' : '.')
+      + ' Counted from the lesson list, not from anyone’s guess.';
+    if(c.watchUrl) $('courseBtn').href = absolute(c.watchUrl);
+  } else {
+    $('courseNote').textContent = 'No lesson list to count yet — nothing is being guessed.';
+  }
+
+  /* ── sponsor replies: a real count from the deal ledger */
+  var m = b.money || {};
+  var ready = (m.deals || []).filter(function(d){ return d.draftReady; });
+  if(ready.length){
+    $('rowDeals').classList.remove('hide');
+    $('dealsCard').classList.remove('hide');
+    $('dealsHead').textContent = 'Sponsor replies with a reply already written';
+    $('dealsRatio').textContent = ready.length + ' waiting';
+    $('dealsSrc').textContent = 'from your sponsor ledger · ' + asOf;
+    $('dealsList').innerHTML = (m.deals || []).map(function(d){
+      return '<div class="row"><span class="dot '+(d.draftReady?'warn':'wait')+'"></span>'
+        + '<span class="l"><b>'+esc(d.brand)+'</b><small>'+esc(d.action||'')+'</small></span>'
+        + '<span class="r"><span class="tag'+(d.draftReady?' warn':'')+'">'+esc(d.draftReady?'reply ready':(d.stage||'open'))+'</span></span></div>';
+    }).join('');
+    var asks = m.askJoseph || [];
+    if(asks.length){
+      $('asksBox').classList.remove('hide');
+      $('asksList').innerHTML = asks.map(function(a){
+        return '<div class="row"><span class="dot warn"></span><span class="l"><b style="font-weight:500;color:var(--ink2)">'+esc(a)+'</b></span></div>';
+      }).join('');
+    }
+  }
+
+  /* ── behind the scenes: the machine's own working names, kept out of the way */
+  var wip = (b.projects && b.projects.building) || [];
+  if(wip.length){
+    $('wipCard').classList.remove('hide');
+    $('wipList').innerHTML = wip.slice(0,10).map(function(w){
+      return '<div class="row"><span class="dot wait"></span>'
+        + '<span class="l"><b style="font-weight:500">'+esc(w.name)+'</b><small>'+esc(w.last||'')+'</small></span>'
+        + '<span class="r"><span class="tag">'+esc(human(w.date)||w.date||'')+'</span></span></div>';
+    }).join('');
+  }
+}
+
+function tryUnlock(){
+  var v = window.prompt('Your HQ code');
+  if(v === null) return;
+  var code = v.trim().toUpperCase();
+  if(!code) return;
+  boardFetch(code).then(function(b){
+    keep(HQ_KEY, code);
+    renderBoard(b);
+  }).catch(function(e){
+    window.alert(e.message === 'wrong' ? 'That is not the code.' : 'Could not reach the board — try again in a moment.');
+  });
+}
+$('unlockBtn').addEventListener('click', tryUnlock);
+
+(function(){
+  try{
+    var q = new URLSearchParams(location.search).get('unlock');
+    if(q) keep(HQ_KEY, q.trim().toUpperCase());
+  }catch(e){}
+  var code = store(HQ_KEY);
+  if(!code){
+    $('unlockCard').classList.remove('hide');
+    $('courseNote').innerHTML = '<span class="tag">locked</span> Unlock with your HQ code at the bottom of this page to count your lessons.';
+    return;
+  }
+  boardFetch(code).then(renderBoard).catch(function(e){
+    if(e.message === 'wrong') drop(HQ_KEY);
+    $('unlockCard').classList.remove('hide');
+    $('courseNote').innerHTML = '<span class="tag">locked</span> Unlock with your HQ code at the bottom of this page to count your lessons.';
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
